@@ -2,13 +2,12 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\UserManagementController;
 use App\Http\Controllers\AdminRequestController;
-use App\Http\Controllers\SuperAdminRequestController;
-use App\Http\Controllers\AdminController;
 
 /*
 |--------------------------------------------------------------------------
-| Public Routes
+| Public Route
 |--------------------------------------------------------------------------
 */
 Route::get('/', function () {
@@ -37,55 +36,54 @@ Route::middleware('auth')->group(function () {
 
 /*
 |--------------------------------------------------------------------------
-| Admin → Request Admin Creation
+| Admin & Super Admin - Manage Users
+|--------------------------------------------------------------------------
+*/
+Route::middleware(['auth', 'role:admin,super_admin'])->group(function () {
+
+    Route::get('/manage-users', [UserManagementController::class, 'index'])
+        ->name('users.index');
+
+    Route::put('/manage-users/{user}', [UserManagementController::class, 'update'])
+        ->name('users.update');
+
+    Route::delete('/manage-users/{user}', [UserManagementController::class, 'destroy'])
+        ->name('users.destroy');
+});
+
+/*
+|--------------------------------------------------------------------------
+| Admin - Create Request (Only Admin)
 |--------------------------------------------------------------------------
 */
 Route::middleware(['auth', 'role:admin'])->group(function () {
-    Route::get('/admin/request/create-admin', [AdminRequestController::class, 'create']);
-    Route::post('/admin/request/create-admin', [AdminRequestController::class, 'store'])
+
+    Route::post('/admin/request/store', [AdminRequestController::class, 'store'])
         ->name('admin.request.store');
+
+    Route::get('/admin/my-requests', [AdminRequestController::class, 'myRequests'])
+        ->name('admin.my.requests');
+    Route::get('/admin/request/create', [AdminRequestController::class, 'create'])
+    ->name('admin.create.request');
 });
 
 /*
 |--------------------------------------------------------------------------
-| Super Admin → Approve / Reject Requests
+| Super Admin - Approve Requests
 |--------------------------------------------------------------------------
 */
 Route::middleware(['auth', 'role:super_admin'])->group(function () {
-    Route::get('/super-admin/requests', [SuperAdminRequestController::class, 'index'])
-        ->name('superadmin.requests');
 
-    Route::post('/super-admin/requests/{id}/approve', [SuperAdminRequestController::class, 'approve'])
-        ->name('superadmin.approve');
+    Route::get('/admin/requests', [AdminRequestController::class, 'index'])
+        ->name('admin.requests.index');
 
-    Route::post('/super-admin/requests/{id}/reject', [SuperAdminRequestController::class, 'reject'])
-        ->name('superadmin.reject');
+    Route::post('/admin/requests/{adminRequest}/approve',
+    [AdminRequestController::class, 'approve']
+)->name('admin.requests.approve');
+
+Route::post('/admin/requests/{adminRequest}/reject',
+    [AdminRequestController::class, 'reject']
+)->name('admin.requests.reject');
 });
-
-/*
-|--------------------------------------------------------------------------
-| Super Admin → Direct Admin Creation (optional)
-|--------------------------------------------------------------------------
-*/
-
-
-Route::middleware(['auth', 'role:super_admin'])
-    ->prefix('superadmin')
-    ->name('superadmin.')
-    ->group(function () {
-
-        // Show create admin form
-        Route::get('/admins/create', [AdminController::class, 'create'])
-            ->name('admins.create');
-
-        // Store new admin
-        Route::post('/admins/store', [AdminController::class, 'store'])
-            ->name('admins.store');
-
-        // Pending admin requests
-        Route::get('/admins/pending', [AdminController::class, 'pending'])
-            ->name('admins.pending');
-    });
-
 
 require __DIR__.'/auth.php';

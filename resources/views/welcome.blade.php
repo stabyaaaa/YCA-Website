@@ -1,4 +1,5 @@
-@extends('layouts/partials.public-layout')
+@extends('layouts.app')
+
 
 @section('title', 'Home')
 
@@ -46,8 +47,8 @@
 </section>
 
 <!-- ================= ABOUT ================= -->
-<section id="about" class="py-20">
-    <div class="max-w-7xl mx-auto px-6 text-center">
+ <section id="about" class="py-20 bg-[#7676e1]">
+        <div class="max-w-7xl mx-auto px-6 text-center">
         <h2 class="text-3xl font-bold">About the Initiative</h2>
         <p class="mt-6 max-w-3xl mx-auto text-gray-600 text-lg">
             This project brings together global development expertise from the
@@ -107,3 +108,5 @@
 
 
 @endsection
+
+@section('content')

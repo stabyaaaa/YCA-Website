@@ -23,38 +23,39 @@ class AuthenticatedSessionController extends Controller
      * Handle an incoming authentication request.
      */
     public function store(LoginRequest $request): RedirectResponse
-{
-    // Validate login credentials (email & password)
-    $request->authenticate();
+    {
+        $request->validated();
 
-    // Regenerate session for security
-    $request->session()->regenerate();
+        if (!Auth::attempt($request->only('email', 'password'), $request->boolean('remember'))) {
+            $request->session()->forget('_old_input');
+            return back()
+                ->withErrors([
+                    'email' => 'Invalid credentials.'
+                ], 'login');
+                
+        }
 
-    // Get the currently authenticated user
-    $user = auth()->user();
+        $request->session()->regenerate();
 
-    // 🔒 BLOCK pending admins
-    if ($user->role === 'admin' && $user->status === 'pending') {
+        $user = auth()->user();
 
-        // Logout the user immediately
-        auth()->logout();
+        // 🔒 BLOCK pending admins
+        if ($user->role === 'admin' && $user->status === 'pending') {
 
-        // Invalidate the session
-        $request->session()->invalidate();
+            auth()->logout();
 
-        // Regenerate CSRF token
-        $request->session()->regenerateToken();
+            $request->session()->invalidate();
+            $request->session()->regenerateToken();
+            $request->session()->forget('_old_input');
+            return back()
+                ->withErrors([
+                    'email' => 'Your admin account is pending approval by Super Admin.',
+                ], 'login');
+              
+        }
 
-        // Redirect back to login with error message
-        return redirect('/login')->withErrors([
-            'email' => 'Your admin account is pending approval by Super Admin.',
-        ]);
+        return redirect()->intended('/');
     }
-
-    // If everything is OK, redirect normally
-    return redirect()->intended('/');
-}
-
 
     /**
      * Destroy an authenticated session.
@@ -64,7 +65,6 @@ class AuthenticatedSessionController extends Controller
         Auth::guard('web')->logout();
 
         $request->session()->invalidate();
-
         $request->session()->regenerateToken();
 
         return redirect('/');

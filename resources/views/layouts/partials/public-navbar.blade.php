@@ -120,8 +120,10 @@
                     </form>
 
             @else
-                <button id="loginBtn" class="text-blue-600">Login</button>
-                <button id="registerBtn" class="text-blue-600">Register</button>
+
+
+                <button id="loginBtn" onclick="openAuthModal('login')" class="text-blue-600">Sign in</button>
+                <button id="registerBtn" onclick="openAuthModal('register')" class="text-blue-600">Create New Account</button>
             @endauth
 
         </div>

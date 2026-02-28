@@ -53,10 +53,13 @@
     </button>
 
     <p class="text-sm text-center mt-4">
-        Don’t have an account?
-        <button type="button" onclick="loadRegister()"
-            class="text-blue-600 hover:underline">
-            Register
-        </button>
+    Don’t have an account?
+    <button type="button"
+            onclick="openAuthModal('register')"
+            class="text-blue-600">
+        Register
+    </button>
+</p>
+        
     </p>
 </form>

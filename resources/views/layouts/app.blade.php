@@ -20,14 +20,13 @@
     @endif
 >
 
-
     {{-- NAVBAR --}}
     @include('layouts.partials.public-navbar')
 
-    <div class="min-h-screen bg-gray-100 dark:bg-gray-100">
+    <div class="min-h-screen bg-gray-100">
 
         @isset($header)
-            <header class="bg-white dark:bg-gray-800 shadow">
+            <header class="bg-white shadow">
                 <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
                     {{ $header }}
                 </div>
@@ -39,16 +38,15 @@
         </main>
     </div>
 
-
     {{-- AUTH MODAL --}}
     <div id="authModal"
          class="fixed inset-0 z-50 hidden flex items-center justify-center bg-black/40 backdrop-blur-sm">
 
         <div id="modalContent"
-             class="relative w-full max-w-6xl bg-white rounded-2xl shadow-xl p-10
-                    transform transition-all duration-300 scale-95 opacity-0">
+            class="relative w-full bg-white rounded-2xl shadow-xl p-10
+                   transform transition-all duration-300 scale-95 opacity-0">
 
-            <button onclick="closeAuthModal()"
+            <button id="closeAuthModal"
                     class="absolute top-4 right-4 text-gray-500 hover:text-black text-xl">
                 &times;
             </button>
@@ -64,64 +62,8 @@
         </div>
     </div>
 
-
-<script>
-    function openAuthModal(type) {
-        const modal = document.getElementById('authModal');
-        const content = document.getElementById('modalContent');
-        const login = document.getElementById('loginForm');
-        const register = document.getElementById('registerForm');
-
-        modal.classList.remove('hidden');
-
-        // Animate in
-        setTimeout(() => {
-            content.classList.remove('scale-95', 'opacity-0');
-            content.classList.add('scale-100', 'opacity-100');
-        }, 10);
-
-        login.classList.add('hidden');
-        register.classList.add('hidden');
-
-        if (type === 'login') {
-            login.classList.remove('hidden');
-        } else {
-            register.classList.remove('hidden');
-        }
-    }
-
-    function closeAuthModal() {
-        const modal = document.getElementById('authModal');
-        const content = document.getElementById('modalContent');
-
-        content.classList.add('scale-95', 'opacity-0');
-        content.classList.remove('scale-100', 'opacity-100');
-
-        setTimeout(() => {
-            modal.classList.add('hidden');
-        }, 200);
-    }
-</script>
-
-
-{{-- AUTO OPEN LOGIN IF LOGIN FAILED --}}
-@if ($errors->login->any())
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-        openAuthModal('login');
-    });
-</script>
-@endif
-
-{{-- AUTO OPEN REGISTER ONLY IF REGISTER FAILED --}}
-@if (!$errors->login->any() && $errors->count() > 0)
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-        openAuthModal('register');
-    });
-</script>
-@endif
-
+    {{-- FOOTER --}}
+    @include('layouts.partials.public-footer')
 
 </body>
 </html>

@@ -1,16 +1,21 @@
-# Build stage
-FROM php:8.2-fpm AS builder
+FROM php:8.2-fpm-alpine
 
-WORKDIR /app
-
-# Install system dependencies
-RUN apt-get update && apt-get install -y \
-    git unzip libzip-dev zip libpq-dev libsqlite3-dev sqlite3 pkg-config \
+# Install system dependencies + Nginx
+RUN apk update && apk add --no-cache \
+    nginx \
+    git \
+    unzip \
+    libzip-dev \
+    zip \
+    libpq-dev \
+    sqlite-dev \
     && docker-php-ext-install pdo pdo_sqlite zip pdo_pgsql pgsql \
-    && apt-get clean && rm -rf /var/lib/apt/lists/*
+    && apk del --no-cache .build-deps  # optional: clean up if you added build deps
 
 # Install Composer
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
+
+WORKDIR /var/www/html
 
 # Copy application code
 COPY . .
@@ -18,43 +23,37 @@ COPY . .
 # Install PHP dependencies
 RUN composer install --no-dev --optimize-autoloader --no-interaction --prefer-dist
 
-# Create SQLite database file (if using SQLite)
+# Create SQLite file (if using)
 RUN mkdir -p database && touch database/database.sqlite
 
-# Set proper permissions
-RUN chown -R www-data:www-data /app \
+# Permissions - critical for www-data (PHP-FPM user)
+RUN chown -R www-data:www-data /var/www/html \
     && chmod -R 775 storage bootstrap/cache \
     && chmod 664 database/database.sqlite
 
-# Run Laravel commands as www-data
+# Laravel commands (run as www-data)
 USER www-data
 
-# Generate app key if not set (safe to run)
-RUN php artisan key:generate --force || true
-
-# Run migrations (fails gracefully if DB not ready yet)
-RUN php artisan migrate --force --no-interaction || true
-
-# Create storage symlink
-RUN php artisan storage:link || true
-
-# Cache everything for production
-RUN php artisan config:cache \
+RUN php artisan key:generate --force || true \
+    && php artisan migrate --force --no-interaction || true \
+    && php artisan storage:link || true \
+    && php artisan config:cache \
     && php artisan route:cache \
     && php artisan view:cache \
     && php artisan optimize
 
-# Final stage - Nginx + PHP-FPM
-FROM nginx:alpine
+# Switch back to root for Nginx/PHP-FPM startup
+USER root
 
-# Copy built application from builder
-COPY --from=builder --chown=nginx:nginx /app /var/www/html
+# Copy custom Nginx config
+COPY nginx.conf /etc/nginx/http.d/default.conf
 
-# Copy custom Nginx configuration
-COPY nginx.conf /etc/nginx/conf.d/default.conf
+# Forward logs to stdout (good for Render)
+RUN ln -sf /dev/stdout /var/log/nginx/access.log \
+    && ln -sf /dev/stderr /var/log/nginx/error.log
 
-# Expose port (Render uses $PORT environment variable)
+# Expose port (Render uses $PORT, but we bind to 80 internally)
 EXPOSE 80
 
-# Start PHP-FPM and Nginx
-CMD php-fpm && nginx -g 'daemon off;'
+# Start both services: PHP-FPM first, then Nginx in foreground
+CMD php-fpm -D && nginx -g 'daemon off;'

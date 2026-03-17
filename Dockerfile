@@ -15,4 +15,10 @@ RUN composer install --no-dev --optimize-autoloader
 RUN mkdir -p database && touch database/database.sqlite
 RUN chmod -R 777 storage bootstrap/cache database
 
+RUN php artisan config:clear || true
+RUN php artisan cache:clear || true
+RUN php artisan route:clear || true
+RUN php artisan view:clear || true
+RUN php artisan migrate --force || true
+
 CMD php artisan serve --host=0.0.0.0 --port=${PORT:-8000}

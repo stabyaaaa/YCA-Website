@@ -223,6 +223,8 @@
 </section>
 <!-- NEW IMPACT METRICS SECTION (replaces the old key areas cards) -->
 <!-- FULL-PAGE IMMERSIVE REGENERATION STORY with blurred rounded text overlay -->
+<div class="px-8 lg:px-10">
+
 <section class="relative min-h-[80vh] lg:min-h-[100vh] flex items-end overflow-hidden bg-slate-50">
     <!-- Full-bleed background image -->
     <div class="absolute inset-0">
@@ -254,6 +256,7 @@
             </div>
         </div>
     </div>
+</div>
 </section>  
 
 <!-- ================= PROJECT HIGHLIGHTS SLIDER ================= -->

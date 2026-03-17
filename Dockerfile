@@ -1,6 +1,6 @@
 FROM php:8.2-fpm-alpine
 
-# Install system dependencies + Nginx
+# Install runtime + build deps for extensions (no virtual pkg needed for these simple ones)
 RUN apk update && apk add --no-cache \
     nginx \
     git \
@@ -9,29 +9,35 @@ RUN apk update && apk add --no-cache \
     zip \
     libpq-dev \
     sqlite-dev \
-    && docker-php-ext-install pdo pdo_sqlite zip pdo_pgsql pgsql \
-    && apk del --no-cache .build-deps  # optional: clean up if you added build deps
+    && docker-php-ext-install \
+        pdo \
+        pdo_sqlite \
+        zip \
+        pdo_pgsql \
+        pgsql \
+    # Optional: clean apk cache (safe, no virtual pkg issue)
+    && rm -rf /var/cache/apk/*
 
 # Install Composer
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
 WORKDIR /var/www/html
 
-# Copy application code
+# Copy app code
 COPY . .
 
-# Install PHP dependencies
+# Install Composer deps
 RUN composer install --no-dev --optimize-autoloader --no-interaction --prefer-dist
 
-# Create SQLite file (if using)
+# Create SQLite DB file (if using SQLite; harmless otherwise)
 RUN mkdir -p database && touch database/database.sqlite
 
-# Permissions - critical for www-data (PHP-FPM user)
+# Set permissions (PHP-FPM runs as www-data)
 RUN chown -R www-data:www-data /var/www/html \
     && chmod -R 775 storage bootstrap/cache \
     && chmod 664 database/database.sqlite
 
-# Laravel commands (run as www-data)
+# Run Laravel setup commands
 USER www-data
 
 RUN php artisan key:generate --force || true \
@@ -42,18 +48,20 @@ RUN php artisan key:generate --force || true \
     && php artisan view:cache \
     && php artisan optimize
 
-# Switch back to root for Nginx/PHP-FPM startup
+# Back to root for starting services
 USER root
 
-# Copy custom Nginx config
+# Copy Nginx config
 COPY nginx.conf /etc/nginx/http.d/default.conf
 
-# Forward logs to stdout (good for Render)
+# Symlink logs to stdout/stderr for Render visibility
 RUN ln -sf /dev/stdout /var/log/nginx/access.log \
-    && ln -sf /dev/stderr /var/log/nginx/error.log
+    && ln -sf /dev/stderr /var/log/nginx/error.log \
+    && ln -sf /dev/stdout /proc/1/fd/1 \
+    && ln -sf /dev/stderr /proc/1/fd/2
 
-# Expose port (Render uses $PORT, but we bind to 80 internally)
+# Expose Render's port (Nginx listens on $PORT or 80)
 EXPOSE 80
 
-# Start both services: PHP-FPM first, then Nginx in foreground
-CMD php-fpm -D && nginx -g 'daemon off;'
+# Start PHP-FPM in background, Nginx in foreground
+CMD php-fpm -D && exec nginx -g 'daemon off;'

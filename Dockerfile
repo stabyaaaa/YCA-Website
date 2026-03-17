@@ -20,4 +20,4 @@ RUN php artisan route:clear || true
 
 EXPOSE 10000
 
-CMD php -S 0.0.0.0:${PORT:-10000} -t publics
+CMD php -S 0.0.0.0:${PORT:-10000} -t public

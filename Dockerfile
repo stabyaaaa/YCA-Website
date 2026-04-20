@@ -9,8 +9,7 @@ RUN npm install
 COPY . .
 
 RUN npm run build
-RUN ls -la public/build
-RUN test -f public/build/manifest.json
+RUN ls -la public/build && test -f public/build/manifest.json
 
 # ---------- PHP / Laravel stage ----------
 FROM php:8.2-fpm-alpine

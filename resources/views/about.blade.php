@@ -129,7 +129,7 @@
 
                     <a href="#our-framework"
                        class="px-7 py-4 border border-slate-300 text-slate-800 rounded-2xl font-semibold hover:border-slate-400 hover:bg-slate-50 transition">
-                        View Our Framework
+                        View Our Frameworks
                     </a>
                 </div>
 

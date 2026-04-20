@@ -3,7 +3,14 @@ set -e
 
 cd /var/www/html
 
-# optional but useful for demo deploys
+mkdir -p database
+touch database/database.sqlite
+
+php artisan config:clear || true
+php artisan cache:clear || true
+php artisan route:clear || true
+php artisan view:clear || true
+
 php artisan storage:link || true
 php artisan migrate --force --no-interaction || true
 

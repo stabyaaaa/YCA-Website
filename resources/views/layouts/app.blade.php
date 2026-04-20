@@ -11,6 +11,24 @@
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
+<div class="ai-chat-widget" id="aiChatWidget">
+    <div class="ai-chat-label">AI Assistant</div>
+
+    <button class="ai-chat-trigger" id="aiChatTrigger" type="button" aria-label="Open AI assistant preview">
+        <span class="ai-chat-glow"></span>
+        <!-- <span class="ai-chat-core"></span> -->
+        <span class="ai-chat-emoji">🤖</span>
+    </button>
+
+    <div class="ai-chat-popup" id="aiChatPopup">
+        <div class="ai-chat-popup-head">
+            <span class="ai-chat-popup-dot"></span>
+            <span>AI Assistant</span>
+        </div>
+        <p>Coming soon! A smarter chat experience will be available here.</p>
+    </div>
+</div>
+
 
 <body class="font-sans antialiased"
     @if ($errors->login->any())

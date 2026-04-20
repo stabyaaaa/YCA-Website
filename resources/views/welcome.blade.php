@@ -6,9 +6,10 @@
 
 <style>
     :root {
-        --teal: #0f766e;
-        --amber: #d97706;
-        --indigo: #4f46e5;
+        --pink: #F31671;
+        --orange: #E99210;
+        --cyan: #019DDE;
+
         --slate-900: #0f172a;
         --slate-800: #1e293b;
         --slate-700: #334155;
@@ -18,40 +19,61 @@
 
     * { scroll-behavior: smooth; }
 
+    .text-pink-brand { color: var(--pink); }
+    .text-orange-brand { color: var(--orange); }
+    .text-cyan-brand { color: var(--cyan); }
+
+    .bg-pink-brand { background-color: var(--pink); }
+    .bg-orange-brand { background-color: var(--orange); }
+    .bg-cyan-brand { background-color: var(--cyan); }
+
+    .border-pink-brand { border-color: var(--pink); }
+    .border-orange-brand { border-color: var(--orange); }
+    .border-cyan-brand { border-color: var(--cyan); }
+
     /* Animations */
     @keyframes fadeInUp {
         from { opacity: 0; transform: translateY(50px); }
         to   { opacity: 1; transform: translateY(0); }
     }
+
+    @keyframes heroZoom {
+        from { transform: scale(1.05); }
+        to   { transform: scale(1); }
+    }
+
+    .animate-hero-zoom {
+        animation: heroZoom 18s ease-out forwards;
+    }
+
+    .animate-fade-up {
+        animation: fadeInUp 1s ease forwards;
+    }
+
+    .animate-fade-up-delay {
+        opacity: 0;
+        animation: fadeInUp 1s ease forwards;
+        animation-delay: 0.25s;
+    }
+
     .animate-on-scroll {
         opacity: 0;
         transform: translateY(50px);
         transition: all 0.9s cubic-bezier(0.22, 1, 0.36, 1);
     }
+
     .animate-on-scroll.visible {
         opacity: 1;
         transform: translateY(0);
     }
 
-    /* Card hover */
     .card-hover {
         transition: all 0.35s ease;
     }
+
     .card-hover:hover {
         transform: translateY(-8px);
         box-shadow: 0 20px 40px -10px rgba(0,0,0,0.12);
-    }
-
-    /* Slider */
-    .slider-container { overflow: hidden; }
-    .slider-track {
-        display: flex;
-        width: max-content;
-        animation: infinite-scroll 70s linear infinite;
-    }
-    @keyframes infinite-scroll {
-        from { transform: translateX(0); }
-        to   { transform: translateX(-50%); }
     }
 
     @media (max-width: 640px) {
@@ -59,258 +81,498 @@
         h2 { font-size: 2.4rem; }
     }
 </style>
+
 <!-- ================= PREMIUM HERO ================= -->
 <section class="relative min-h-screen flex items-center overflow-hidden">
 
     <!-- Background Image -->
     <div class="absolute inset-0">
-        <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=2400&q=80"
+        <img src="{{ asset('images/bgg.jpeg') }}"
              class="w-full h-full object-cover scale-105 animate-hero-zoom"
-             alt="Global development collaboration">
-        <div class="absolute inset-0 bg-gradient-to-r from-slate-900/80 via-slate-900/60 to-slate-900/40"></div>
+             alt="Women in the South Asia power sector">
+        <div class="absolute inset-0 bg-gradient-to-r from-slate-900/85 via-slate-900/70 to-slate-900/45"></div>
     </div>
 
     <!-- Floating Blur Orbs -->
-    <div class="absolute top-20 left-10 w-72 h-72 bg-blue-500/30 rounded-full blur-3xl animate-float"></div>
-    <div class="absolute bottom-20 right-10 w-96 h-96 bg-indigo-500/20 rounded-full blur-3xl animate-float-delay"></div>
+    <div class="absolute top-24 left-10 w-72 h-72 rounded-full blur-3xl"
+         style="background-color: rgba(1, 157, 222, 0.22);"></div>
+    <div class="absolute bottom-20 right-10 w-96 h-96 rounded-full blur-3xl"
+         style="background-color: rgba(243, 22, 113, 0.16);"></div>
 
     <!-- Content -->
     <div class="relative z-10 max-w-7xl mx-auto px-6 py-32 grid md:grid-cols-2 gap-16 items-center">
 
         <!-- Text Content -->
         <div class="text-white space-y-8 animate-fade-up">
+            <p class="text-sm uppercase tracking-[0.28em] text-pink-300 font-semibold">
+              
+            </p>
 
             <h1 class="text-5xl md:text-6xl lg:text-7xl font-extrabold leading-tight">
-                Empowering Sustainable Development
-                <span class="bg-gradient-to-r from-blue-400 to-indigo-400 bg-clip-text text-transparent">
-                    Through Innovation
-                </span>
+                Empowering Women in Energy
+                <span class="text-cyan-brand">Through Collaboration</span>
             </h1>
 
             <p class="text-xl md:text-2xl text-gray-200 max-w-2xl leading-relaxed">
-                A collaborative initiative driving inclusive growth, AI-powered impact
-                systems, and climate resilience solutions for emerging economies.
+                A collaborative initiative advancing women’s participation, inclusive workforce development, and sustainable growth across South Asia
             </p>
 
             <div class="flex flex-wrap gap-6 pt-4">
-                <a href="#projects"
-                   class="px-8 py-4 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-semibold text-lg shadow-xl transition transform hover:scale-105">
-                    Explore Projects →
+                <a href="#insights"
+                   class="px-8 py-4 bg-pink-brand hover:opacity-90 text-white rounded-xl font-semibold text-lg shadow-xl transition transform hover:scale-105">
+                    Explore Insights →
                 </a>
 
-                <a href="#about"
+                <a href="#report"
                    class="px-8 py-4 border border-white/40 text-white rounded-xl font-semibold text-lg backdrop-blur hover:bg-white/10 transition">
-                    Learn More
+                    Read Full Report
                 </a>
             </div>
-
         </div>
 
         <!-- Glass Highlight Card -->
         <div class="hidden md:block animate-fade-up-delay">
-            <div class="backdrop-blur-xl bg-white/10 border border-white/20 rounded-3xl p-10 shadow-2xl text-white">
-                <h3 class="text-2xl font-bold mb-6">Strategic Impact Areas</h3>
-                <ul class="space-y-4 text-lg">
-                    <li>🌍 Social Business & Enterprise Systems</li>
-                    <li>📊 AI-Driven Policy Intelligence</li>
-                    <li>🌱 Climate & Smart Agriculture</li>
-                    <li>🤝 Inclusive Innovation Networks</li>
-                </ul>
+            <div class="backdrop-blur-2xl bg-white/10 border border-white/20 rounded-3xl p-10 shadow-2xl text-white transition duration-500">
+
+                <h3 class="text-2xl font-bold mb-8 flex items-center gap-3">
+                    <span class="text-cyan-brand text-3xl">⚡</span>
+                    Key Snapshot
+                </h3>
+
+                <div class="space-y-6 text-lg">
+                    <div class="flex items-start gap-4">
+                        <span class="w-10 h-10 flex items-center justify-center rounded-full text-pink-200 font-bold"
+                              style="background-color: rgba(243, 22, 113, 0.20);">9%</span>
+                        <div>
+                            <p class="font-semibold">Women in the total workforce</p>
+                            <p class="text-white/70 text-sm mt-1">Across surveyed power utilities in South Asia</p>
+                        </div>
+                    </div>
+
+                    <div class="flex items-start gap-4">
+                        <span class="w-10 h-10 flex items-center justify-center rounded-full text-orange-200 font-bold"
+                              style="background-color: rgba(233, 146, 16, 0.22);">3.1%</span>
+                        <div>
+                            <p class="font-semibold">Women in technical roles</p>
+                            <p class="text-white/70 text-sm mt-1">The biggest gap remains in technical participation</p>
+                        </div>
+                    </div>
+
+                    <div class="flex items-start gap-4">
+                        <span class="w-10 h-10 flex items-center justify-center rounded-full text-cyan-200 font-bold"
+                              style="background-color: rgba(1, 157, 222, 0.22);">6%</span>
+                        <div>
+                            <p class="font-semibold">Of promotions went to women</p>
+                            <p class="text-white/70 text-sm mt-1">Advancement remains narrower than entry</p>
+                        </div>
+                    </div>
+
+                    <div class="flex items-start gap-4">
+                        <span class="w-10 h-10 flex items-center justify-center rounded-full text-pink-200 font-bold"
+                              style="background-color: rgba(243, 22, 113, 0.20);">3.7–24.4%</span>
+                        <div>
+                            <p class="font-semibold">Representation varies sharply by country</p>
+                            <p class="text-white/70 text-sm mt-1">Showing uneven regional progress</p>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
 
     </div>
 </section>
 
-<!-- ================= ABOUT ================= -->
-<section id="about" class="relative py-24 lg:py-32 overflow-hidden bg-gradient-to-br from-indigo-50 via-blue-50 to-purple-50/40">
+<!-- ================= STATS STRIP ================= -->
+<section id="insights" class="relative py-10 lg:py-14 bg-slate-950">
+    <div class="max-w-7xl mx-auto px-6">
+        <div class="grid sm:grid-cols-2 xl:grid-cols-4 gap-5">
+            <div class="rounded-3xl p-6 bg-white/5 border border-white/10 backdrop-blur-xl animate-on-scroll">
+                <p class="text-sm uppercase tracking-[0.2em] text-white/50 mb-3">Women Hired</p>
+                <h3 class="text-4xl font-extrabold text-pink-brand mb-2">2,000+</h3>
+                <p class="text-white/70 leading-relaxed">Women were hired between 2022 and 2024 across surveyed organizations.</p>
+            </div>
 
-  <!-- Optional subtle overlay texture / noise for depth (remove if too heavy) -->
-  <div class="absolute inset-0 bg-[radial-gradient(circle_at_30%_70%,rgba(99,102,241,0.08)_0%,transparent_50%)] pointer-events-none"></div>
+            <div class="rounded-3xl p-6 bg-white/5 border border-white/10 backdrop-blur-xl animate-on-scroll" style="transition-delay: 0.1s;">
+                <p class="text-sm uppercase tracking-[0.2em] text-white/50 mb-3">Technical Training</p>
+                <h3 class="text-4xl font-extrabold text-cyan-brand mb-2">86,000+</h3>
+                <p class="text-white/70 leading-relaxed">Staff received technical training, but women remain underrepresented in field-based training.</p>
+            </div>
 
-  <div class="relative max-w-screen-2xl mx-auto px-5 sm:px-8 lg:px-12 text-center space-y-12 lg:space-y-20">
+            <div class="rounded-3xl p-6 bg-white/5 border border-white/10 backdrop-blur-xl animate-on-scroll" style="transition-delay: 0.2s;">
+                <p class="text-sm uppercase tracking-[0.2em] text-white/50 mb-3">Leadership Training</p>
+                <h3 class="text-4xl font-extrabold text-orange-brand mb-2">12%</h3>
+                <p class="text-white/70 leading-relaxed">Only 12 percent of leadership program participants were women.</p>
+            </div>
 
-    <!-- Heading + subtitle -->
-    <div class="space-y-6 lg:space-y-8">
-      <h2 class="text-5xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight bg-gradient-to-r from-indigo-700 via-blue-700 to-purple-700 bg-clip-text text-transparent animate-on-scroll">
-        United for Lasting Impact
-      </h2>
-
-      <p class="text-xl sm:text-2xl lg:text-3xl text-slate-700/90 max-w-5xl mx-auto leading-relaxed font-light animate-on-scroll" style="transition-delay: 0.2s;">
-        Blending global development wisdom with bold social innovation — we build scalable, tech-powered solutions that tackle inequality, climate risk, and economic exclusion at root.
-      </p>
+            <div class="rounded-3xl p-6 bg-white/5 border border-white/10 backdrop-blur-xl animate-on-scroll" style="transition-delay: 0.3s;">
+                <p class="text-sm uppercase tracking-[0.2em] text-white/50 mb-3">WePOWER Impact</p>
+                <h3 class="text-4xl font-extrabold text-pink-brand mb-2">208,000+</h3>
+                <p class="text-white/70 leading-relaxed">Participants reached through 11,443 gender activities across the network.</p>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- ================= WHY IT MATTERS (COMPACT) ================= -->
+<section id="about" class="relative overflow-hidden bg-[#f8f4ee] py-16 lg:py-20">
+    
+    <!-- Background -->
+    <div class="absolute inset-0 pointer-events-none">
+        <div class="absolute top-0 left-0 w-full h-40 bg-gradient-to-b from-[#f3e8ff]/60 to-transparent"></div>
+        <div class="absolute -top-16 right-[-6rem] w-72 h-72 rounded-full bg-pink-200/20 blur-3xl"></div>
+        <div class="absolute bottom-[-5rem] left-[-5rem] w-64 h-64 rounded-full bg-sky-200/20 blur-3xl"></div>
     </div>
 
-    <!-- Feature cards – glassmorphism style -->
-    <div class="grid md:grid-cols-3 gap-8 lg:gap-10 pt-12 lg:pt-20">
-      <!-- Card 1 -->
-      <div class="
-        group relative p-8 lg:p-10 
-        bg-white/40 backdrop-blur-2xl 
-        border border-white/30 
-        rounded-3xl 
-        shadow-[0_20px_50px_-15px_rgba(99,102,241,0.15),0_10px_30px_-10px_rgba(0,0,0,0.08)] 
-        overflow-hidden 
-        transition-all duration-500 ease-out
-        hover:shadow-[0_30px_70px_-20px_rgba(99,102,241,0.25),0_15px_40px_-15px_rgba(0,0,0,0.12)]
-        hover:-translate-y-3 hover:scale-[1.015]
-        animate-on-scroll
-      " style="transition-delay: 0.1s;">
+    <div class="relative max-w-6xl mx-auto px-5 sm:px-6 lg:px-8">
+        
+        <!-- Header -->
+        <div class="text-center mb-12 lg:mb-14">
+            <p class="text-xs uppercase tracking-[0.3em] text-[#d97706] font-semibold mb-4 animate-on-scroll">
+                Why This Matters
+            </p>
 
-        <div class="absolute inset-0 bg-gradient-to-br from-blue-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
+            <h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold leading-tight text-slate-900 animate-on-scroll">
+                Progress Is Real
+                <span class="block text-[#db2777] mt-1">But Uneven</span>
+            </h2>
 
-        <div class="relative z-10">
-          <div class="text-7xl lg:text-8xl mb-8 text-blue-600/90 drop-shadow-sm">🌍</div>
-          <h3 class="text-3xl lg:text-4xl font-bold text-slate-900 mb-5 tracking-tight">Global Scale</h3>
-          <p class="text-lg lg:text-xl text-slate-700/90 leading-relaxed">
-            Bridging institutions, governments, and grassroots changemakers across continents.
-          </p>
+            <p class="mt-5 max-w-3xl mx-auto text-base sm:text-lg text-slate-700 leading-relaxed animate-on-scroll">
+                More women are entering the power sector across South Asia, but barriers in opportunity,
+                safety, and advancement remain uneven across roles and countries.
+            </p>
         </div>
-      </div>
 
-      <!-- Card 2 -->
-      <div class="
-        group relative p-8 lg:p-10 
-        bg-white/40 backdrop-blur-2xl 
-        border border-white/30 
-        rounded-3xl 
-        shadow-[0_20px_50px_-15px_rgba(245,158,11,0.12),0_10px_30px_-10px_rgba(0,0,0,0.08)] 
-        overflow-hidden 
-        transition-all duration-500 ease-out
-        hover:shadow-[0_30px_70px_-20px_rgba(245,158,11,0.22),0_15px_40px_-15px_rgba(0,0,0,0.12)]
-        hover:-translate-y-3 hover:scale-[1.015]
-        animate-on-scroll
-      " style="transition-delay: 0.3s;">
+        <!-- Compact strips -->
+        <div class="space-y-5">
 
-        <div class="absolute inset-0 bg-gradient-to-br from-amber-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
+            <!-- Strip 1 -->
+            <div class="rounded-2xl bg-white shadow-md overflow-hidden animate-on-scroll">
+                <div class="grid lg:grid-cols-[1fr_1.4fr]">
+                    
+                    <div class="bg-[#0f172a] text-white p-6 lg:p-8">
+                        <p class="text-xs uppercase tracking-[0.25em] text-cyan-300 mb-2">Participation</p>
+                        <h3 class="text-xl sm:text-2xl lg:text-3xl font-bold">
+                            Representation is rising
+                        </h3>
+                    </div>
 
-        <div class="relative z-10">
-          <div class="text-7xl lg:text-8xl mb-8 text-amber-600/90 drop-shadow-sm">💡</div>
-          <h3 class="text-3xl lg:text-4xl font-bold text-slate-900 mb-5 tracking-tight">Innovation Core</h3>
-          <p class="text-lg lg:text-xl text-slate-700/90 leading-relaxed">
-            Harnessing responsible data, AI, and scalable models that adapt and endure.
-          </p>
+                    <div class="p-6 lg:p-8 bg-gradient-to-r from-cyan-50 to-white flex items-center gap-4">
+                        <div class="text-3xl sm:text-4xl">📈</div>
+                        <p class="text-sm sm:text-base text-slate-700 leading-relaxed">
+                            Gains are visible, but participation remains limited and uneven across contexts.
+                        </p>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Strip 2 -->
+            <div class="rounded-2xl bg-white shadow-md overflow-hidden animate-on-scroll" style="transition-delay: 0.1s;">
+                <div class="grid lg:grid-cols-[1.4fr_1fr]">
+
+                    <div class="p-6 lg:p-8 bg-gradient-to-r from-orange-50 to-white flex items-center gap-4 order-2 lg:order-1">
+                        <div class="text-3xl sm:text-4xl">⚠️</div>
+                        <p class="text-sm sm:text-base text-slate-700 leading-relaxed">
+                            Bias, caregiving burdens, and safety risks still limit career progression.
+                        </p>
+                    </div>
+
+                    <div class="bg-[#7c2d12] text-white p-6 lg:p-8 order-1 lg:order-2">
+                        <p class="text-xs uppercase tracking-[0.25em] text-orange-200 mb-2">Barriers</p>
+                        <h3 class="text-xl sm:text-2xl lg:text-3xl font-bold">
+                            Structural challenges persist
+                        </h3>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Strip 3 -->
+            <div class="rounded-2xl bg-white shadow-md overflow-hidden animate-on-scroll" style="transition-delay: 0.2s;">
+                <div class="grid lg:grid-cols-[1fr_1.4fr]">
+
+                    <div class="bg-[#4c1d95] text-white p-6 lg:p-8">
+                        <p class="text-xs uppercase tracking-[0.25em] text-pink-200 mb-2">Response</p>
+                        <h3 class="text-xl sm:text-2xl lg:text-3xl font-bold">
+                            Institutions are adapting
+                        </h3>
+                    </div>
+
+                    <div class="p-6 lg:p-8 bg-gradient-to-r from-pink-50 to-white flex items-center gap-4">
+                        <div class="text-3xl sm:text-4xl">🛠️</div>
+                        <p class="text-sm sm:text-base text-slate-700 leading-relaxed">
+                            Policies, mentorship, and support systems are expanding—though unevenly.
+                        </p>
+                    </div>
+
+                </div>
+            </div>
+
         </div>
-      </div>
-
-      <!-- Card 3 -->
-      <div class="
-        group relative p-8 lg:p-10 
-        bg-white/40 backdrop-blur-2xl 
-        border border-white/30 
-        rounded-3xl 
-        shadow-[0_20px_50px_-15px_rgba(79,70,229,0.15),0_10px_30px_-10px_rgba(0,0,0,0.08)] 
-        overflow-hidden 
-        transition-all duration-500 ease-out
-        hover:shadow-[0_30px_70px_-20px_rgba(79,70,229,0.25),0_15px_40px_-15px_rgba(0,0,0,0.12)]
-        hover:-translate-y-3 hover:scale-[1.015]
-        animate-on-scroll
-      " style="transition-delay: 0.5s;">
-
-        <div class="absolute inset-0 bg-gradient-to-br from-indigo-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
-
-        <div class="relative z-10">
-          <div class="text-7xl lg:text-8xl mb-8 text-indigo-600/90 drop-shadow-sm">🤝</div>
-          <h3 class="text-3xl lg:text-4xl font-bold text-slate-900 mb-5 tracking-tight">Human-Centric</h3>
-          <p class="text-lg lg:text-xl text-slate-700/90 leading-relaxed">
-            Equity, dignity, resilience, and meaningful choice at the heart of every solution.
-          </p>
-        </div>
-      </div>
     </div>
-
-  </div>
 </section>
 <!-- NEW IMPACT METRICS SECTION (replaces the old key areas cards) -->
-<!-- FULL-PAGE IMMERSIVE REGENERATION STORY with blurred rounded text overlay -->
+<!-- FULL-PAGE VOICES SECTION -->
 <div class="px-8 lg:px-10">
+    <section class="relative min-h-[80vh] lg:min-h-[100vh] flex items-end overflow-hidden bg-slate-950">
 
-<section class="relative min-h-[80vh] lg:min-h-[100vh] flex items-end overflow-hidden bg-slate-50">
-    <!-- Full-bleed background image -->
-    <div class="absolute inset-0">
-        <img 
-            src="https://thumbs.dreamstime.com/b/aerial-perspective-organic-farm-showcasing-sustainable-no-till-practices-varied-companion-planting-techniques-vibrant-378087059.jpg"
-            class="w-full h-full object-cover scale-105 transition-transform duration-[25s] hover:scale-100"
-            alt="Aerial view of vibrant regenerative organic farm with diverse crops, no-till practices, companion planting, and thriving biodiversity"
-        >
-        <div class="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-slate-900/40 to-transparent/20"></div>
+        <!-- Background image -->
+        <div class="absolute inset-0">
+            <img
+                src="{{ asset('images/bg.jpeg') }}" 
+                class="w-full h-full object-cover scale-105 transition-transform duration-[25s] hover:scale-100"
+                alt="Women engineer in energy sector"
+            >
+            <div class="absolute inset-0 bg-gradient-to-t from-black via-black/70 to-black/30"></div>
+        </div>
+
+        <!-- Content -->
+        <div class="relative z-10 w-full px-6 pb-16 lg:pb-24">
+            <div class="max-w-7xl mx-auto">
+
+                <!-- Top intro -->
+                <div class="flex flex-col items-center justify-center text-center">
+                    <p class="text-sm uppercase tracking-[0.25em] text-pink-brand mb-4">
+                        Voices of Change
+                    </p>
+
+                    <h2 class="text-4xl sm:text-5xl lg:text-6xl font-bold text-cyan-brand leading-tight mb-5">
+                        Women Beyond Boundaries
+                    </h2>
+
+                    <p class="text-lg sm:text-s text-blue-100 leading-relaxed mb-14">
+                        Across South Asia’s energy sector, women are challenging norms, proving capability, and exposing the barriers that still shape their careers.
+                    </p>
+                </div>
+
+                <!-- Quote layout -->
+                <div class="grid lg:grid-cols-2 gap-10 lg:gap-16">
+
+                    <!-- Quote 1 -->
+                    <div class="border-t border-white/20 pt-8">
+                        <p class="text-2xl sm:text-3xl lg:text-4xl font-light leading-relaxed text-white">
+                            <span class="text-cyan-brand text-5xl font-serif mr-2 align-top">&ldquo;</span>
+                            They used to think women couldn’t run the plant. Now we do all three shifts—even the night ones.
+                            <span class="text-cyan-brand text-5xl font-serif ml-2 align-top">&rdquo;</span>
+                        </p>
+
+                        <div class="mt-6">
+                            <p class="text-sm uppercase tracking-[0.18em] text-white/60">
+                                Female Public Utility Employee
+                            </p>
+                            <p class="text-base text-cyan-brand font-medium mt-1">
+                                India
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Quote 2 -->
+                    <div class="border-t border-white/20 pt-8">
+                        <p class="text-2xl sm:text-3xl lg:text-4xl font-light leading-relaxed text-white">
+                            <span class="text-pink-brand text-5xl font-serif mr-2 align-top">&ldquo;</span>
+                            You may have delivered results for five years, but your maternity leave is what they remember.
+                            <span class="text-pink-brand text-5xl font-serif ml-2 align-top">&rdquo;</span>
+                        </p>
+
+                        <div class="mt-6">
+                            <p class="text-sm uppercase tracking-[0.18em] text-white/60">
+                                Female Private Sector Employee
+                            </p>
+                            <p class="text-base text-pink-brand font-medium mt-1">
+                                Pakistan
+                            </p>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+    </section>
+</div>
+
+<!-- ================= CHALLENGES ================= -->
+<section class="py-20 lg:py-28 bg-slate-100 text-slate-900 overflow-hidden">
+    <div class="max-w-screen-2xl mx-auto px-5 sm:px-8 lg:px-12">
+        <div class="text-center max-w-4xl mx-auto mb-14">
+            <p class="text-sm uppercase tracking-[0.25em] text-pink-brand mb-4 animate-on-scroll">
+                Main Barriers
+            </p>
+            <h2 class="text-4xl sm:text-5xl lg:text-6xl font-bold mb-5 animate-on-scroll text-orange-brand">
+                What Still Holds Women Back
+            </h2>
+            <p class="text-lg sm:text-xl text-slate-600 leading-relaxed animate-on-scroll" style="transition-delay: 0.15s;">
+                The report identifies a recurring set of barriers that limit women’s entry, retention,
+                mobility, and advancement in the power sector.
+            </p>
+        </div>
+
+        <div class="grid md:grid-cols-2 xl:grid-cols-4 gap-6">
+            <div class="bg-white rounded-2xl p-8 shadow-2xl card-hover border border-slate-200 animate-on-scroll">
+                <div class="text-5xl mb-5">🏠</div>
+                <h3 class="text-2xl font-bold mb-3 text-pink-brand">Caregiving Burden</h3>
+                <p class="text-slate-600 leading-relaxed">
+                    Women continue to carry the dual burden of paid work and unpaid care responsibilities at home.
+                </p>
+            </div>
+
+            <div class="bg-white rounded-2xl p-8 shadow-2xl card-hover border border-slate-200 animate-on-scroll" style="transition-delay: 0.1s;">
+                <div class="text-5xl mb-5">🧭</div>
+                <h3 class="text-2xl font-bold mb-3 text-orange-brand">Fieldwork Constraints</h3>
+                <p class="text-slate-600 leading-relaxed">
+                    Travel, irregular hours, remote sites, and assumptions about who should do technical work limit access.
+                </p>
+            </div>
+
+            <div class="bg-white rounded-2xl p-8 shadow-2xl card-hover border border-slate-200 animate-on-scroll" style="transition-delay: 0.2s;">
+                <div class="text-5xl mb-5">🛡️</div>
+                <h3 class="text-2xl font-bold mb-3 text-cyan-brand">Safety & Harassment</h3>
+                <p class="text-slate-600 leading-relaxed">
+                    Inadequate transport, lodging, reporting mechanisms, and workplace culture continue to create risk.
+                </p>
+            </div>
+
+            <div class="bg-white rounded-2xl p-8 shadow-2xl card-hover border border-slate-200 animate-on-scroll" style="transition-delay: 0.3s;">
+                <div class="text-5xl mb-5">⬆️</div>
+                <h3 class="text-2xl font-bold mb-3 text-pink-brand">Limited Advancement</h3>
+                <p class="text-slate-600 leading-relaxed">
+                    Hiring bias, fewer training opportunities, exclusion from networks, and doubts about leadership slow progression.
+                </p>
+            </div>
+        </div>
     </div>
+</section>
 
-    <!-- Blurred rounded rectangle text overlay at bottom -->
-    <div class="relative z-10 w-full px-6 pb-16 lg:pb-32">
-        <div class="max-w-5xl mx-auto">
-            <div class="backdrop-blur-xl bg-black/30 border border-white/10 rounded-3xl p-8 lg:p-12 shadow-2xl animate-on-scroll">
-                <h2 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-white tracking-tight mb-6 drop-shadow-md">
-                    Regeneration Unfolding
-                </h2>
-                
-                <div class="space-y-5 text-lg sm:text-xl lg:text-2xl text-white/95 font-light leading-relaxed">
-                    <p>
-                        Beneath wide skies, living cover crops weave across healed land — roots plunging deep, drawing carbon downward, awakening the soil’s hidden microbial symphony. 
-                        Farming here is no longer extraction; it is restoration — mimicking nature’s timeless cycles to rebuild fertility, hold water, and nurture diversity.
+<!-- ================= INSTITUTIONAL RESPONSE / SPLIT CONNECTED ================= -->
+<section class="py-24 lg:py-32 bg-slate-50">
+    <div class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
+
+        <!-- Header -->
+        <div class="max-w-3xl mb-16">
+            <p class="text-sm uppercase tracking-[0.25em] text-cyan-brand mb-4 animate-on-scroll">
+                What’s Changing
+            </p>
+
+            <h2 class="text-4xl sm:text-5xl lg:text-6xl font-bold text-slate-900 mb-6 animate-on-scroll">
+                Institutional Responses and Emerging Good Practices
+            </h2>
+
+            <p class="text-lg sm:text-xl text-slate-600 leading-relaxed animate-on-scroll">
+                Utilities across the region are beginning to respond with targeted hiring, family-friendly policies,
+                mentorship, training, and stronger workplace systems.
+            </p>
+        </div>
+
+        <!-- Connected Block -->
+        <div class="grid lg:grid-cols-2 items-stretch rounded-[2rem] overflow-hidden shadow-2xl animate-on-scroll">
+
+            <!-- LEFT IMAGE -->
+            <div class="relative">
+                <img
+                    src="{{ asset('images/bg_group.jpeg') }}"
+                    alt="Energy sector workforce"
+                    class="w-full h-full object-cover min-h-[420px] lg:min-h-[560px]"
+                >
+                <div class="absolute inset-0 bg-gradient-to-t from-slate-950/60 via-transparent to-transparent"></div>
+            </div>
+
+            <!-- RIGHT TEXT -->
+            <div class="bg-white p-8 sm:p-10 lg:p-12 flex flex-col justify-center space-y-8">
+
+                <div>
+                    <p class="text-sm uppercase tracking-[0.2em] text-pink-brand mb-2">
+                        Policies
                     </p>
-                    <p class="text-base sm:text-lg lg:text-xl opacity-90 italic">
-                        Each season reveals quiet proof: when we partner with the earth instead of dominating it, resilience returns — for the soil, the harvest, the communities, and the future.
+                    <p class="text-slate-700 leading-relaxed text-lg">
+                        70% of utilities have gender non-discrimination policies, 87% have anti-harassment or GBV-related policies,
+                        and 53% report a gender equity strategy or action plan.
                     </p>
+                </div>
+
+                <div class="border-t border-slate-200 pt-6">
+                    <p class="text-sm uppercase tracking-[0.2em] text-orange-brand mb-2">
+                        Retention Support
+                    </p>
+                    <p class="text-slate-700 leading-relaxed text-lg">
+                        50% of utilities report childcare facilities at headquarters, while 42% offer flexible work arrangements.
+                        Lactation rooms and family leave are expanding, though unevenly across field sites.
+                    </p>
+                </div>
+
+                <div class="border-t border-slate-200 pt-6">
+                    <p class="text-sm uppercase tracking-[0.2em] text-cyan-brand mb-2">
+                        Growth & Safety
+                    </p>
+                    <p class="text-slate-700 leading-relaxed text-lg">
+                        68% of utilities provided leadership training, 29% offered mentorship programs,
+                        and transport, lodging, complaint systems, and field safety rules are becoming more common.
+                    </p>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<!-- ================= REPORT CTA ================= -->
+<section id="report" class="py-20 lg:py-28 bg-white">
+    <div class="max-w-6xl mx-auto px-6">
+        <div class="rounded-[2rem] overflow-hidden shadow-[0_30px_80px_-20px_rgba(15,23,42,0.18)] border border-slate-200 bg-gradient-to-br from-white via-slate-50 to-cyan-50/30">
+            <div class="grid lg:grid-cols-2 items-center">
+                <div class="p-10 lg:p-14">
+                    <p class="text-sm uppercase tracking-[0.25em] text-orange-brand mb-4 font-semibold">
+                        Full Assessment
+                    </p>
+                    <h2 class="text-4xl sm:text-5xl font-bold text-slate-900 leading-tight mb-6">
+                        Read the report behind the insights
+                    </h2>
+                    <p class="text-lg text-slate-600 leading-relaxed mb-8">
+                        Explore the full WePOWER Assessment 2024–25 to see the regional data,
+                        workplace voices, institutional responses, and recommendations in detail.
+                    </p>
+
+                   <div class="flex flex-wrap gap-4">
+
+                        <!-- Download -->
+                        <a href="{{ asset('files/gender.pdf') }}"
+                        download
+                        class="px-7 py-4 bg-pink-brand hover:opacity-90 text-white rounded-xl font-semibold shadow-lg transition transform hover:scale-105">
+                            Download Report
+                        </a>
+
+                        <!-- View -->
+                        <a href="{{ asset('files/gender.pdf') }}"
+                        target="_blank"
+                        class="px-7 py-4 border border-slate-300 text-slate-800 rounded-xl font-semibold hover:bg-slate-100 transition">
+                            View Report
+                        </a>
+
+                    </div>
+                </div>
+
+                <div class="h-full min-h-[320px] lg:min-h-[420px] relative">
+                    <img src="{{ asset('images/bgg.jpeg') }}"
+                         alt="WePOWER assessment cover visual"
+                         class="w-full h-full object-cover">
+                    <div class="absolute inset-0 bg-gradient-to-t from-slate-900/55 via-slate-900/20 to-transparent"></div>
                 </div>
             </div>
         </div>
     </div>
-</div>
-</section>  
-
-<!-- ================= PROJECT HIGHLIGHTS SLIDER ================= -->
-<section id="projects" class="py-20 lg:py-28 bg-slate-100 text-slate-900 overflow-hidden">
-    <div class="max-w-screen-2xl mx-auto px-5 sm:px-8 lg:px-12">
-        <h2 class="text-4xl sm:text-5xl lg:text-6xl font-bold text-center mb-12 lg:mb-16 animate-on-scroll">Project Highlights</h2>
-
-        <div class="slider-container">
-            <div class="slider-track flex gap-6 sm:gap-8">
-                @foreach(range(1,2) as $i)
-                    <div class="min-w-[300px] sm:min-w-[380px] lg:min-w-[460px] bg-white rounded-2xl overflow-hidden shadow-2xl card-hover border border-slate-200">
-                        <img src="https://images.unsplash.com/photo-1593113598332-cd288d649433?auto=format&fit=crop&w=800&q=80"
-                             alt="Community impact" class="w-full h-56 sm:h-64 object-cover">
-                        <div class="p-6 sm:p-8">
-                            <h3 class="text-xl sm:text-2xl font-bold mb-3 text-slate-900">Inclusive Enterprise Networks</h3>
-                            <p class="text-slate-600">Jobs with dignity while breaking poverty cycles.</p>
-                        </div>
-                    </div>
-
-                    <div class="min-w-[300px] sm:min-w-[380px] lg:min-w-[460px] bg-white rounded-2xl overflow-hidden shadow-2xl card-hover border border-slate-200">
-                        <img src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=800&q=80"
-                             alt="Policy data" class="w-full h-56 sm:h-64 object-cover">
-                        <div class="p-6 sm:p-8">
-                            <h3 class="text-xl sm:text-2xl font-bold mb-3 text-slate-900">Real-Time Policy Intelligence</h3>
-                            <p class="text-slate-600">Data platforms shaping smarter strategies.</p>
-                        </div>
-                    </div>
-
-                    <div class="min-w-[300px] sm:min-w-[380px] lg:min-w-[460px] bg-white rounded-2xl overflow-hidden shadow-2xl card-hover border border-slate-200">
-                        <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&w=800&q=80"
-                             alt="Climate resilience" class="w-full h-56 sm:h-64 object-cover">
-                        <div class="p-6 sm:p-8">
-                            <h3 class="text-xl sm:text-2xl font-bold mb-3 text-slate-900">Resilient Agri-Futures</h3>
-                            <p class="text-slate-600">Tech empowering smallholder adaptation.</p>
-                        </div>
-                    </div>
-                @endforeach
-            </div>
-        </div>
-    </div>
 </section>
 
-
-
 <script>
-// Smooth scroll
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function(e) {
-        e.preventDefault();
-        document.querySelector(this.getAttribute('href'))?.scrollIntoView({ behavior: 'smooth' });
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+            e.preventDefault();
+            target.scrollIntoView({ behavior: 'smooth' });
+        }
     });
 });
 
-// Scroll animations
 const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
         if (entry.isIntersecting) {

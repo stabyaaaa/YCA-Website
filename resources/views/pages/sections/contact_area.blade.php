@@ -1,6 +1,5 @@
 @php
 $fields = $section->fields->pluck('field_value','field_key');
-
 $address = $fields['address'] ?? '';
 $email = $fields['email'] ?? '';
 $phone = $fields['phone'] ?? '';

@@ -85,3 +85,30 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
 });
+
+document.addEventListener("DOMContentLoaded", () => {
+    const aiChatWidget = document.getElementById("aiChatWidget");
+    const aiChatTrigger = document.getElementById("aiChatTrigger");
+
+    if (!aiChatWidget || !aiChatTrigger) return;
+
+    let aiChatTimeout = null;
+
+    aiChatTrigger.addEventListener("click", function (e) {
+        e.stopPropagation();
+
+        aiChatWidget.classList.add("active");
+
+        clearTimeout(aiChatTimeout);
+        aiChatTimeout = setTimeout(() => {
+            aiChatWidget.classList.remove("active");
+        }, 5000);
+    });
+
+    document.addEventListener("click", function (e) {
+        if (!aiChatWidget.contains(e.target)) {
+            aiChatWidget.classList.remove("active");
+            clearTimeout(aiChatTimeout);
+        }
+    });
+});

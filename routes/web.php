@@ -21,16 +21,19 @@ Route::get('/about', function () {
     return view('about');
 })->name('about');
 
-Route::get('/our-projects', function () {
-    return view('projects');
-})->name('projects');
+Route::get('/news', function () {
+    return view('news');
+})->name('news');
 
-Route::get('/partner', function () {
-    return view('partner');
-})->name('partner');
+// Route::get('/partner', function () {
+//     return view('partner');
+// })->name('partner');
 
-Route::get('/resource', function () {
-    return view('resource');
+Route::get('/partners', function () {
+    return view('partners');
+})->name('partners');
+Route::get('/contact', function () {
+    return view('contact-us');
 })->name('resource');
 
 /*
@@ -39,9 +42,9 @@ Route::get('/resource', function () {
 |--------------------------------------------------------------------------
 */
 
-Route::get('/contact', [PageController::class,'show'])
-    ->defaults('slug','contact')
-    ->name('contact');
+// Route::get('/contact', [PageController::class,'show'])
+//     ->defaults('slug','contact')
+//     ->name('contact');
 
 
 /*
@@ -174,3 +177,4 @@ Route::get('/{slug}', [PageController::class,'show']);
 */
 
 require __DIR__.'/auth.php';
+

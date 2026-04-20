@@ -1,3 +1,23 @@
+# ---------- Frontend build stage ----------
+FROM node:20-alpine AS frontend
+
+WORKDIR /app
+
+COPY package*.json ./
+RUN npm install
+
+COPY resources ./resources
+COPY public ./public
+COPY vite.config.* ./
+COPY postcss.config.* ./
+COPY tailwind.config.* ./
+COPY jsconfig.json ./
+COPY .env ./.env
+
+RUN npm run build
+RUN ls -la public/build && test -f public/build/manifest.json
+
+# ---------- PHP / Laravel stage ----------
 FROM php:8.2-fpm-alpine
 
 RUN apk update && apk add --no-cache \
@@ -8,8 +28,6 @@ RUN apk update && apk add --no-cache \
     zip \
     sqlite-dev \
     bash \
-    nodejs \
-    npm \
     && docker-php-ext-install \
         pdo \
         pdo_sqlite \
@@ -24,9 +42,8 @@ COPY . .
 
 RUN composer install --no-dev --optimize-autoloader --no-interaction --prefer-dist
 
-RUN npm install
-RUN npm run build
-RUN test -f public/build/manifest.json
+# Copy built frontend assets from the Node stage
+COPY --from=frontend /app/public/build /var/www/html/public/build
 
 RUN mkdir -p database && touch database/database.sqlite
 

@@ -6,14 +6,11 @@ WORKDIR /app
 COPY package*.json ./
 RUN npm install
 
-COPY resources ./resources
-COPY public ./public
-COPY vite.config.* ./
-COPY postcss.config.* ./
-COPY tailwind.config.* ./
+COPY . .
 
 RUN npm run build
-RUN ls -la public/build && test -f public/build/manifest.json
+RUN ls -la public/build
+RUN test -f public/build/manifest.json
 
 # ---------- PHP / Laravel stage ----------
 FROM php:8.2-fpm-alpine

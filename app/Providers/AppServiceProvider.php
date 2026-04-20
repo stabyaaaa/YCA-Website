@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\View;
+use Illuminate\Support\Facades\URL;
 use App\Models\AdminRequest;
 use Illuminate\Support\Facades\Auth;
 
@@ -16,8 +17,11 @@ class AppServiceProvider extends ServiceProvider
 
     public function boot(): void
     {
-        View::composer('*', function ($view) {
+        if (app()->environment('production')) {
+            URL::forceScheme('https');
+        }
 
+        View::composer('*', function ($view) {
             $pendingCount = 0;
 
             if (Auth::check() && Auth::user()->role === 'super_admin') {

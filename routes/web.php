@@ -25,16 +25,18 @@ Route::get('/news', function () {
     return view('news');
 })->name('news');
 
-// Route::get('/partner', function () {
-//     return view('partner');
-// })->name('partner');
+Route::get('/resources', function () {
+    return view('resources');
+})->name('resources');
 
 Route::get('/partners', function () {
     return view('partners');
 })->name('partners');
+
+
 Route::get('/contact', function () {
     return view('contact-us');
-})->name('resource');
+})->name('contact');
 
 /*
 |--------------------------------------------------------------------------

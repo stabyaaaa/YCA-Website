@@ -36,12 +36,16 @@
                 class="nav-link {{ request()->is('/') ? 'active' : '' }}">
                 Home
                 </a>
+               
 
                 <a href="{{ route('about') }}" 
                 class="nav-link {{ request()->is('about') ? 'active' : '' }}">
                 About
                 </a>
 
+                <a href="https://www.yunuscenterait.org/" class="nav-link" target="_blank" rel="noopener noreferrer">
+                    Yunus Center AIT
+                </a>
                 <a href="{{ route('news') }}" 
                 class="nav-link {{ request()->routeIs('news') ? 'active' : '' }}">
                 News
@@ -50,6 +54,11 @@
                 <a href="{{ route('partners') }}" 
                 class="nav-link {{ request()->is('partners') ? 'active' : '' }}">
                 Our Partners
+                </a>
+
+                <a href="/resources" 
+                class="nav-link {{ request()->is('resources') ? 'active' : '' }}">
+                Resources
                 </a>
 
                 <a href="/contact" 
@@ -183,9 +192,9 @@
                 <a href="{{ url('/') }}" class="mobile-link">Home</a>
                 <a href="{{ route('about') }}" class="mobile-link">About</a>
                 <a href="{{ route('news') }}" class="mobile-link">News</a>
-                <a href="#" class="mobile-link">Partners</a>
+                <a href="{{ route('resources') }}" class="mobile-link">Resources</a>
                 <a href="{{ route('partners') }}" class="mobile-link">Our Partners</a>
-                <a href="/contact" class="nav-link">Contact</a>
+                <a href="{{ route('contact') }}" class="mobile-link">Contact Us</a>
 
                 @guest
                     <div class="pt-6 border-t flex flex-col gap-4">

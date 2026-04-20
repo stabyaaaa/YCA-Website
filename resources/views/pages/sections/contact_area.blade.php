@@ -1,4 +1,4 @@
-@php
+<!-- @php
 $fields = $section->fields->pluck('field_value','field_key');
 $address = $fields['address'] ?? '';
 $email = $fields['email'] ?? '';
@@ -59,4 +59,4 @@ $map = $fields['map_embed'] ?? '';
 
 </div>
 
-</section>
+</section> -->

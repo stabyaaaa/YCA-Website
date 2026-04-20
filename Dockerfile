@@ -11,8 +11,6 @@ COPY public ./public
 COPY vite.config.* ./
 COPY postcss.config.* ./
 COPY tailwind.config.* ./
-COPY jsconfig.json ./
-COPY .env ./.env
 
 RUN npm run build
 RUN ls -la public/build && test -f public/build/manifest.json
@@ -42,7 +40,6 @@ COPY . .
 
 RUN composer install --no-dev --optimize-autoloader --no-interaction --prefer-dist
 
-# Copy built frontend assets from the Node stage
 COPY --from=frontend /app/public/build /var/www/html/public/build
 
 RUN mkdir -p database && touch database/database.sqlite

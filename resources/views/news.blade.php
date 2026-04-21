@@ -87,20 +87,47 @@
                 <div class="lg:col-span-5 flex flex-col gap-6">
                     <article class="rounded-[2rem] border border-[rgba(1,157,222,0.14)] bg-white/85 backdrop-blur-xl p-6 shadow-sm">
                         <div class="flex items-center gap-3 mb-3">
-                            <span class="inline-flex rounded-full bg-[rgba(1,157,222,0.10)] text-[var(--cyan)] px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em]">Recognition</span>
+                            <span class="inline-flex rounded-full bg-[rgba(1,157,222,0.10)] text-[var(--cyan)] px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em]">
+                                Recognition
+                            </span>
                             <span class="text-xs text-slate-500">2025</span>
                         </div>
-                        <h3 class="text-xl sm:text-2xl font-semibold text-slate-900 leading-tight">WePOWER receives the FY25 SAR VPU Award</h3>
-                        <p class="mt-3 text-sm text-slate-600 leading-relaxed">The network was recognized for excellence in implementation, with results that include large-scale training, leadership development, and pathways to jobs and internships for women across the energy sector.</p>
+
+                        <h3 class="text-xl sm:text-2xl font-semibold text-slate-900 leading-tight">
+                            WePOWER receives the FY25 SAR VPU Award
+                        </h3>
+
+                        <p class="mt-3 text-sm text-slate-600 leading-relaxed">
+                            The network was recognized for excellence in implementation, with results that include
+                            large-scale training, leadership development, and pathways to jobs and internships
+                            for women across the energy sector.
+                        </p>
+
+                        <a href="#" class="mt-5 inline-flex items-center text-sm font-semibold text-[var(--cyan)] hover:opacity-80 transition">
+                            Read more
+                        </a>
                     </article>
 
                     <article class="rounded-[2rem] border border-[rgba(233,146,16,0.14)] bg-white/85 backdrop-blur-xl p-6 shadow-sm">
                         <div class="flex items-center gap-3 mb-3">
-                            <span class="inline-flex rounded-full bg-[rgba(233,146,16,0.10)] text-[var(--orange)] px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em]">Results</span>
+                            <span class="inline-flex rounded-full bg-[rgba(233,146,16,0.10)] text-[var(--orange)] px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em]">
+                                Results
+                            </span>
                             <span class="text-xs text-slate-500">Q1–Q2 FY2025</span>
                         </div>
-                        <h3 class="text-xl sm:text-2xl font-semibold text-slate-900 leading-tight">5,374 activities reached 27,928 women and girls</h3>
-                        <p class="mt-3 text-sm text-slate-600 leading-relaxed">Partner institutions collectively delivered training, mentorship, field exposure, and career opportunities.</p>
+
+                        <h3 class="text-xl sm:text-2xl font-semibold text-slate-900 leading-tight">
+                            5,374 activities reached 27,928 women and girls
+                        </h3>
+
+                        <p class="mt-3 text-sm text-slate-600 leading-relaxed">
+                            Partner institutions collectively delivered training, mentorship, field exposure,
+                            and career opportunities, while more than 455 women secured staff or internship positions.
+                        </p>
+
+                        <a href="#" class="mt-5 inline-flex items-center text-sm font-semibold text-[var(--orange)] hover:opacity-80 transition">
+                            Read more
+                        </a>
                     </article>
                 </div>
             </div>

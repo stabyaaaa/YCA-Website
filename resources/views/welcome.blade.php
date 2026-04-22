@@ -107,10 +107,13 @@
             <p class="text-sm uppercase tracking-[0.28em] text-pink-300 font-semibold">
               
             </p>
-
+<div class="text-left mb-12 lg:mb-14 ml-2">
+            <p class="text-xl uppercase tracking-[0.3em] text-[#d97706] font-semibold mb-4 animate-on-scroll">
+                Impact Since 2019
+            </p></div>
             <h1 class="text-5xl md:text-6xl lg:text-7xl font-extrabold leading-tight">
-                Empowering Women in Energy
-                <span class="text-cyan-brand">Through Collaboration</span>
+                Main Streaming Women Professionals
+                <span class="text-cyan-brand">Through Partnership</span>
             </h1>
 
             <p class="text-xl md:text-2xl text-gray-200 max-w-2xl leading-relaxed">
@@ -135,8 +138,8 @@
             <div class="backdrop-blur-2xl bg-white/10 border border-white/20 rounded-3xl p-10 shadow-2xl text-white transition duration-500">
 
                 <h3 class="text-2xl font-bold mb-8 flex items-center gap-3">
-                    <span class="text-cyan-brand text-3xl">⚡</span>
-                    Key Snapshot
+                    <span class="text-cyan-brand text-3xl"></span>
+                    Key Findings from the Gender Assessment 2024-2025
                 </h3>
 
                 <div class="space-y-6 text-lg">
@@ -187,7 +190,7 @@
     <div class="max-w-7xl mx-auto px-6">
         <div class="grid sm:grid-cols-2 xl:grid-cols-4 gap-5">
             <div class="rounded-3xl p-6 bg-white/5 border border-white/10 backdrop-blur-xl animate-on-scroll">
-                <p class="text-sm uppercase tracking-[0.2em] text-white/50 mb-3">Women Hired</p>
+                <p class="text-sm uppercase tracking-[0.2em] text-white/50 mb-3">Jobs Created</p>
                 <h3 class="text-4xl font-extrabold text-pink-brand mb-2">2,000+</h3>
                 <p class="text-white/70 leading-relaxed">Women were hired between 2022 and 2024 across surveyed organizations.</p>
             </div>
@@ -199,13 +202,13 @@
             </div>
 
             <div class="rounded-3xl p-6 bg-white/5 border border-white/10 backdrop-blur-xl animate-on-scroll" style="transition-delay: 0.2s;">
-                <p class="text-sm uppercase tracking-[0.2em] text-white/50 mb-3">Leadership Training</p>
+                <p class="text-sm uppercase tracking-[0.2em] text-white/50 mb-3">Leadership Gap</p>
                 <h3 class="text-4xl font-extrabold text-orange-brand mb-2">12%</h3>
                 <p class="text-white/70 leading-relaxed">Only 12 percent of leadership program participants were women.</p>
             </div>
 
             <div class="rounded-3xl p-6 bg-white/5 border border-white/10 backdrop-blur-xl animate-on-scroll" style="transition-delay: 0.3s;">
-                <p class="text-sm uppercase tracking-[0.2em] text-white/50 mb-3">WePOWER Impact</p>
+                <p class="text-sm uppercase tracking-[0.2em] text-white/50 mb-3">Participation Reached</p>
                 <h3 class="text-4xl font-extrabold text-pink-brand mb-2">208,000+</h3>
                 <p class="text-white/70 leading-relaxed">Participants reached through 11,443 gender activities across the network.</p>
             </div>
@@ -236,7 +239,7 @@
             </h2>
 
             <p class="mt-5 max-w-3xl mx-auto text-base sm:text-lg text-slate-700 leading-relaxed animate-on-scroll">
-                More women are entering the power sector across South Asia, but barriers in opportunity,
+                More women are qualifying for the technical roles in the power sector, but barriers in opportunity,
                 safety, and advancement remain uneven across roles and countries.
             </p>
         </div>
@@ -258,7 +261,7 @@
                     <div class="p-6 lg:p-8 bg-gradient-to-r from-cyan-50 to-white flex items-center gap-4">
                         <div class="text-3xl sm:text-4xl">📈</div>
                         <p class="text-sm sm:text-base text-slate-700 leading-relaxed">
-                            Gains are visible, but participation remains limited and uneven across contexts.
+                            Gains are constrained because participation remains limited.
                         </p>
                     </div>
 
@@ -357,7 +360,7 @@
 
                         <div class="mt-6">
                             <p class="text-sm uppercase tracking-[0.18em] text-white/60">
-                                Female Public Utility Employee
+                                Women Engineer
                             </p>
                             <p class="text-base text-cyan-brand font-medium mt-1">
                                 India
@@ -375,7 +378,7 @@
 
                         <div class="mt-6">
                             <p class="text-sm uppercase tracking-[0.18em] text-white/60">
-                                Female Private Sector Employee
+                                Women Engineer
                             </p>
                             <p class="text-base text-pink-brand font-medium mt-1">
                                 Pakistan
@@ -402,7 +405,7 @@
                 What Still Holds Women Back
             </h2>
             <p class="text-lg sm:text-xl text-slate-600 leading-relaxed animate-on-scroll" style="transition-delay: 0.15s;">
-                The report identifies a recurring set of barriers that limit women’s entry, retention,
+                The World Bank report identifies a recurring set of barriers that limit women’s entry, retention,
                 mobility, and advancement in the power sector.
             </p>
         </div>
@@ -477,37 +480,109 @@
             </div>
 
             <!-- RIGHT TEXT -->
-            <div class="bg-white p-8 sm:p-10 lg:p-12 flex flex-col justify-center space-y-8">
+            <!-- RIGHT TEXT / STATS -->
+<div class="bg-white p-8 sm:p-10 lg:p-12 flex flex-col justify-center space-y-12">
 
-                <div>
-                    <p class="text-sm uppercase tracking-[0.2em] text-pink-brand mb-2">
-                        Policies
-                    </p>
-                    <p class="text-slate-700 leading-relaxed text-lg">
-                        70% of utilities have gender non-discrimination policies, 87% have anti-harassment or GBV-related policies,
-                        and 53% report a gender equity strategy or action plan.
-                    </p>
-                </div>
+    <!-- ================= POLICIES ================= -->
+    <div>
+        <p class="text-sm uppercase tracking-[0.2em] text-pink-brand mb-6">
+            Policies
+        </p>
 
-                <div class="border-t border-slate-200 pt-6">
-                    <p class="text-sm uppercase tracking-[0.2em] text-orange-brand mb-2">
-                        Retention Support
-                    </p>
-                    <p class="text-slate-700 leading-relaxed text-lg">
-                        50% of utilities report childcare facilities at headquarters, while 42% offer flexible work arrangements.
-                        Lactation rooms and family leave are expanding, though unevenly across field sites.
-                    </p>
-                </div>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-8 text-center">
 
-                <div class="border-t border-slate-200 pt-6">
-                    <p class="text-sm uppercase tracking-[0.2em] text-cyan-brand mb-2">
-                        Growth & Safety
-                    </p>
-                    <p class="text-slate-700 leading-relaxed text-lg">
-                        68% of utilities provided leadership training, 29% offered mentorship programs,
-                        and transport, lodging, complaint systems, and field safety rules are becoming more common.
-                    </p>
+            <!-- Item -->
+            <div class="flex flex-col items-center">
+                <div class="w-28 h-28 rounded-full border-[6px] border-pink-brand flex items-center justify-center text-2xl font-bold text-pink-brand">
+                    70%
                 </div>
+                <p class="mt-3 text-sm text-slate-600 leading-tight">
+                    Gender Non-Discrimination
+                </p>
+            </div>
+
+            <!-- Item -->
+            <div class="flex flex-col items-center">
+                <div class="w-28 h-28 rounded-full border-[6px] border-orange-brand flex items-center justify-center text-2xl font-bold text-orange-brand">
+                    87%
+                </div>
+                <p class="mt-3 text-sm text-slate-600 leading-tight">
+                    Anti-Harassment / GBV
+                </p>
+            </div>
+
+            <!-- Item -->
+            <div class="flex flex-col items-center">
+                <div class="w-28 h-28 rounded-full border-[6px] border-cyan-brand flex items-center justify-center text-2xl font-bold text-cyan-brand">
+                    53%
+                </div>
+                <p class="mt-3 text-sm text-slate-600 leading-tight">
+                    Gender Equity Strategy
+                </p>
+            </div>
+
+        </div>
+    </div>
+
+
+<!-- ================= RETENTION SUPPORT ================= -->
+<div class="border-t border-slate-200 pt-8">
+    <p class="text-sm uppercase tracking-[0.2em] text-orange-brand mb-6">
+        Retention Support
+    </p>
+
+    <div class="space-y-6">
+
+        <!-- Item -->
+        <div>
+            <div class="flex justify-between text-sm mb-2">
+                <span class="text-slate-600">Childcare Facilities</span>
+                <span class="font-semibold text-orange-brand">50%</span>
+            </div>
+            <div class="w-full h-2 bg-slate-100 rounded-full overflow-hidden">
+                <div class="h-full bg-orange-brand rounded-full" style="width: 50%"></div>
+            </div>
+        </div>
+
+        <!-- Item -->
+        <div>
+            <div class="flex justify-between text-sm mb-2">
+                <span class="text-slate-600">Flexible Work</span>
+                <span class="font-semibold text-pink-brand">42%</span>
+            </div>
+            <div class="w-full h-2 bg-slate-100 rounded-full overflow-hidden">
+                <div class="h-full bg-pink-brand rounded-full" style="width: 42%"></div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+   <!-- ================= GROWTH & SAFETY ================= -->
+<div class="border-t border-slate-200 pt-8">
+    <p class="text-sm uppercase tracking-[0.2em] text-cyan-brand mb-6">
+        Growth & Safety
+    </p>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+
+        <!-- Card -->
+        <div class="p-6 rounded-xl bg-cyan-50 border border-cyan-100">
+            <p class="text-3xl font-bold text-cyan-brand mb-2">68%</p>
+            <p class="text-sm text-slate-600">Leadership Training</p>
+        </div>
+
+        <!-- Card -->
+        <div class="p-6 rounded-xl bg-orange-50 border border-orange-100">
+            <p class="text-3xl font-bold text-orange-brand mb-2">29%</p>
+            <p class="text-sm text-slate-600">Mentorship Programs</p>
+        </div>
+
+    </div>
+</div>
+
+</div>
 
             </div>
         </div>

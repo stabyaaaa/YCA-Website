@@ -91,6 +91,52 @@
         h1 { font-size: 2.8rem !important; line-height: 1.1 !important; }
         h2 { font-size: 2.2rem !important; line-height: 1.15 !important; }
     }
+
+.node-premium {
+    display: flex;
+    align-items: center;
+    gap: 0.72rem;
+    min-width: 148px;
+    justify-content: flex-start;
+    padding: 0.78rem 1rem;
+    background: rgba(255, 255, 255, 0.94);
+    border: 1px solid rgba(226, 232, 240, 0.95);
+    border-radius: 999px;
+    box-shadow:
+        0 10px 30px rgba(15, 23, 42, 0.08),
+        0 1px 0 rgba(255,255,255,0.7) inset;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: #0f172a;
+    white-space: nowrap;
+    transition: all 0.3s ease;
+}
+
+.node-premium:hover {
+    transform: translateY(-4px);
+    box-shadow:
+        0 18px 38px rgba(15, 23, 42, 0.13),
+        0 1px 0 rgba(255,255,255,0.8) inset;
+}
+
+.node-premium-active {
+    border: 1.5px solid rgba(1,157,222,0.35);
+    box-shadow:
+        0 16px 40px rgba(1,157,222,0.14),
+        0 1px 0 rgba(255,255,255,0.75) inset;
+}
+
+.flag-rect {
+    width: 28px;
+    height: 20px;
+    object-fit: cover;
+    border-radius: 4px;
+    flex-shrink: 0;
+    border: 1px solid rgba(15, 23, 42, 0.08);
+    box-shadow: 0 2px 8px rgba(15, 23, 42, 0.10);
+}
 </style>
 
 <!-- ================= HERO ================= -->
@@ -118,7 +164,7 @@
                 </h1>
 
                 <p class="text-lg sm:text-xl text-slate-600 leading-relaxed mb-8 animate-on-scroll" style="transition-delay: 0.12s;">
-                    WePOWER is a regional network connecting institutions, utilities, universities, and professional partners to create stronger pathways for women in the energy sector — from participation and progression to leadership and institutional change.
+                    WePOWER is a women's regional network connecting institutions, utilities, universities, and professional partners to create stronger pathways for women in the energy sector — from participation and progression to leadership and institutional change.
                 </p>
 
                 <div class="flex flex-wrap gap-4 animate-on-scroll" style="transition-delay: 0.2s;">
@@ -204,24 +250,16 @@
                 </h2>
 
                 <p class="text-lg text-slate-600 leading-relaxed mb-5">
-                    WePOWER is the South Asia Women in Power Sector Professional Network, established in 2019 as a voluntary platform of power utilities, universities, and professional associations across South Asia. It brings together over 50 partners working to increase women’s participation in energy-sector careers, particularly in technical and leadership roles.
-                </p>
+    WePOWER is the South Asia Women in Power Sector Professional Network, established in 2019 as a voluntary platform of utilities, universities, and professional associations. With 61 partners and growing, it works to increase women’s participation in energy-sector careers, especially in technical and leadership roles, through collaboration, research, and targeted initiatives supported by the World Bank’s South Asia Energy program.
+</p>
 
-                <p class="text-lg text-slate-600 leading-relaxed">
-                    Supported by the World Bank’s South Asia Energy program, the network combines research, stakeholder engagement, and practical action to address barriers that limit women’s entry, retention, and advancement in the sector.
-                </p>
+<p class="text-lg text-slate-600 leading-relaxed">
+    The network operates through a data-driven approach, drawing on partner insights and regional assessments to address barriers to entry, retention, and advancement. Guided by a five-pillar framework spanning education, recruitment, professional development, retention, and policy reform, WePOWER supports coordinated action across countries, strengthening both regional collaboration and national-level impact.
+</p>
             </div>
         </div>
 
-        <div class="animate-on-scroll space-y-6">
-            <p class="text-lg text-slate-600 leading-relaxed">
-                The network operates through a structured, data-driven approach that draws on partner reporting, surveys, and regional assessments, reflecting insights from thousands of participants across utilities and institutions to identify both progress and persistent challenges affecting women in the power sector. At the core of WePOWER’s model is a five-pillar framework connecting STEM education, recruitment, professional development, retention, and policy and institutional change, enabling coordinated action rather than isolated initiatives and supporting long-term improvements across the workforce pipeline. The network has expanded through National Chapters across South Asia, strengthening country-level coordination while maintaining regional collaboration through knowledge sharing, joint initiatives, and partner-led action.
-            </p>
-
-            <p class="text-lg text-slate-600 leading-relaxed">
-                Since its establishment, WePOWER partners have implemented thousands of activities supporting women at different stages of their careers, including students, interns, young professionals, and returning workers. These efforts span training programs, internships, outreach initiatives, and workplace improvements that collectively strengthen participation and retention in the sector. As the network continues to grow, it focuses on expanding partnerships, refining its frameworks, and supporting institutional change, ensuring that progress is sustained and that opportunities for women in the power sector continue to advance across the region.
-            </p>
-        </div>
+        
 
     </div>
 </section>
@@ -252,7 +290,7 @@
                             <div class="inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-pink-100 text-pink-600 text-xl font-bold z-10">01</div>
                         </div>
                         <div class="pt-2">
-                            <h3 class="text-3xl font-semibold text-slate-900 mb-4">Build the Pipeline</h3>
+                            <h3 class="text-3xl font-semibold text-slate-900 mb-4">Build the Stem Pipeline</h3>
                             <p class="text-slate-600 text-lg leading-relaxed">
                                 Encourage girls and young women to see STEM and energy as realistic, valuable, and achievable career paths.
                             </p>
@@ -264,7 +302,7 @@
                             <div class="inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-orange-100 text-orange-600 text-xl font-bold z-10">02</div>
                         </div>
                         <div class="pt-2">
-                            <h3 class="text-3xl font-semibold text-slate-900 mb-4">Open Access to Jobs</h3>
+                            <h3 class="text-3xl font-semibold text-slate-900 mb-4">Open Job Access</h3>
                             <p class="text-slate-600 text-lg leading-relaxed">
                                 Expand pathways into the sector through internships, recruitment opportunities, exposure, and employer engagement.
                             </p>
@@ -288,7 +326,7 @@
                             <div class="inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-pink-100 text-pink-600 text-xl font-bold z-10">04</div>
                         </div>
                         <div class="pt-2">
-                            <h3 class="text-3xl font-semibold text-slate-900 mb-4">Shift Institutions</h3>
+                            <h3 class="text-3xl font-semibold text-slate-900 mb-4">Shift Institutional Policies</h3>
                             <p class="text-slate-600 text-lg leading-relaxed">
                                 Promote policies, workplace support, and long-term institutional change so women can enter, stay, advance, and lead.
                             </p>
@@ -329,51 +367,64 @@
             <h2 class="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-5 animate-on-scroll">
                 The Five Pillars of WePOWER
             </h2>
-            <p class="text-lg sm:text-xl text-white/70 leading-relaxed animate-on-scroll" style="transition-delay: 0.12s;">
+            <p class="text-lg sm:text-xl text-white/70 leading-relaxed animate-on-scroll">
                 WePOWER’s work is organized around five connected pillars that move from entry and access to retention, leadership, and institutional change.
             </p>
         </div>
 
-        <div class="grid md:grid-cols-2 xl:grid-cols-5 gap-6">
-            <div class="glass-card rounded-3xl p-7 card-hover animate-on-scroll text-white">
-                <div class="w-50 h-14 rounded-2xl bg-pink-500/20 flex items-center justify-center text-2xl mb-5">Pillar A</div>
-                <h3 class="text-2xl font-bold mb-3">STEM Outreach & Norms</h3>
-                <p class="text-white/75 leading-relaxed text-sm">
-                    Inspiring girls’ interest in STEM, engineering pathways, and exposure to power-sector learning opportunities.
+        <div class="grid md:grid-cols-2 xl:grid-cols-5 gap-8">
+
+            <!-- CARD -->
+            <div class="relative glass-card rounded-3xl p-7 pt-10 card-hover animate-on-scroll text-white">
+                <div class="absolute -top-4 left-6 w-10 h-10 rounded-xl bg-pink-brand flex items-center justify-center font-bold">
+                    A
+                </div>
+                <h3 class="text-xl font-bold mb-3">STEM Outreach & Norms</h3>
+                <p class="text-white/75 text-sm">
+                    Inspiring girls’ interest in STEM and engineering pathways, and exposiire to power-sector learning opportunities.
                 </p>
             </div>
 
-            <div class="glass-card rounded-3xl p-7 card-hover animate-on-scroll text-white" style="transition-delay: 0.06s;">
-                <div class="w-50 h-14 rounded-2xl bg-orange-500/20 flex items-center justify-center text-2xl mb-5">Pillar B</div>
-                <h3 class="text-2xl font-bold mb-3">Recruitment and Internships</h3>
-                <p class="text-white/75 leading-relaxed text-sm">
-                    Creating bridges between women, employers, internships, networking events, and job opportunities.
+            <div class="relative glass-card rounded-3xl p-7 pt-10 card-hover animate-on-scroll text-white">
+                <div class="absolute -top-4 left-6 w-10 h-10 rounded-xl bg-orange-brand flex items-center justify-center font-bold">
+                    B
+                </div>
+                <h3 class="text-xl font-bold mb-3">Recruitment and Internships</h3>
+                <p class="text-white/75 text-sm">
+                    Creating bridge between women, employers, internships, networking events, and job opportunities.
                 </p>
             </div>
 
-            <div class="glass-card rounded-3xl p-7 card-hover animate-on-scroll text-white" style="transition-delay: 0.12s;">
-                <div class="w-50 h-14 rounded-2xl bg-cyan-500/20 flex items-center justify-center text-2xl mb-5">Pillar C</div>
-                <h3 class="text-2xl font-bold mb-3">Professional Development and Mentoring</h3>
-                <p class="text-white/75 leading-relaxed text-sm">
-                    Supporting training, mentoring, technical learning, confidence building, and leadership progression.
+            <div class="relative glass-card rounded-3xl p-7 pt-10 card-hover animate-on-scroll text-white">
+                <div class="absolute -top-4 left-6 w-10 h-10 rounded-xl bg-cyan-brand flex items-center justify-center font-bold">
+                    C
+                </div>
+                <h3 class="text-xl font-bold mb-3">Professional Development</h3>
+                <p class="text-white/75 text-sm">
+                    Supporting training, mentoring, techincal learning, confidence building, and leadership progression.
                 </p>
             </div>
 
-            <div class="glass-card rounded-3xl p-7 card-hover animate-on-scroll text-white" style="transition-delay: 0.18s;">
-                <div class="w-50 h-14 rounded-2xl bg-pink-500/20 flex items-center justify-center text-2xl mb-5">Pillar D</div>
-                <h3 class="text-2xl font-bold mb-3">Retention & Women-Friendly Facilities</h3>
-                <p class="text-white/75 leading-relaxed text-sm">
+            <div class="relative glass-card rounded-3xl p-7 pt-10 card-hover animate-on-scroll text-white">
+                <div class="absolute -top-4 left-6 w-10 h-10 rounded-xl bg-pink-brand flex items-center justify-center font-bold">
+                    D
+                </div>
+                <h3 class="text-xl font-bold mb-3">Retention & Facilities</h3>
+                <p class="text-white/75 text-sm">
                     Improving workplace conditions through family-friendly systems, facilities, reintegration support, and safer environments.
                 </p>
             </div>
 
-            <div class="glass-card rounded-3xl p-7 card-hover animate-on-scroll text-white" style="transition-delay: 0.24s;">
-                <div class="w-50 h-14 rounded-2xl bg-orange-500/20 flex items-center justify-center text-2xl mb-5">Pillar E</div>
-                <h3 class="text-2xl font-bold mb-3">Policy & Networking & National Chapters</h3>
-                <p class="text-white/75 leading-relaxed text-sm">
-                    Embedding gender-responsive policies, targets, governance, and sector-wide collaboration for lasting impact.
+            <div class="relative glass-card rounded-3xl p-7 pt-10 card-hover animate-on-scroll text-white">
+                <div class="absolute -top-4 left-6 w-10 h-10 rounded-xl bg-orange-brand flex items-center justify-center font-bold">
+                    E
+                </div>
+                <h3 class="text-xl font-bold mb-3">Policy & Networking</h3>
+                <p class="text-white/75 text-sm">
+                    Embedding gender-responsive policiesm targets, governance, and sector-wide collaboration for lasting impact.
                 </p>
             </div>
+
         </div>
     </div>
 </section>
@@ -447,7 +498,7 @@
 
             <div class="space-y-5">
                 <div class="pb-5 border-b border-slate-200">
-                    <p class="text-lg font-semibold text-slate-900">Regional, but grounded</p>
+                    <p class="text-lg font-semibold text-slate-900">Regional, but locally grounded</p>
                     <p class="text-slate-600 mt-1">
                         It connects countries and institutions while staying focused on practical actions inside workplaces and systems.
                     </p>
@@ -484,64 +535,170 @@
         </div>
     </div>
 </section>
-
-<!-- ================= PARTNERS + CHAPTERS ================= -->
+<!-- ================= PARTNERS + NETWORK ================= -->
 <section class="py-20 lg:py-28 bg-slate-100">
     <div class="page-shell">
-        <div class="text-center max-w-4xl mx-auto mb-14">
+
+        <!-- HEADER -->
+        <div class="text-center max-w-4xl mx-auto mb-16">
             <p class="text-sm uppercase tracking-[0.25em] text-cyan-brand mb-4 animate-on-scroll">
                 Partners & Chapters
             </p>
             <h2 class="text-4xl sm:text-5xl lg:text-6xl font-bold text-slate-900 mb-5 animate-on-scroll">
-                A Multi-Country Network With National Anchors
+                Multi-Country Network With National Anchors
             </h2>
             <p class="text-lg sm:text-xl text-slate-600 leading-relaxed animate-on-scroll" style="transition-delay: 0.1s;">
                 WePOWER brings together diverse partners across South Asia, while National Chapters strengthen coordination, ownership, and long-term action inside each country.
             </p>
         </div>
 
-        <div class="grid lg:grid-cols-3 gap-6 mb-8">
-            <div class="bg-white rounded-3xl p-8 shadow-lg border border-slate-200 card-hover animate-on-scroll">
-                <div class="text-4xl mb-5">🤝</div>
-                <h3 class="text-2xl font-bold text-slate-900 mb-3">Who participates</h3>
-                <p class="text-slate-600 leading-relaxed">
-                    Power utilities, universities, professional associations, government-linked organizations, and other institutions committed to more inclusive energy-sector participation.
-                </p>
+        <!-- MAIN GRID -->
+        <div class="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+
+            <!-- LEFT SIDE -->
+            <div class="space-y-6">
+                <div class="bg-white rounded-3xl p-8 shadow-lg border border-slate-200 card-hover animate-on-scroll">
+                    <div class="text-4xl mb-5">🤝</div>
+                    <h3 class="text-2xl font-bold text-slate-900 mb-3">Who participates</h3>
+                    <p class="text-slate-600 leading-relaxed">
+                        Power utilities, universities, professional associations, government-linked organizations, and other institutions committed to more inclusive energy-sector participation.
+                    </p>
+                </div>
+
+                <div class="bg-white rounded-3xl p-8 shadow-lg border border-slate-200 card-hover animate-on-scroll" style="transition-delay: 0.08s;">
+                    <div class="text-4xl mb-5">🌍</div>
+                    <h3 class="text-2xl font-bold text-slate-900 mb-3">Regional collaboration</h3>
+                    <p class="text-slate-600 leading-relaxed">
+                        Shared learning across countries helps partners exchange ideas, compare approaches, and accelerate what works.
+                    </p>
+                </div>
+
+                <div class="bg-white rounded-3xl p-8 shadow-lg border border-slate-200 card-hover animate-on-scroll" style="transition-delay: 0.16s;">
+                    <div class="text-4xl mb-5">🏢</div>
+                    <h3 class="text-2xl font-bold text-slate-900 mb-3">National Chapters</h3>
+                    <p class="text-slate-600 leading-relaxed">
+                        Chapters help embed WePOWER’s agenda in national institutions, build country ownership, and strengthen sustainability.
+                    </p>
+                </div>
             </div>
 
-            <div class="bg-white rounded-3xl p-8 shadow-lg border border-slate-200 card-hover animate-on-scroll" style="transition-delay: 0.08s;">
-                <div class="text-4xl mb-5">🌍</div>
-                <h3 class="text-2xl font-bold text-slate-900 mb-3">Regional collaboration</h3>
-                <p class="text-slate-600 leading-relaxed">
-                    Shared learning across countries helps partners exchange ideas, compare approaches, and accelerate what works.
-                </p>
+            <!-- RIGHT SIDE -->
+            <div class="animate-on-scroll" style="transition-delay: 0.2s;">
+                <div class="relative h-[560px] sm:h-[600px] rounded-[34px] overflow-hidden border border-slate-200 bg-white shadow-[0_28px_80px_-24px_rgba(15,23,42,0.18)]">
+
+                    <!-- premium soft light background -->
+                    <div class="absolute inset-0 bg-white"></div>
+                    <div class="absolute inset-0 opacity-100"
+                         style="background:
+                            radial-gradient(circle at 50% 50%, rgba(1,157,222,0.05) 0%, rgba(1,157,222,0.02) 18%, rgba(255,255,255,0) 38%),
+                            radial-gradient(circle at 14% 18%, rgba(243,22,113,0.05) 0%, rgba(243,22,113,0) 32%),
+                            radial-gradient(circle at 86% 82%, rgba(233,146,16,0.05) 0%, rgba(233,146,16,0) 30%);">
+                    </div>
+
+                    <!-- inner frame -->
+                    <div class="absolute inset-[14px] rounded-[26px] border border-slate-100 pointer-events-none"></div>
+
+                    <!-- title -->
+                    <div class="absolute top-8 left-8 z-20">
+                        <p class="text-xs uppercase tracking-[0.24em] text-slate-500 mb-2">Regional Footprint</p>
+                        <h3 class="text-2xl font-bold text-slate-900">Connected Across South Asia</h3>
+                    </div>
+
+                    <!-- CENTER HUB -->
+                    <div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-20">
+                        <div class="w-36 h-36 rounded-full p-[2px] shadow-[0_20px_50px_rgba(15,23,42,0.12)]"
+                             style="background: linear-gradient(135deg, rgba(1,157,222,0.95), rgba(243,22,113,0.92));">
+                            <div class="w-full h-full rounded-full bg-white flex flex-col items-center justify-center text-center px-4">
+                                <span class="text-[11px] uppercase tracking-[0.24em] text-slate-500 mb-1">WePOWER</span>
+                                <span class="text-lg font-bold text-slate-900 leading-tight">Network</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- equal-angle lines for 7 nodes -->
+                    <svg class="absolute inset-0 w-full h-full pointer-events-none z-0" viewBox="0 0 1000 600" preserveAspectRatio="none">
+                        <!-- center: 500,300 -->
+                        <!-- radius endpoints distributed by 360/7 = 51.43° -->
+                        <line x1="500" y1="300" x2="500" y2="118" stroke="rgba(148,163,184,0.28)" stroke-width="5"/>
+                        <line x1="500" y1="300" x2="642" y2="186" stroke="rgba(148,163,184,0.28)" stroke-width="5"/>
+                        <line x1="500" y1="300" x2="676" y2="341" stroke="rgba(148,163,184,0.28)" stroke-width="5"/>
+                        <line x1="500" y1="300" x2="579" y2="464" stroke="rgba(148,163,184,0.28)" stroke-width="5"/>
+                        <line x1="500" y1="300" x2="421" y2="464" stroke="rgba(148,163,184,0.28)" stroke-width="5"/>
+                        <line x1="500" y1="300" x2="324" y2="341" stroke="rgba(148,163,184,0.28)" stroke-width="5"/>
+                        <line x1="500" y1="300" x2="358" y2="186" stroke="rgba(148,163,184,0.28)" stroke-width="5"/>
+                    </svg>
+
+                    <!-- NODES : equally spaced -->
+
+                    <!-- 1 Nepal -->
+                    <div class="absolute left-1/2 top-[15%] -translate-x-1/2 z-10">
+                        <div class="node-premium node-premium-active">
+                            <img src="https://flagcdn.com/w40/np.png" 
+                                    alt="Nepal flag" 
+                                    class="flag-rectangle"
+                                    style="width:28px; height:28px;">
+                            <span>Nepal</span>
+                        </div>
+                    </div>
+
+                    <!-- 2 Bhutan -->
+                    <div class="absolute right-[14%] top-[27%] z-10">
+                        <div class="node-premium node-premium-active">
+                            <img src="https://flagcdn.com/w40/bt.png" alt="Bhutan flag" class="flag-rectangle">
+                            <span>Bhutan</span>
+                        </div>
+                    </div>
+
+                    <!-- 3 India -->
+                    <div class="absolute right-[11%] top-[54%] z-10">
+                        <div class="node-premium node-premium-active">
+                            <img src="https://flagcdn.com/w40/in.png" alt="India flag" class="flag-rectangle">
+                            <span>India</span>
+                        </div>
+                    </div>
+
+                    <!-- 4 Sri Lanka -->
+                    <div class="absolute right-[19%] bottom-[17%] z-10">
+                        <div class="node-premium node-premium-active">
+                            <img src="https://flagcdn.com/w40/lk.png" 
+                            alt="Sri Lanka flag"
+                            class="flag-rectangle "
+                            style="width:28px; height:28px;">
+                            <span>Sri Lanka</span>
+                        </div>
+                    </div>
+
+                    <!-- 5 Maldives -->
+                    <div class="absolute left-[19%] bottom-[17%] z-10">
+                        <div class="node-premium node-premium-active">
+                            <img src="https://flagcdn.com/w40/mv.png" alt="Maldives flag" class="flag-rectangle">
+                            <span>Maldives</span>
+                        </div>
+                    </div>
+
+                    <!-- 6 Pakistan -->
+                    <div class="absolute left-[11%] top-[54%] z-10">
+                        <div class="node-premium node-premium-active">
+                            <img src="https://flagcdn.com/w40/pk.png" alt="Pakistan flag" class="flag-rectangle">
+                            <span>Pakistan</span>
+                        </div>
+                    </div>
+
+                    <!-- 7 Bangladesh -->
+                    <div class="absolute left-[12%] top-[27%] z-10">
+                        <div class="node-premium node-premium-active">
+                            <img src="https://flagcdn.com/w40/bd.png" alt="Bangladesh flag" class="flag-rectangle">
+                            <span>Bangladesh</span>
+                        </div>
+                    </div>
+
+                </div>
             </div>
 
-            <div class="bg-white rounded-3xl p-8 shadow-lg border border-slate-200 card-hover animate-on-scroll" style="transition-delay: 0.16s;">
-                <div class="text-4xl mb-5">🏢</div>
-                <h3 class="text-2xl font-bold text-slate-900 mb-3">National Chapters</h3>
-                <p class="text-slate-600 leading-relaxed">
-                    Chapters help embed WePOWER’s agenda in national institutions, build country ownership, and strengthen sustainability.
-                </p>
-            </div>
-        </div>
-
-        <div class="bg-white rounded-[30px] p-8 sm:p-10 lg:p-12 shadow-xl border border-slate-200 animate-on-scroll">
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
-                <div class="rounded-2xl bg-slate-50 border border-slate-200 p-5 text-center font-semibold text-slate-700">Bangladesh</div>
-                <div class="rounded-2xl bg-slate-50 border border-slate-200 p-5 text-center font-semibold text-slate-700">Bhutan</div>
-                <div class="rounded-2xl bg-slate-50 border border-slate-200 p-5 text-center font-semibold text-slate-700">India</div>
-                <div class="rounded-2xl bg-slate-50 border border-slate-200 p-5 text-center font-semibold text-slate-700">Nepal</div>
-                <div class="rounded-2xl bg-slate-50 border border-slate-200 p-5 text-center font-semibold text-slate-700">Pakistan</div>
-                <div class="rounded-2xl bg-slate-50 border border-slate-200 p-5 text-center font-semibold text-slate-700">Sri Lanka</div>
-            </div>
-
-            <p class="text-slate-600 leading-relaxed text-center mt-8 max-w-4xl mx-auto">
-                These chapters strengthen engagement, coordination, resource mobilization, and alignment between WePOWER’s broader mission and country-level priorities.
-            </p>
         </div>
     </div>
 </section>
+
 
 <!-- ================= LONG TERM VISION ================= -->
 <section class="py-20 lg:py-28 bg-white">
@@ -550,7 +707,7 @@
             <div class="animate-on-scroll">
                 <p class="text-sm uppercase tracking-[0.25em] text-pink-brand mb-4">Long-Term Vision</p>
                 <h2 class="text-4xl sm:text-5xl lg:text-6xl font-bold text-slate-900 mb-6">
-                    Designed for Sustainability, Not Just Visibility
+                    Visibility Designed for Sustainability
                 </h2>
                 <p class="text-lg text-slate-600 leading-relaxed mb-5">
                     WePOWER is moving toward a stronger long-term institutional model through the development of National Chapters and a permanent Regional Secretariat.
@@ -569,21 +726,32 @@
 
                     <div class="space-y-5">
                         <div class="flex gap-4">
-                            <span class="w-11 h-11 rounded-xl bg-pink-500/20 flex items-center justify-center shrink-0">✓</span>
-                            <p class="text-white/80 leading-relaxed">A permanent regional structure to coordinate network-wide activity</p>
-                        </div>
-                        <div class="flex gap-4">
-                            <span class="w-11 h-11 rounded-xl bg-cyan-500/20 flex items-center justify-center shrink-0">✓</span>
-                            <p class="text-white/80 leading-relaxed">National chapters with defined roles, plans, and governance</p>
-                        </div>
-                        <div class="flex gap-4">
-                            <span class="w-11 h-11 rounded-xl bg-orange-500/20 flex items-center justify-center shrink-0">✓</span>
-                            <p class="text-white/80 leading-relaxed">Knowledge sharing, learning programs, and partner coordination across South Asia</p>
-                        </div>
-                        <div class="flex gap-4">
-                            <span class="w-11 h-11 rounded-xl bg-pink-500/20 flex items-center justify-center shrink-0">✓</span>
-                            <p class="text-white/80 leading-relaxed">Ongoing advocacy, metrics, institutional reform, and support for women’s advancement</p>
-                        </div>
+    <span class="w-11 h-11 rounded-xl bg-pink-500/20 flex items-center justify-center shrink-0">✓</span>
+    <p class="text-white/80 leading-relaxed">
+        Regional structure for coordinated network action
+    </p>
+</div>
+
+<div class="flex gap-4">
+    <span class="w-11 h-11 rounded-xl bg-cyan-500/20 flex items-center justify-center shrink-0">✓</span>
+    <p class="text-white/80 leading-relaxed">
+        National chapters with defined roles and governance
+    </p>
+</div>
+
+<div class="flex gap-4">
+    <span class="w-11 h-11 rounded-xl bg-orange-500/20 flex items-center justify-center shrink-0">✓</span>
+    <p class="text-white/80 leading-relaxed">
+        Knowledge infrastructure and regional coordination
+    </p>
+</div>
+
+<div class="flex gap-4">
+    <span class="w-11 h-11 rounded-xl bg-pink-500/20 flex items-center justify-center shrink-0">✓</span>
+    <p class="text-white/80 leading-relaxed">
+        Capabilities, metrics, and institutional reform
+    </p>
+</div>
                     </div>
                 </div>
             </div>
@@ -597,10 +765,10 @@
 
     <div class="relative z-10 page-shell text-center">
         <p class="text-sm uppercase tracking-[0.25em] text-cyan-300 mb-4 animate-on-scroll">
-            Learn More
+            Explore More
         </p>
         <h2 class="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6 animate-on-scroll">
-            Explore the Work Behind the Network
+            Work Behind the Network
         </h2>
         <p class="text-lg sm:text-xl text-white/70 leading-relaxed max-w-3xl mx-auto mb-10 animate-on-scroll" style="transition-delay: 0.1s;">
             This website brings together the evidence, stories, structure, and strategic direction of WePOWER so visitors can understand not only the challenge, but also the collective response shaping the future.

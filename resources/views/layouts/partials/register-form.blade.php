@@ -1,6 +1,6 @@
 <div class="max-w-6xl mx-auto px-8">
 
-    <h2 class="text-3xl font-bold text-center text-gray-800">
+    <h2 class="text-3xl font-bold text-center text-gray-800 mb-8">
         Create Account
     </h2>
 
@@ -26,15 +26,11 @@
                 <label class="block text-sm font-medium text-gray-700">
                     Full Name <span class="text-red-500">*</span>
                 </label>
-                <input type="text"
-                       name="name"
-                       value="{{ old('name') }}"
-                       placeholder="Enter your full name"
-                       required
+                <input type="text" name="name" value="{{ old('name') }}"
+                       placeholder="Enter your full name" required
                        class="mt-1 w-full rounded-md border shadow-sm focus:ring-2
                        @error('name') border-red-500 focus:ring-red-500
-                       @else border-gray-300 focus:ring-blue-500
-                       @enderror">
+                       @else border-gray-300 focus:ring-blue-500 @enderror">
                 @error('name')
                     <p class="text-sm text-red-600 mt-1">{{ $message }}</p>
                 @enderror
@@ -45,15 +41,11 @@
                 <label class="block text-sm font-medium text-gray-700">
                     Email <span class="text-red-500">*</span>
                 </label>
-                <input type="email"
-                       name="email"
-                       value="{{ old('email') }}"
-                       placeholder="Enter your email address"
-                       required
+                <input type="email" name="email" value="{{ old('email') }}"
+                       placeholder="Enter your email address" required
                        class="mt-1 w-full rounded-md border shadow-sm focus:ring-2
                        @error('email') border-red-500 focus:ring-red-500
-                       @else border-gray-300 focus:ring-blue-500
-                       @enderror">
+                       @else border-gray-300 focus:ring-blue-500 @enderror">
                 @error('email')
                     <p class="text-sm text-red-600 mt-1">{{ $message }}</p>
                 @enderror
@@ -64,14 +56,11 @@
                 <label class="block text-sm font-medium text-gray-700">
                     Date of Birth <span class="text-red-500">*</span>
                 </label>
-                <input type="date"
-                       name="date_of_birth"
-                       value="{{ old('date_of_birth') }}"
+                <input type="date" name="date_of_birth" value="{{ old('date_of_birth') }}"
                        required
                        class="mt-1 w-full rounded-md border shadow-sm focus:ring-2
                        @error('date_of_birth') border-red-500 focus:ring-red-500
-                       @else border-gray-300 focus:ring-blue-500
-                       @enderror">
+                       @else border-gray-300 focus:ring-blue-500 @enderror">
                 @error('date_of_birth')
                     <p class="text-sm text-red-600 mt-1">{{ $message }}</p>
                 @enderror
@@ -82,16 +71,14 @@
                 <label class="block text-sm font-medium text-gray-700">
                     Gender <span class="text-red-500">*</span>
                 </label>
-                <select name="gender"
-                        required
+                <select name="gender" required
                         class="mt-1 w-full rounded-md border shadow-sm focus:ring-2
                         @error('gender') border-red-500 focus:ring-red-500
-                        @else border-gray-300 focus:ring-blue-500
-                        @enderror">
+                        @else border-gray-300 focus:ring-blue-500 @enderror">
                     <option value="">Select your gender</option>
-                    <option value="male" {{ old('gender')=='male' ? 'selected' : '' }}>Male</option>
-                    <option value="female" {{ old('gender')=='female' ? 'selected' : '' }}>Female</option>
-                    <option value="other" {{ old('gender')=='other' ? 'selected' : '' }}>Other</option>
+                    <option value="male" {{ old('gender') == 'male' ? 'selected' : '' }}>Male</option>
+                    <option value="female" {{ old('gender') == 'female' ? 'selected' : '' }}>Female</option>
+                    <option value="other" {{ old('gender') == 'other' ? 'selected' : '' }}>Other</option>
                 </select>
                 @error('gender')
                     <p class="text-sm text-red-600 mt-1">{{ $message }}</p>
@@ -103,15 +90,11 @@
                 <label class="block text-sm font-medium text-gray-700">
                     Organization <span class="text-red-500">*</span>
                 </label>
-                <input type="text"
-                       name="organization"
-                       value="{{ old('organization') }}"
-                       placeholder="Enter your organization name"
-                       required
+                <input type="text" name="organization" value="{{ old('organization') }}"
+                       placeholder="Enter your organization name" required
                        class="mt-1 w-full rounded-md border shadow-sm focus:ring-2
                        @error('organization') border-red-500 focus:ring-red-500
-                       @else border-gray-300 focus:ring-blue-500
-                       @enderror">
+                       @else border-gray-300 focus:ring-blue-500 @enderror">
                 @error('organization')
                     <p class="text-sm text-red-600 mt-1">{{ $message }}</p>
                 @enderror
@@ -122,16 +105,13 @@
                 <label class="block text-sm font-medium text-gray-700">
                     Country <span class="text-red-500">*</span>
                 </label>
-                <select name="country"
-                        required
+                <select name="country" required
                         class="mt-1 w-full rounded-md border shadow-sm focus:ring-2
                         @error('country') border-red-500 focus:ring-red-500
-                        @else border-gray-300 focus:ring-blue-500
-                        @enderror">
+                        @else border-gray-300 focus:ring-blue-500 @enderror">
                     <option value="">Select your country</option>
                     @foreach(config('countries') as $code => $country)
-                        <option value="{{ $code }}"
-                            {{ old('country') == $code ? 'selected' : '' }}>
+                        <option value="{{ $code }}" {{ old('country') == $code ? 'selected' : '' }}>
                             {{ $country }}
                         </option>
                     @endforeach
@@ -146,14 +126,11 @@
                 <label class="block text-sm font-medium text-gray-700">
                     Password <span class="text-red-500">*</span>
                 </label>
-                <input type="password"
-                       name="password"
-                       placeholder="Create a strong password"
-                       required
+                <input type="password" name="password"
+                       placeholder="Create a strong password" required
                        class="mt-1 w-full rounded-md border shadow-sm focus:ring-2
                        @error('password') border-red-500 focus:ring-red-500
-                       @else border-gray-300 focus:ring-blue-500
-                       @enderror">
+                       @else border-gray-300 focus:ring-blue-500 @enderror">
                 @error('password')
                     <p class="text-sm text-red-600 mt-1">{{ $message }}</p>
                 @enderror
@@ -167,64 +144,70 @@
                 <label class="block text-sm font-medium text-gray-700">
                     Confirm Password <span class="text-red-500">*</span>
                 </label>
-                <input type="password"
-                       name="password_confirmation"
-                       placeholder="Re-enter your password"
-                       required
-                       class="mt-1 w-full rounded-md border shadow-sm border-gray-300 focus:ring-2 focus:ring-blue-500">
-                <p class="text-xs mt-2 text-gray-600">
-                    Must match the password entered above.
-                </p>
+                <input type="password" name="password_confirmation"
+                       placeholder="Re-enter your password" required
+                       class="mt-1 w-full rounded-md border shadow-sm focus:ring-2 focus:ring-blue-500">
+                @error('password_confirmation')
+                    <p class="text-sm text-red-600 mt-1">{{ $message }}</p>
+                @enderror
             </div>
 
         </div>
 
         {{-- Terms --}}
-        <div class="flex items-center mt-6">
-            <input type="checkbox"
-                   name="terms_accepted"
-                   value="1"
+        <div class="flex items-center mt-8">
+            <input type="checkbox" name="terms_accepted" value="1"
                    {{ old('terms_accepted') ? 'checked' : '' }}
                    class="h-4 w-4 text-blue-600 border-gray-300 rounded">
             <label class="ml-2 text-sm text-gray-600">
                 I accept the Terms and Conditions
             </label>
         </div>
-
         @error('terms_accepted')
             <p class="text-sm text-red-600 mt-1">{{ $message }}</p>
         @enderror
 
-        {{-- Submit --}}
+        {{-- Register Button --}}
         <button type="submit"
                 :disabled="loading"
-                class="w-full mt-6 bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-lg font-semibold transition flex items-center justify-center space-x-2">
+                class="w-full mt-8 bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-lg font-semibold transition flex items-center justify-center space-x-2">
 
-            <svg x-show="loading"
-                 x-cloak
-                 class="w-5 h-5 animate-spin"
-                 fill="none"
-                 viewBox="0 0 24 24">
-                <circle cx="12" cy="12" r="10"
-                        stroke="currentColor"
-                        stroke-width="4"
-                        class="opacity-25"/>
-                <path fill="currentColor"
-                      class="opacity-75"
-                      d="M4 12a8 8 0 018-8v8H4z"/>
-            </svg> 
+            <svg x-show="loading" x-cloak class="w-5 h-5 animate-spin" fill="none" viewBox="0 0 24 24">
+                <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" class="opacity-25"/>
+                <path fill="currentColor" class="opacity-75" d="M4 12a8 8 0 018-8v8H4z"/>
+            </svg>
 
-            <span x-text="loading ? 'Creating Account...' : 'Register'"></span>
+            <span x-text="loading ? 'Creating Account...' : 'Create Account'"></span>
         </button>
 
-        <p class="text-sm text-center mt-4">
-            Already have an account?
-            <button type="button"
-                    onclick="openAuthModal('login')"
-                    class="text-blue-600">
-                Login
-            </button>
-        </p>
-
     </form>
+
+    <!-- Divider -->
+    <div class="flex items-center my-8">
+        <div class="flex-grow border-t border-gray-300"></div>
+        <span class="mx-4 text-gray-400 text-sm">OR</span>
+        <div class="flex-grow border-t border-gray-300"></div>
+    </div>
+
+    <!-- Google Register Button -->
+    <a href="{{ route('google.redirect') }}"
+       class="w-full flex items-center justify-center gap-3 bg-white border border-gray-300 
+              hover:bg-gray-50 hover:border-gray-400 text-gray-700 py-3.5 rounded-lg font-medium transition-colors">
+
+        <img src="https://www.svgrepo.com/show/475656/google-color.svg" 
+             alt="Google" 
+             class="w-6 h-6">
+        <span>Continue with Google</span>
+    </a>
+
+    <!-- Login Link -->
+    <p class="text-sm text-center mt-8 text-gray-600">
+        Already have an account? 
+        <button type="button" 
+                onclick="openAuthModal('login')"
+                class="text-blue-600 font-medium hover:underline">
+            Login
+        </button>
+    </p>
+
 </div>

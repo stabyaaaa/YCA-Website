@@ -174,9 +174,15 @@ Route::get('/{slug}', [PageController::class,'show']);
 
 /*
 |--------------------------------------------------------------------------
-| Auth Routes
+| Google OAuth Routes
 |--------------------------------------------------------------------------
 */
+Route::get('/auth/google', [App\Http\Controllers\Auth\GoogleController::class, 'redirectToGoogle'])
+     ->name('google.redirect');
 
+Route::get('/auth/google/callback', [App\Http\Controllers\Auth\GoogleController::class, 'handleGoogleCallback'])
+     ->name('google.callback');
+
+     
 require __DIR__.'/auth.php';
 

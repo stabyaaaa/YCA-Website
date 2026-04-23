@@ -212,7 +212,7 @@
                 <path fill="currentColor"
                       class="opacity-75"
                       d="M4 12a8 8 0 018-8v8H4z"/>
-            </svg>
+            </svg> 
 
             <span x-text="loading ? 'Creating Account...' : 'Register'"></span>
         </button>

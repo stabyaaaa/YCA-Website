@@ -93,7 +93,7 @@
 
 <!-- Register -->
 <p class="text-sm text-center mt-6">
-    Don’t have an account?
+    Don’t have an account? 
     <button type="button"
             onclick="openAuthModal('register')"
             class="text-blue-600 font-medium">

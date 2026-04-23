@@ -56,7 +56,7 @@ class GoogleController extends Controller
                     'role'              => 'user',
                 ]);
 
-                $isNewUser = true;
+                $isNewUser = true; 
             } 
             elseif (empty($user->google_id)) {
                 // Link Google account
@@ -64,7 +64,7 @@ class GoogleController extends Controller
                     'google_id' => $googleUser->getId(),
                     'avatar'    => $googleUser->getAvatar(),
                 ]);
-            }git b
+            }   
 
             // Login the user
             Auth::login($user, true);

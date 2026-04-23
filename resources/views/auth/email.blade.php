@@ -11,13 +11,13 @@
             a password reset link that will allow you to choose a new one.
         </div>
 
-        <!-- Status Message -->
+        <!-- Session Status Message -->
         <x-auth-session-status class="mb-4" :status="session('status')" />
 
         <form method="POST" action="{{ route('password.email') }}">
             @csrf
 
-            <!-- Email -->
+            <!-- Email Address -->
             <div>
                 <label class="block text-sm font-medium text-gray-700">
                     Email Address <span class="text-red-500">*</span>
@@ -36,7 +36,7 @@
             <!-- Submit Button -->
             <button type="submit"
                     class="w-full mt-6 bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-lg font-semibold transition">
-                Send Password Reset Link
+                Email Password Reset Link
             </button>
         </form>
 

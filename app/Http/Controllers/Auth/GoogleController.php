@@ -14,8 +14,7 @@ class GoogleController extends Controller
 
     public function redirectToGoogle()
 {
-    $redirectUri = 'http://127.0.0.1:8000/auth/google/callback';
-
+    $redirectUri = url('/auth/google/callback');
     config(['services.google.redirect' => $redirectUri]);
 
     return Socialite::driver('google')
@@ -24,7 +23,7 @@ class GoogleController extends Controller
 }
    public function handleGoogleCallback()
 {
-    $redirectUri = 'http://127.0.0.1:8000/auth/google/callback';
+    $redirectUri = url('/auth/google/callback');
 
     try {
         $googleUser = Socialite::driver('google')

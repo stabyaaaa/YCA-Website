@@ -13,82 +13,68 @@ class GoogleController extends Controller
     protected $redirectUri = 'http://localhost:8000/auth/google/callback';
 
     public function redirectToGoogle()
-    {
-        config(['services.google.redirect' => $this->redirectUri]);
+{
+    $redirectUri = 'http://127.0.0.1:8000/auth/google/callback';
 
-        return Socialite::driver('google')
-                        ->redirectUrl($this->redirectUri)
-                        ->redirect();
-    }
+    config(['services.google.redirect' => $redirectUri]);
 
-    public function handleGoogleCallback()
-    {
-        $redirectUri = 'http://localhost:8000/auth/google/callback';
+    return Socialite::driver('google')
+                    ->redirectUrl($redirectUri)
+                    ->redirect();
+}
+   public function handleGoogleCallback()
+{
+    $redirectUri = 'http://127.0.0.1:8000/auth/google/callback';
 
-        try {
-            $googleUser = Socialite::driver('google')
-                                   ->redirectUrl($redirectUri)
-                                   ->user();
+    try {
+        $googleUser = Socialite::driver('google')
+                               ->redirectUrl($redirectUri)
+                               ->user();
 
-            // Find existing user
-            $user = User::where('google_id', $googleUser->getId())
-                        ->orWhere('email', $googleUser->getEmail())
-                        ->first();
+        \Log::info('Google User Received', [
+            'id' => $googleUser->getId(),
+            'name' => $googleUser->getName(),
+            'email' => $googleUser->getEmail()
+        ]);
 
-            $isNewUser = false;
+        $user = User::where('google_id', $googleUser->getId())
+                    ->orWhere('email', $googleUser->getEmail())
+                    ->first();
 
-            if (!$user) {
-                // Auto create new user
-                $user = User::create([
-                    'google_id'         => $googleUser->getId(),
-                    'name'              => $googleUser->getName() ?? 'Google User',
-                    'email'             => $googleUser->getEmail(),
-                    'avatar'            => $googleUser->getAvatar(),
-                    'email_verified_at' => now(),
-                    'password'          => bcrypt(Str::random(32)),
-
-                    'date_of_birth'     => null,
-                    'gender'            => null,
-                    'organization'      => null,
-                    'country'           => null,
-                    'terms_accepted'    => true,
-                    'status'            => 'active',
-                    'role'              => 'user',
-                ]);
-
-                $isNewUser = true; 
-            } 
-            elseif (empty($user->google_id)) {
-                // Link Google account
-                $user->update([
-                    'google_id' => $googleUser->getId(),
-                    'avatar'    => $googleUser->getAvatar(),
-                ]);
-            }   
-
-            // Login the user
-            Auth::login($user, true);
-
-            // Redirect Logic
-            if ($isNewUser) {
-                // Check if profile is incomplete
-                if (empty($user->date_of_birth) || empty($user->gender) || 
-                    empty($user->organization) || empty($user->country)) {
-                    
-                    return redirect('/')
-                           ->with('info', 'Welcome! Please complete your profile to enjoy full access.');
-                }
-            }
-
-            // Normal redirect for existing or complete profiles
-            return redirect('/')
-                         ->with('success', 'Successfully logged in with Google!');
-
-        } catch (\Exception $e) {
-            \Log::error('Google Callback Error: ' . $e->getMessage());
-            
-            return redirect()->route('login')
-                             ->with('error', 'Google login failed. Please try again.');
+        if (!$user) {
+            $user = User::create([
+                'google_id'         => $googleUser->getId(),
+                'name'              => $googleUser->getName() ?? 'Google User',
+                'email'             => $googleUser->getEmail(),
+                'avatar'            => $googleUser->getAvatar(),
+                'email_verified_at' => now(),
+                'password'          => bcrypt(Str::random(32)),
+                'date_of_birth'     => null,
+                'gender'            => null,
+                'organization'      => null,
+                'country'           => null,
+                'terms_accepted'    => true,
+                'status'            => 'active',
+                'role'              => 'user',
+            ]);
+        } elseif (empty($user->google_id)) {
+            $user->update([
+                'google_id' => $googleUser->getId(),
+                'avatar'    => $googleUser->getAvatar(),
+            ]);
         }
+
+        Auth::login($user, true);
+
+        return redirect('/')
+                     ->with('success', 'Successfully logged in with Google!');
+
+    } catch (\Exception $e) {
+        \Log::error('Google Callback Error: ' . $e->getMessage());
+        \Log::error($e->getTraceAsString());
+
+        return redirect()->route('login')
+                         ->with('error', 'Google login failed: ' . $e->getMessage());
     }
+}
 }

@@ -177,12 +177,17 @@ Route::get('/{slug}', [PageController::class,'show']);
 | Google OAuth Routes
 |--------------------------------------------------------------------------
 */
+// ... all your other routes ...
+
+// Google OAuth Routes  ← Put here
 Route::get('/auth/google', [App\Http\Controllers\Auth\GoogleController::class, 'redirectToGoogle'])
      ->name('google.redirect');
 
 Route::get('/auth/google/callback', [App\Http\Controllers\Auth\GoogleController::class, 'handleGoogleCallback'])
      ->name('google.callback');
 
+// CMS Dynamic Pages - MUST stay LAST
+Route::get('/{slug}', [PageController::class,'show']);
      
 require __DIR__.'/auth.php';
 

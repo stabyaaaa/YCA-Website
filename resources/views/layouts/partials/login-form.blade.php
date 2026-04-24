@@ -37,6 +37,14 @@
                    focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
         </div>
 
+        <!-- Forgot Password Link -->
+        <div class="flex justify-end mt-1">
+            <a href="{{ route('password.request') }}" 
+               class="text-sm text-blue-600 hover:text-blue-700 hover:underline">
+                Forgot your password?
+            </a>
+        </div>
+
         @error('email', 'login')
             <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
         @enderror
@@ -62,7 +70,7 @@
         <div class="flex-grow border-t"></div>
     </div>
 
-    <!-- Google Login Button (Correct Version) -->
+    <!-- Google Login Button -->
     <div class="space-y-3">
         <a href="{{ route('google.redirect') }}"
            class="w-full flex items-center justify-center gap-3 border border-gray-300 

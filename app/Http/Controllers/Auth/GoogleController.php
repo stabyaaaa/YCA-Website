@@ -19,6 +19,10 @@ class GoogleController extends Controller
 
         return Socialite::driver('google')
                         ->redirectUrl($redirectUri)
+                        ->with([
+                            'prompt' => 'consent select_account',
+                        ])
+
                         ->redirect();
     }
 
@@ -78,8 +82,8 @@ class GoogleController extends Controller
             \Log::error('Google Callback Error: ' . $e->getMessage());
             \Log::error($e->getTraceAsString());
 
-            return redirect()->route('login')
-                             ->with('error', 'Google login failed. Please try again.');
-        }
+            return redirect()->route('home')
+                             ->with('error', 'Google login failed. Please try again later.');
+        } 
     }
 }

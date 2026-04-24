@@ -13,17 +13,11 @@ use Illuminate\View\View;
 
 class RegisteredUserController extends Controller
 {
-    /**
-     * Display the registration view.
-     */
     public function create(): View
     {
         return view('auth.register');
     }
 
-    /**
-     * Handle registration
-     */
     public function store(Request $request): RedirectResponse
     {
         $request->validate([
@@ -58,7 +52,7 @@ class RegisteredUserController extends Controller
             'organization' => $request->organization,
             'country' => $request->country,
             'role' => 'user',
-            'status' => 'active',
+            'status' => 'pending',
             'terms_accepted' => true,
             'terms_accepted_at' => now(),
         ]);
@@ -67,8 +61,7 @@ class RegisteredUserController extends Controller
 
         Auth::login($user);
 
-        // ✅ THIS IS THE IMPORTANT LINE
-        return redirect()->route('home')
-                         ->with('success', 'Account successfully created!');
+        return redirect()->route('verification.notice')
+            ->with('success', 'Account created successfully. Please verify your email.');
     }
 }

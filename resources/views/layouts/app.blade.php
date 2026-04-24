@@ -87,5 +87,46 @@
 
 
 @endif
+
+@if (session('open_login_modal'))
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        if (typeof openAuthModal === 'function') {
+            openAuthModal('login');
+        }
+    });
+</script>
+@endif
+@if(session('google_register_prompt'))
+<div id="googleRegisterPrompt"
+     class="fixed inset-0 z-[99999] flex items-center justify-center bg-black/50 px-4">
+    <div class="bg-white rounded-2xl shadow-xl max-w-md w-full p-6 text-center">
+        <h2 class="text-xl font-bold text-gray-900 mb-3">
+            Register with Google?
+        </h2>
+
+        <p class="text-gray-600 mb-6">
+            No WePOWER account was found for
+            <strong>{{ session('google_email') }}</strong>.
+            Do you want to create a new WePOWER account using this Google account?
+        </p>
+
+        <div class="flex gap-3 justify-center">
+            <form method="POST" action="{{ route('google.register') }}">
+                @csrf
+                <button type="submit"
+                        class="px-5 py-2 rounded-lg bg-blue-600 text-white font-semibold">
+                    Yes, Register
+                </button>
+            </form>
+
+            <a href="{{ route('home') }}"
+               class="px-5 py-2 rounded-lg bg-gray-100 text-gray-700 font-semibold">
+                Cancel
+            </a>
+        </div>
+    </div>
+</div>
+@endif
 </body>
 </html>

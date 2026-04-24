@@ -7,58 +7,72 @@ use App\Http\Requests\Auth\LoginRequest;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\View\View;
 
 class AuthenticatedSessionController extends Controller
 {
     /**
      * Display the login view.
+     * Since you use login modal, redirect home and open modal.
      */
-    public function create(): View
+    public function create()
     {
-        return view('auth.login');
+        return redirect()->route('home')
+            ->with('error', 'Please log in first to verify your email.')
+            ->with('open_login_modal', true);
     }
 
     /**
-     * Handle an incoming authentication request.
+     * Handle login request.
      */
     public function store(LoginRequest $request): RedirectResponse
     {
         $request->validated();
 
-        if (!Auth::attempt($request->only('email', 'password'), $request->boolean('remember'))) {
+        if (! Auth::attempt($request->only('email', 'password'), $request->boolean('remember'))) {
             $request->session()->forget('_old_input');
+
             return back()
                 ->withErrors([
-                    'email' => 'Invalid credentials.'
+                    'email' => 'Invalid credentials.',
                 ], 'login');
-                
         }
 
         $request->session()->regenerate();
 
-        $user = auth()->user();
+        $user = Auth::user();
 
-        // 🔒 BLOCK pending admins
+        /**
+         * Block pending admins.
+         */
         if ($user->role === 'admin' && $user->status === 'pending') {
-
-            auth()->logout();
+            Auth::logout();
 
             $request->session()->invalidate();
             $request->session()->regenerateToken();
             $request->session()->forget('_old_input');
+
             return back()
                 ->withErrors([
                     'email' => 'Your admin account is pending approval by Super Admin.',
                 ], 'login');
-              
         }
 
+        /**
+         * If user logged in with email/password but email is not verified,
+         * send them directly to the verify email page.
+         */
+        if (! $user->hasVerifiedEmail()) {
+            return redirect()->route('verification.notice');
+        }
+
+        /**
+         * Verified users go to intended page or homepage.
+         */
         return redirect()->intended('/');
     }
 
     /**
-     * Destroy an authenticated session.
+     * Logout user.
      */
     public function destroy(Request $request): RedirectResponse
     {

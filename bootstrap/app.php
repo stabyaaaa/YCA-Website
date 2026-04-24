@@ -10,10 +10,11 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware): void {
-        $middleware->alias([
-            'role' => RoleMiddleware::class,
-        ]);
-    })
+    $middleware->alias([
+        'redirect.unverified' => \App\Http\Middleware\RedirectUnverifiedUsers::class,
+        'role' => \App\Http\Middleware\RoleMiddleware::class,
+    ]);
+})
     ->withExceptions(function (Exceptions $exceptions): void {
         //
     })

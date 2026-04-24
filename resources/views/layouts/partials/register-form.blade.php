@@ -197,7 +197,7 @@
         <img src="https://www.svgrepo.com/show/475656/google-color.svg" 
              alt="Google" 
              class="w-6 h-6">
-        <span>Continue with Google</span>
+        <span>Register with Google</span>
     </a>
 
     <!-- Login Link -->

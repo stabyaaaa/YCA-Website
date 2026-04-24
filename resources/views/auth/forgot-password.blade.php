@@ -42,9 +42,9 @@
 
         <!-- Back to Login -->
         <div class="text-center mt-8">
-            <a href="{{ route('login') }}" 
+            <a href="{{ url('/') }}" 
                class="text-blue-600 hover:text-blue-700 hover:underline text-sm">
-                ← Back to Login
+                ← Back to Home
             </a>
         </div>
 

@@ -8,19 +8,13 @@ use Illuminate\Http\Request;
 
 class UserManagementController extends Controller
 {
-    /*
-    |--------------------------------------------------------------------------
-    | Show All Users
-    |--------------------------------------------------------------------------
-    */
-        public function index()
+    public function index()
     {
         $users = User::all();
 
         $pendingRequests = [];
 
         if (auth()->user()->role === 'admin') {
-
             $pendingRequests = AdminRequest::where('requested_by', auth()->id())
                 ->where('status', 'pending')
                 ->where('action_type', 'change_role')
@@ -35,11 +29,6 @@ class UserManagementController extends Controller
         return view('admin.users.index', compact('users', 'pendingRequests'));
     }
 
-    /*
-    |--------------------------------------------------------------------------
-    | Update User Role
-    |--------------------------------------------------------------------------
-    */
     public function update(Request $request, User $user)
     {
         $current = auth()->user();
@@ -48,23 +37,21 @@ class UserManagementController extends Controller
             'role' => 'required|in:user,admin'
         ]);
 
-        // ❌ Cannot modify yourself
+        // Cannot modify yourself
         if ($current->id === $user->id) {
             abort(403, 'You cannot modify yourself.');
         }
 
-        /*
-        |--------------------------------------------------------------------------
-        | SUPER ADMIN → Direct role change
-        |--------------------------------------------------------------------------
-        */
-        if ($current->role === 'super_admin') {
+        // Cannot modify another super admin
+        if ($user->role === 'super_admin') {
+            abort(403, 'Super Admin accounts cannot be modified.');
+        }
 
+        if ($current->role === 'super_admin') {
             $user->update([
                 'role' => $request->role
             ]);
 
-            // 🔥 Auto-close related pending requests
             AdminRequest::where('status', 'pending')
                 ->where('action_type', 'change_role')
                 ->whereJsonContains('payload->user_id', $user->id)
@@ -76,19 +63,11 @@ class UserManagementController extends Controller
             return back()->with('success', 'Role updated directly.');
         }
 
-        /*
-        |--------------------------------------------------------------------------
-        | ADMIN → Send request to super admin
-        |--------------------------------------------------------------------------
-        */
         if ($current->role === 'admin') {
-
-            // Admin can only request changes for normal users
             if ($user->role !== 'user') {
                 abort(403, 'Admins can only modify normal users.');
             }
 
-            // Prevent duplicate pending requests
             $existing = AdminRequest::where('status', 'pending')
                 ->where('action_type', 'change_role')
                 ->whereJsonContains('payload->user_id', $user->id)
@@ -114,27 +93,21 @@ class UserManagementController extends Controller
         abort(403);
     }
 
-    /*
-    |--------------------------------------------------------------------------
-    | Delete User
-    |--------------------------------------------------------------------------
-    */
     public function destroy(User $user)
     {
         $current = auth()->user();
 
-        // ❌ Cannot delete yourself
+        // Cannot delete yourself
         if ($current->id === $user->id) {
             abort(403, 'You cannot delete yourself.');
         }
 
-        /*
-        |--------------------------------------------------------------------------
-        | ADMIN → Can only delete normal users
-        |--------------------------------------------------------------------------
-        */
-        if ($current->role === 'admin') {
+        // Cannot delete another super admin
+        if ($user->role === 'super_admin') {
+            abort(403, 'Super Admin accounts cannot be deleted.');
+        }
 
+        if ($current->role === 'admin') {
             if ($user->role !== 'user') {
                 abort(403, 'Admins cannot delete other admins or super admins.');
             }
@@ -144,13 +117,7 @@ class UserManagementController extends Controller
             return back()->with('success', 'User deleted successfully.');
         }
 
-        /*
-        |--------------------------------------------------------------------------
-        | SUPER ADMIN → Can delete anyone except themselves
-        |--------------------------------------------------------------------------
-        */
         if ($current->role === 'super_admin') {
-
             $user->delete();
 
             return back()->with('success', 'User deleted successfully.');
@@ -159,11 +126,6 @@ class UserManagementController extends Controller
         abort(403);
     }
 
-    /*
-    |--------------------------------------------------------------------------
-    | View Pending Admin Requests (Super Admin Only)
-    |--------------------------------------------------------------------------
-    */
     public function pendingRequests()
     {
         if (auth()->user()->role !== 'super_admin') {
@@ -175,11 +137,6 @@ class UserManagementController extends Controller
         return view('admin.requests.index', compact('requests'));
     }
 
-    /*
-    |--------------------------------------------------------------------------
-    | Approve Admin Request
-    |--------------------------------------------------------------------------
-    */
     public function approve(AdminRequest $adminRequest)
     {
         if (auth()->user()->role !== 'super_admin') {
@@ -191,16 +148,22 @@ class UserManagementController extends Controller
         }
 
         if ($adminRequest->action_type === 'change_role') {
-
             $data = $adminRequest->payload;
 
             $user = User::find($data['user_id'] ?? null);
 
-            if ($user) {
-                $user->update([
-                    'role' => $data['new_role']
-                ]);
+            if (!$user) {
+                return back()->with('error', 'User not found.');
             }
+
+            // Cannot approve request that modifies a super admin
+            if ($user->role === 'super_admin') {
+                abort(403, 'Super Admin accounts cannot be modified.');
+            }
+
+            $user->update([
+                'role' => $data['new_role']
+            ]);
         }
 
         $adminRequest->update([
@@ -211,11 +174,6 @@ class UserManagementController extends Controller
         return back()->with('success', 'Request approved successfully.');
     }
 
-    /*
-    |--------------------------------------------------------------------------
-    | Reject Admin Request
-    |--------------------------------------------------------------------------
-    */
     public function reject(AdminRequest $adminRequest)
     {
         if (auth()->user()->role !== 'super_admin') {

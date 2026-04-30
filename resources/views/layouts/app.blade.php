@@ -106,7 +106,7 @@
         </h2>
 
         <p class="text-gray-600 mb-6">
-            No WePOWER account was found for
+            Account not found for
             <strong>{{ session('google_email') }}</strong>.
             Do you want to create a new WePOWER account using this Google account?
         </p>

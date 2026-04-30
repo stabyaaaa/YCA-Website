@@ -8,7 +8,6 @@
         --pink: #F31671;
         --orange: #E99210;
         --cyan: #019DDE;
-
         --slate-950: #020617;
         --slate-900: #0f172a;
         --slate-800: #1e293b;
@@ -226,6 +225,7 @@
     </div>
 </section>
 
+
 <!-- ================= WHO WE ARE ================= -->
 <section id="who-we-are" class="py-20 lg:py-28 bg-white">
     <div class="page-shell">
@@ -237,25 +237,25 @@
                     <img src="{{ asset('images/bg_group.jpeg') }}"
                          alt="WePOWER network"
                          class="w-full h-[420px] lg:h-[480px] object-cover">
-                </div>
-            </div>
+                    </div>
+                    </div>
 
-            <div class="animate-on-scroll">
-                <p class="text-sm uppercase tracking-[0.25em] text-cyan-brand mb-4">
-                    Who We Are
-                </p>
+                    <div class="animate-on-scroll">
+                        <p class="text-sm uppercase tracking-[0.25em] text-cyan-brand mb-4">
+                            Who We Are
+                        </p>
 
-                <h2 class="text-4xl sm:text-5xl lg:text-6xl font-bold text-slate-900 leading-tight mb-6">
-                    A Regional Network Advancing Women in the Power Sector
-                </h2>
+                        <h2 class="text-4xl sm:text-5xl lg:text-6xl font-bold text-slate-900 leading-tight mb-6">
+                            A Regional Network Advancing Women in the Power Sector
+                        </h2>
 
-                <p class="text-lg text-slate-600 leading-relaxed mb-5">
-    WePOWER is the South Asia Women in Power Sector Professional Network, established in 2019 as a voluntary platform of utilities, universities, and professional associations. With 61 partners and growing, it works to increase women’s participation in energy-sector careers, especially in technical and leadership roles, through collaboration, research, and targeted initiatives supported by the World Bank’s South Asia Energy program.
-</p>
+                        <p class="text-lg text-slate-600 leading-relaxed mb-5">
+            WePOWER is the South Asia Women in Power Sector Professional Network, established in 2019 as a voluntary platform of utilities, universities, and professional associations. With 61 partners and growing, it works to increase women’s participation in energy-sector careers, especially in technical and leadership roles, through collaboration, research, and targeted initiatives supported by the World Bank’s South Asia Energy program.
+        </p>
 
-<p class="text-lg text-slate-600 leading-relaxed">
-    The network operates through a data-driven approach, drawing on partner insights and regional assessments to address barriers to entry, retention, and advancement. Guided by a five-pillar framework spanning education, recruitment, professional development, retention, and policy reform, WePOWER supports coordinated action across countries, strengthening both regional collaboration and national-level impact.
-</p>
+        <p class="text-lg text-slate-600 leading-relaxed">
+            The network operates through a data-driven approach, drawing on partner insights and regional assessments to address barriers to entry, retention, and advancement. Guided by a five-pillar framework spanning education, recruitment, professional development, retention, and policy reform, WePOWER supports coordinated action across countries, strengthening both regional collaboration and national-level impact.
+        </p>
             </div>
         </div>
 
@@ -535,411 +535,830 @@
         </div>
     </div>
 </section>
-<!-- ================= GLOBAL WEPOWER NETWORK MAP ================= -->
-<section class="relative py-20 lg:py-28 overflow-hidden bg-[#eef7fb]">
-    <div class="max-w-screen-2xl mx-auto px-5 sm:px-8 lg:px-12">
-
-        <div class="text-center mb-8">
-            <h2 class="font-serif text-4xl sm:text-5xl lg:text-6xl font-bold text-[#08285c]">
-                A Global Network for Sustainable Development
-            </h2>
-            <p class="mt-3 text-lg sm:text-xl text-slate-600">
-                Connecting headquarters, regional coordination, and South Asian country partners.
-            </p>
-        </div>
-
-        <div class="relative min-h-[620px] lg:min-h-[760px] rounded-[34px] overflow-hidden bg-[#eaf6fb] shadow-[0_30px_90px_rgba(15,23,42,0.14)] border border-white">
-
-            <img
-                src="https://upload.wikimedia.org/wikipedia/commons/8/83/Equirectangular_projection_SW.jpg"
-                alt="World map"
-                class="absolute inset-0 w-full h-full object-cover opacity-[0.32] mix-blend-multiply"
-            >
-
-            <div class="absolute inset-0 bg-gradient-to-br from-white/75 via-cyan-50/25 to-blue-100/40"></div>
-
-            <svg class="absolute inset-0 w-full h-full z-10 pointer-events-none" viewBox="0 0 1400 760" preserveAspectRatio="none">
-
-                <!-- HQ to AIT YCA Thailand: solid glowing data line -->
-                <path
-                    class="hq-to-yca-line"
-                    d="M235 300 C430 145, 760 190, 1045 350"
-                />
-
-                <circle class="data-pulse pulse-1" r="7">
-                    <animateMotion dur="4s" repeatCount="indefinite" path="M235 300 C430 145, 760 190, 1045 350" />
-                </circle>
-                <circle class="data-pulse pulse-2" r="5">
-                    <animateMotion dur="4s" begin="1.2s" repeatCount="indefinite" path="M235 300 C430 145, 760 190, 1045 350" />
-                </circle>
-
-                <!-- YCA to South Asian countries: packet style lines -->
-                <path class="packet-line" d="M1045 350 C975 280, 890 250, 805 230" />
-                <path class="packet-line" d="M1045 350 C970 300, 900 285, 830 270" />
-                <path class="packet-line" d="M1045 350 C965 330, 890 330, 805 335" />
-                <path class="packet-line" d="M1045 350 C975 360, 905 375, 825 390" />
-                <path class="packet-line" d="M1045 350 C970 390, 895 440, 815 500" />
-                <path class="packet-line" d="M1045 350 C925 315, 780 310, 680 320" />
-                <path class="packet-line" d="M1045 350 C945 410, 830 455, 710 500" />
-
-            </svg>
-
-            <!-- Headquarters -->
-            <div class="absolute left-[4%] top-[31%] z-30 hidden sm:block">
-                <p class="text-xl font-extrabold text-[#08285c] leading-tight">
-                    HEADQUARTERS<br>WORLD BANK
-                </p>
-                <p class="text-base text-[#08285c]/80 mt-2">
-                    Washington, DC<br>USA
-                </p>
-            </div>
-
-            <div class="map-hub absolute left-[17%] top-[36%] z-30">
-                <div class="hub-icon bg-[#08285c]">🏛️</div>
-            </div>
-
-            <!-- Thailand YCA -->
-            <div class="map-hub absolute right-[23%] top-[45%] z-30">
-                <div class="hub-icon hub-yca bg-[#2e7d32]">🏫</div>
-            </div>
-
-            <div class="absolute right-[8%] top-[43%] z-30 hidden sm:block">
-                <p class="text-xl font-extrabold text-[#2e7d32] leading-tight">
-                    REGIONAL SECRETARIAT<br>AIT YCA
-                </p>
-                <p class="text-base text-[#2e7d32]/90 mt-2">
-                    Thailand
-                </p>
-            </div>
-
-            <!-- Country Nodes -->
-            <div class="country-node absolute left-[57%] top-[27%] z-30">Nepal</div>
-            <div class="country-node absolute left-[59%] top-[33%] z-30">Bhutan</div>
-            <div class="country-node absolute left-[57%] top-[42%] z-30">India</div>
-            <div class="country-node absolute left-[60%] top-[49%] z-30">Bangladesh</div>
-            <div class="country-node absolute left-[57%] top-[64%] z-30">Sri Lanka</div>
-            <div class="country-node absolute left-[47%] top-[41%] z-30">Pakistan</div>
-            <div class="country-node absolute left-[50%] top-[63%] z-30">Maldives</div>
-
-            <!-- Legend -->
-            <div class="absolute left-6 bottom-28 z-40 w-[260px] rounded-3xl bg-white/75 backdrop-blur-md border border-white/70 shadow-xl p-5 hidden md:block">
-                <div class="legend-row">
-                    <span class="legend-icon bg-[#08285c]">🏛️</span>
-                    <div>
-                        <h5>HEADQUARTERS</h5>
-                        <p>World Bank<br>Washington, DC, USA</p>
-                    </div>
-                </div>
-
-                <div class="legend-row">
-                    <span class="legend-icon bg-[#2e7d32]">🏫</span>
-                    <div>
-                        <h5>REGIONAL SECRETARIAT</h5>
-                        <p>AIT YCA<br>Thailand</p>
-                    </div>
-                </div>
-
-                <div class="legend-row">
-                    <span class="legend-icon bg-[#e5a82e]">●</span>
-                    <div>
-                        <h5>COUNTRY PARTNERS</h5>
-                        <p>Nepal, Bhutan, India, Bangladesh, Maldives, Pakistan, Sri Lanka</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Bottom Text -->
-            <div class="absolute left-[16%] right-[8%] bottom-8 z-40">
-                <div class="grid grid-cols-2 md:grid-cols-5 gap-4 border-t border-slate-300/70 pt-5">
-                    <div class="value-item">
-                        <span>🤝</span>
-                        <h4>COLLABORATE</h4>
-                        <p>Building regional partnerships</p>
-                    </div>
-                    <div class="value-item">
-                        <span>💡</span>
-                        <h4>SHARE</h4>
-                        <p>Knowledge from HQ to region</p>
-                    </div>
-                    <div class="value-item">
-                        <span>🌐</span>
-                        <h4>CONNECT</h4>
-                        <p>Linking South Asian countries</p>
-                    </div>
-                    <div class="value-item">
-                        <span>👥</span>
-                        <h4>EMPOWER</h4>
-                        <p>Supporting people and institutions</p>
-                    </div>
-                    <div class="value-item">
-                        <span>🍃</span>
-                        <h4>SUSTAIN</h4>
-                        <p>Long-term regional impact</p>
-                    </div>
-                </div>
-
-                <div class="text-center mt-6">
-                    <h3 class="font-serif text-2xl font-bold text-[#08285c]">
-                        Headquarters to Secretariat. Secretariat to Countries.
-                    </h3>
-                    <p class="font-serif italic text-xl text-[#2e7d32] mt-1">
-                        One Regional Network. Shared Purpose.
-                    </p>
-                </div>
-            </div>
-
-        </div>
-    </div>
-</section>
-
-<!-- ================= LONG TERM VISION ================= -->
-<section class="py-20 lg:py-28 bg-white">
-    <div class="page-shell">
-        <div class="grid lg:grid-cols-2 gap-14 items-center">
-            <div class="animate-on-scroll">
-                <p class="text-sm uppercase tracking-[0.25em] text-pink-brand mb-4">Long-Term Vision</p>
-                <h2 class="text-4xl sm:text-5xl lg:text-6xl font-bold text-slate-900 mb-6">
-                    Visibility Designed for Sustainability
-                </h2>
-                <p class="text-lg text-slate-600 leading-relaxed mb-5">
-                    WePOWER is moving toward a stronger long-term institutional model through the development of National Chapters and a permanent Regional Secretariat.
-                </p>
-                <p class="text-lg text-slate-600 leading-relaxed mb-5">
-                    This matters because lasting change needs more than campaigns or isolated projects. It needs governance, coordination, resource mobilization, shared systems, and continuity across partners.
-                </p>
-                <p class="text-lg text-slate-600 leading-relaxed">
-                    The result is a network that can keep expanding opportunities for women while also building a stronger, more inclusive energy future for the region.
-                </p>
-            </div>
-
-            <div class="animate-on-scroll">
-                <div class="rounded-[30px] bg-gradient-to-br from-slate-950 via-slate-900 to-slate-800 p-8 sm:p-10 text-white shadow-2xl">
-                    <h3 class="text-2xl font-bold mb-7">What sustainability looks like</h3>
-
-                    <div class="space-y-5">
-                        <div class="flex gap-4">
-    <span class="w-11 h-11 rounded-xl bg-pink-500/20 flex items-center justify-center shrink-0">✓</span>
-    <p class="text-white/80 leading-relaxed">
-        Regional structure for coordinated network action
-    </p>
-</div>
-
-<div class="flex gap-4">
-    <span class="w-11 h-11 rounded-xl bg-cyan-500/20 flex items-center justify-center shrink-0">✓</span>
-    <p class="text-white/80 leading-relaxed">
-        National chapters with defined roles and governance
-    </p>
-</div>
-
-<div class="flex gap-4">
-    <span class="w-11 h-11 rounded-xl bg-orange-500/20 flex items-center justify-center shrink-0">✓</span>
-    <p class="text-white/80 leading-relaxed">
-        Knowledge infrastructure and regional coordination
-    </p>
-</div>
-
-<div class="flex gap-4">
-    <span class="w-11 h-11 rounded-xl bg-pink-500/20 flex items-center justify-center shrink-0">✓</span>
-    <p class="text-white/80 leading-relaxed">
-        Capabilities, metrics, and institutional reform
-    </p>
-</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- ================= CTA ================= -->
-<section class="relative py-20 lg:py-28 overflow-hidden bg-slate-950">
-    <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(1,157,222,0.12),transparent_30%),radial-gradient(circle_at_top_left,rgba(243,22,113,0.12),transparent_25%)]"></div>
-
-    <div class="relative z-10 page-shell text-center">
-        <p class="text-sm uppercase tracking-[0.25em] text-cyan-300 mb-4 animate-on-scroll">
-            Explore More
-        </p>
-        <h2 class="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6 animate-on-scroll">
-            Work Behind the Network
-        </h2>
-        <p class="text-lg sm:text-xl text-white/70 leading-relaxed max-w-3xl mx-auto mb-10 animate-on-scroll" style="transition-delay: 0.1s;">
-            This website brings together the evidence, stories, structure, and strategic direction of WePOWER so visitors can understand not only the challenge, but also the collective response shaping the future.
-        </p>
-
-        <div class="flex flex-wrap justify-center gap-4 animate-on-scroll" style="transition-delay: 0.18s;">
-            <a href="{{ url('/') }}"
-               class="px-8 py-4 bg-pink-brand text-white rounded-xl font-semibold shadow-xl hover:opacity-90 transition">
-                Back to Home
-            </a>
-            <a href="#who-we-are"
-               class="px-8 py-4 border border-white/20 text-white rounded-xl font-semibold hover:bg-white/10 transition">
-                Revisit About
-            </a>
-        </div>
-    </div>
-</section>
-
+<section id="wepower-3d-earth" class="wepower-earth-section">
 <style>
-    .hq-to-yca-line {
-    fill: none;
-    stroke: rgba(245, 185, 73, 0.95);
-    stroke-width: 4;
-    stroke-linecap: round;
-    filter:
-        drop-shadow(0 0 4px rgba(245,185,73,0.9))
-        drop-shadow(0 0 12px rgba(245,185,73,0.75));
-}
-
-.data-pulse {
-    fill: #fff7c7;
-    stroke: #f5b949;
-    stroke-width: 3;
-    filter: drop-shadow(0 0 10px rgba(245,185,73,1));
-}
-
-.packet-line {
-    fill: none;
-    stroke: rgba(46, 125, 50, 0.85);
-    stroke-width: 2.4;
-    stroke-linecap: round;
-    stroke-dasharray: 2 14;
-    filter: drop-shadow(0 0 7px rgba(46,125,50,0.75));
-    animation: packetFlow 5s linear infinite;
-}
-
-@keyframes packetFlow {
-    to {
-        stroke-dashoffset: -160;
-    }
-}
-
-.map-hub {
-    transform: translate(-50%, -50%);
-}
-
-.hub-icon {
-    width: 86px;
-    height: 86px;
-    border-radius: 999px;
-    border: 8px solid white;
-    box-shadow:
-        0 0 0 2px rgba(255,255,255,0.7),
-        0 0 35px rgba(245,185,73,0.9),
-        0 18px 35px rgba(15,23,42,0.25);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 2.1rem;
+.wepower-earth-section {
+    position: relative;
+    overflow: hidden;
+    padding: 6rem 1.25rem;
+    background:
+        radial-gradient(circle at 70% 40%, rgba(46,125,50,0.18), transparent 28%),
+        radial-gradient(circle at 25% 30%, rgba(8,40,92,0.22), transparent 32%),
+        linear-gradient(135deg, #06192f, #08285c 45%, #0f766e);
     color: white;
 }
 
-.hub-yca {
-    box-shadow:
-        0 0 0 2px rgba(255,255,255,0.7),
-        0 0 35px rgba(46,125,50,0.9),
-        0 18px 35px rgba(15,23,42,0.25);
+.earth-wrap {
+    max-width: 1500px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 0.9fr 1.35fr;
+    gap: 2.5rem;
+    align-items: center;
 }
 
-.country-node {
-    padding: 0.45rem 0.85rem;
-    border-radius: 999px;
-    background: rgba(255,255,255,0.9);
-    border: 1px solid rgba(226,232,240,0.95);
-    box-shadow:
-        0 10px 25px rgba(15,23,42,0.12),
-        0 0 16px rgba(46,125,50,0.18);
-    font-size: 0.78rem;
+.earth-kicker {
+    text-transform: uppercase;
+    letter-spacing: 0.28em;
+    color: #7dd3fc;
     font-weight: 800;
-    color: #08285c;
-    backdrop-filter: blur(10px);
-}
-
-.country-node::before {
-    content: "";
-    display: inline-block;
-    width: 9px;
-    height: 9px;
-    margin-right: 0.45rem;
-    border-radius: 999px;
-    background: #e5a82e;
-    box-shadow: 0 0 12px rgba(229,168,46,0.9);
-}
-
-.legend-row {
-    display: flex;
-    gap: 0.8rem;
-    align-items: flex-start;
+    font-size: 0.8rem;
     margin-bottom: 1rem;
 }
 
-.legend-row:last-child {
-    margin-bottom: 0;
+.earth-title {
+    font-family: Georgia, serif;
+    font-size: clamp(2.7rem, 6vw, 5.8rem);
+    line-height: 0.95;
+    font-weight: 800;
+    margin-bottom: 1.4rem;
 }
 
-.legend-icon {
-    width: 34px;
-    height: 34px;
+.earth-desc {
+    max-width: 620px;
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: rgba(255,255,255,0.78);
+}
+
+.phase-card {
+    margin-top: 2rem;
+    max-width: 520px;
+    border-radius: 26px;
+    padding: 1.25rem;
+    background: rgba(255,255,255,0.10);
+    border: 1px solid rgba(255,255,255,0.18);
+    backdrop-filter: blur(16px);
+    box-shadow: 0 20px 50px rgba(0,0,0,0.24);
+}
+
+.phase-card span {
+    display: inline-flex;
+    margin-bottom: 0.65rem;
+    padding: 0.35rem 0.8rem;
     border-radius: 999px;
-    color: white;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    background: rgba(125,211,252,0.16);
+    color: #bae6fd;
+    font-size: 0.75rem;
+    font-weight: 800;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+}
+
+.phase-card h3 {
+    font-size: 1.35rem;
+    font-weight: 850;
+    margin-bottom: 0.35rem;
+}
+
+.phase-card p {
+    color: rgba(255,255,255,0.72);
+    line-height: 1.6;
     font-size: 0.95rem;
-    flex-shrink: 0;
+    margin: 0;
 }
 
-.legend-row h5 {
-    font-size: 0.72rem;
-    font-weight: 900;
-    color: #08285c;
-    line-height: 1rem;
+.earth-stage {
+    position: relative;
+    min-height: 720px;
+    border-radius: 38px;
+    overflow: hidden;
+    background:
+        radial-gradient(circle at center, rgba(59,130,246,0.16), transparent 55%),
+        rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.16);
+    box-shadow:
+        inset 0 0 90px rgba(255,255,255,0.05),
+        0 30px 90px rgba(0,0,0,0.25);
 }
 
-.legend-row p {
-    font-size: 0.68rem;
-    line-height: 0.95rem;
-    color: #08285c;
-    margin-top: 0.15rem;
+#globeViz {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
 }
 
-.value-item {
+.earth-glow {
+    position: absolute;
+    inset: 10%;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(56,189,248,0.18), transparent 64%);
+    filter: blur(18px);
+    z-index: 1;
+    pointer-events: none;
+}
+
+.place-chip {
+    position: absolute;
+    top: 1.2rem;
+    left: 50%;
+    z-index: 12;
+    transform: translateX(-50%) translateY(-12px);
+    opacity: 0;
+    width: min(540px, calc(100% - 2rem));
     text-align: center;
-    color: #08285c;
+    padding: .85rem 1.15rem;
+    border-radius: 999px;
+    background: rgba(2, 6, 23, 0.56);
+    border: 1px solid rgba(255,255,255,0.24);
+    backdrop-filter: blur(18px);
+    box-shadow: 0 18px 45px rgba(0,0,0,0.25);
+    transition: .55s ease;
 }
 
-.value-item span {
+.place-chip.show {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+}
+
+.place-chip small {
     display: block;
-    font-size: 1.8rem;
-    margin-bottom: 0.45rem;
-}
-
-.value-item h4 {
-    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: .18em;
+    color: #bae6fd;
     font-weight: 900;
-    letter-spacing: 0.02em;
+    font-size: .68rem;
+    margin-bottom: .2rem;
 }
 
-.value-item p {
-    font-size: 0.68rem;
-    line-height: 0.95rem;
-    color: #1e3a5f;
-    margin-top: 0.25rem;
+.place-chip strong {
+    display: block;
+    font-size: clamp(1rem, 2vw, 1.45rem);
 }
 
-@media (max-width: 768px) {
-    .hub-icon {
-        width: 68px;
-        height: 68px;
-        font-size: 1.6rem;
-        border-width: 6px;
-    }
+.country-dialogue {
+    position: absolute;
+    left: 50%;
+    bottom: 1.25rem;
+    z-index: 12;
+    width: min(650px, calc(100% - 2.5rem));
+    transform: translateX(-50%) translateY(24px) scale(.96);
+    opacity: 0;
+    padding: 1.1rem 1.2rem;
+    border-radius: 28px;
+    background:
+        linear-gradient(135deg, rgba(15,23,42,.72), rgba(8,47,73,.54)),
+        rgba(2, 6, 23, .62);
+    border: 1px solid rgba(255,255,255,.24);
+    backdrop-filter: blur(20px);
+    box-shadow: 0 24px 70px rgba(0,0,0,.38);
+    transition: .65s ease;
+}
 
-    .country-node {
-        font-size: 0.65rem;
-        padding: 0.35rem 0.6rem;
-    }
+.country-dialogue.show {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0) scale(1);
+}
+
+.dialogue-top {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: .65rem;
+}
+
+.dialogue-eyebrow {
+    font-size: .7rem;
+    letter-spacing: .2em;
+    text-transform: uppercase;
+    color: #bae6fd;
+    font-weight: 900;
+}
+
+.dialogue-count {
+    font-size: .72rem;
+    padding: .3rem .65rem;
+    border-radius: 999px;
+    background: rgba(255,255,255,.13);
+    border: 1px solid rgba(255,255,255,.16);
+}
+
+.country-dialogue h4 {
+    margin: 0 0 .45rem;
+    font-size: clamp(1.25rem, 3vw, 2rem);
+    font-weight: 900;
+}
+
+.country-dialogue p {
+    margin: 0;
+    color: rgba(255,255,255,.78);
+    line-height: 1.65;
+}
+
+.earth-loading {
+    position: absolute;
+    inset: 0;
+    z-index: 20;
+    display: grid;
+    place-items: center;
+    background: rgba(6,25,47,.82);
+    transition: .5s ease;
+}
+
+.earth-loading.hide {
+    opacity: 0;
+    visibility: hidden;
+}
+
+.loader-dot {
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    border: 4px solid rgba(255,255,255,.18);
+    border-top-color: #7dd3fc;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+@media (max-width: 1024px) {
+    .earth-wrap { grid-template-columns: 1fr; }
+    .earth-stage { min-height: 620px; }
+}
+
+@media (max-width: 640px) {
+    .wepower-earth-section { padding: 4rem 1rem; }
+    .earth-stage { min-height: 560px; border-radius: 28px; }
+    .country-dialogue { border-radius: 22px; padding: 1rem; }
+    .place-chip { border-radius: 22px; }
 }
 </style>
+
+<div class="earth-wrap">
+    <div class="earth-copy">
+        <p class="earth-kicker">Global Network</p>
+
+        <h2 class="earth-title">
+            From Headquarters<br>
+            to Regional Impact
+        </h2>
+
+        <p class="earth-desc">
+            A premium globe journey showing how WePOWER connects World Bank headquarters,
+            AIT YCA in Thailand, and partner countries across South Asia.
+        </p>
+
+        <div class="phase-card">
+            <span id="phaseTag">Phase 01</span>
+            <h3 id="phaseTitle">World Bank Headquarters</h3>
+            <p id="phaseText">Starting from Washington, DC, where global coordination begins.</p>
+        </div>
+    </div>
+
+    <div class="earth-stage">
+        <div class="earth-glow"></div>
+        <div id="globeViz"></div>
+
+        <div id="placeChip" class="place-chip">
+            <small id="placeType">Headquarters</small>
+            <strong id="placeName">World Bank Headquarters — Washington, DC</strong>
+        </div>
+
+        <div id="countryDialogue" class="country-dialogue">
+            <div class="dialogue-top">
+                <div class="dialogue-eyebrow">Partner Country</div>
+                <div id="dialogueCount" class="dialogue-count">01 / 07</div>
+            </div>
+            <h4 id="dialogueTitle">Bhutan</h4>
+            <p id="dialogueText">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+        </div>
+
+        <div id="earthLoading" class="earth-loading">
+            <div class="loader-dot"></div>
+        </div>
+    </div>
+</div>
+
+<script src="https://unpkg.com/three"></script>
+<script src="https://unpkg.com/globe.gl"></script>
+
+<script>
+document.addEventListener("DOMContentLoaded", async function () {
+    const section = document.getElementById("wepower-3d-earth");
+    const globeEl = document.getElementById("globeViz");
+    const loading = document.getElementById("earthLoading");
+
+    const phaseTag = document.getElementById("phaseTag");
+    const phaseTitle = document.getElementById("phaseTitle");
+    const phaseText = document.getElementById("phaseText");
+
+    const placeChip = document.getElementById("placeChip");
+    const placeType = document.getElementById("placeType");
+    const placeName = document.getElementById("placeName");
+
+    const dialogue = document.getElementById("countryDialogue");
+    const dialogueCount = document.getElementById("dialogueCount");
+    const dialogueTitle = document.getElementById("dialogueTitle");
+    const dialogueText = document.getElementById("dialogueText");
+
+    if (!section || !globeEl || typeof Globe === "undefined") return;
+
+    const COUNTRY_DURATION = 10000;
+
+    const REQUIRED_COUNTRIES = [
+        "United States of America",
+        "Thailand",
+        "Bangladesh",
+        "Bhutan",
+        "India",
+        "Maldives",
+        "Nepal",
+        "Pakistan",
+        "Sri Lanka"
+    ];
+
+    function cleanName(value) {
+        return String(value || "").trim();
+    }
+
+    function countryName(feature) {
+        return cleanName(
+            feature?.properties?.ADMIN ||
+            feature?.properties?.NAME_LONG ||
+            feature?.properties?.NAME ||
+            feature?.properties?.name
+        );
+    }
+
+    const hq = {
+        name: "Washington, DC",
+        polygonName: "United States of America",
+        label: "WORLD BANK",
+        chip: "World Bank Headquarters — Washington, DC",
+        lat: 38.9072,
+        lng: -77.0369,
+        size: 0.32,
+        type: "hq"
+    };
+
+    const yca = {
+        name: "Thailand",
+        polygonName: "Thailand",
+        label: "Yunus Center AIT",
+        chip: "AIT YCA — Thailand",
+        lat: 13.7563,
+        lng: 100.5018,
+        size: 0.32,
+        type: "yca"
+    };
+
+    const partnerLocations = [
+        {
+            name: "Bangladesh",
+            polygonName: "Bangladesh",
+            label: "BANGLADESH",
+            lat: 23.6850,
+            lng: 90.3563,
+            size: 0.22,
+            zoom: .5,
+            text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Bangladesh strengthens regional collaboration through shared learning and partnership."
+        },
+        {
+            name: "Bhutan",
+            polygonName: "Bhutan",
+            label: "BHUTAN",
+            lat: 27.5142,
+            lng: 90.4336,
+            size: 0.22,
+            zoom: 0.5,
+            text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Bhutan is highlighted as a focused partner country in the regional network."
+        },
+        {
+            name: "India",
+            polygonName: "India",
+            label: "INDIA",
+            lat: 20.5937,
+            lng: 78.9629,
+            size: 0.22,
+            zoom: 1,
+            text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. India appears as a major partner in the South Asian network."
+        },
+        {
+            name: "Maldives",
+            polygonName: "Maldives",
+            label: "MALDIVES",
+            lat: 3.2028,
+            lng: 73.2207,
+            size: 0.22,
+            zoom: 0.6,
+            text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maldives is shown with a focused partner country dialogue."
+        },
+        {
+            name: "Nepal",
+            polygonName: "Nepal",
+            label: "NEPAL",
+            lat: 28.3949,
+            lng: 84.1240,
+            size: 0.22,
+            zoom: 0.5,
+            text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nepal joins the regional map through the WePOWER partner network."
+        },
+        {
+            name: "Pakistan",
+            polygonName: "Pakistan",
+            label: "PAKISTAN",
+            lat: 30.3753,
+            lng: 69.3451,
+            size: 0.22,
+            zoom: 0.8,
+            text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pakistan is highlighted with a refined border and country message."
+        },
+        {
+            name: "Sri Lanka",
+            polygonName: "Sri Lanka",
+            label: "SRI LANKA",
+            lat: 7.8731,
+            lng: 80.7718,
+            size: 0.22,
+            zoom: 0.5,
+            text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sri Lanka completes the partner country sequence."
+        }
+    ].sort((a, b) => a.name.localeCompare(b.name));
+
+    let worldPolygons = [];
+    let activeCountryName = "";
+    let highlightedCountries = [];
+
+    const world = Globe()(globeEl)
+        .globeImageUrl("https://unpkg.com/three-globe/example/img/earth-blue-marble.jpg")
+        .bumpImageUrl("https://unpkg.com/three-globe/example/img/earth-topology.png")
+        .backgroundColor("rgba(0,0,0,0)")
+        .showAtmosphere(true)
+        .atmosphereColor("#ffffff")
+        .atmosphereAltitude(0.13)
+
+        .polygonsData([])
+        .polygonCapColor(d => {
+            const name = countryName(d);
+
+            if (name === activeCountryName) {
+                return "rgba(186, 230, 253, 0.25)";
+            }
+
+            if (highlightedCountries.includes(name)) {
+                return "rgba(125, 211, 252, 0.08)";
+            }
+
+            return activeCountryName
+                ? "rgba(0, 0, 0, 0.50)"
+                : "rgba(255, 255, 255, 0.04)";
+        })
+        .polygonSideColor(d => {
+            const name = countryName(d);
+            return name === activeCountryName
+                ? "rgba(56, 189, 248, 0.24)"
+                : "rgba(0, 0, 0, 0.06)";
+        })
+        .polygonStrokeColor(d => {
+            const name = countryName(d);
+
+            if (name === activeCountryName) {
+                return "rgba(255,255,255,0.96)";
+            }
+
+            if (highlightedCountries.includes(name)) {
+                return "rgba(186,230,253,0.34)";
+            }
+
+            return activeCountryName
+                ? "rgba(255,255,255,0.03)"
+                : "rgba(255,255,255,0.08)";
+        })
+        .polygonAltitude(d => {
+            const name = countryName(d);
+
+            if (name === activeCountryName) return 0.042;
+            if (highlightedCountries.includes(name)) return 0.012;
+            return 0.002;
+        })
+        .polygonLabel(d => `<b>${countryName(d)}</b>`)
+        .polygonsTransitionDuration(350)
+
+        .pointsData([])
+        .pointLat(d => d.lat)
+        .pointLng(d => d.lng)
+        .pointAltitude(0.05)
+        .pointRadius(d => d.size)
+        .pointColor(d => d.type === "country" ? "#bae6fd" : "#ffffff")
+
+        .labelsData([])
+        .labelLat(d => d.lat)
+        .labelLng(d => d.lng)
+        .labelText(d => d.label)
+        .labelSize(d => d.type === "country-active" ? 1.25 : 0.82)
+        .labelDotRadius(0)
+        .labelColor(() => "#ffffff")
+        .labelAltitude(0.07)
+        .labelResolution(2)
+
+        .ringsData([])
+        .ringLat(d => d.lat)
+        .ringLng(d => d.lng)
+        .ringColor(() => t => `rgba(186,230,253,${1 - t})`)
+        .ringMaxRadius(d => d.maxR)
+        .ringPropagationSpeed(d => d.speed)
+        .ringRepeatPeriod(d => d.repeat)
+
+        .arcsData([])
+        .arcStartLat(d => d.startLat)
+        .arcStartLng(d => d.startLng)
+        .arcEndLat(d => d.endLat)
+        .arcEndLng(d => d.endLng)
+        .arcColor(d => d.color)
+        .arcAltitude(0.18)
+        .arcStroke(0.36)
+        .arcDashLength(0.25)
+        .arcDashGap(1.65)
+        .arcDashInitialGap(() => Math.random() * 2)
+        .arcDashAnimateTime(3500);
+
+    world.controls().autoRotate = true;
+    world.controls().autoRotateSpeed = 0.22;
+    world.controls().enableZoom = false;
+
+    function resizeGlobe() {
+        const rect = globeEl.getBoundingClientRect();
+        world.width(rect.width);
+        world.height(rect.height);
+    }
+
+    resizeGlobe();
+    window.addEventListener("resize", resizeGlobe);
+
+    try {
+        const res = await fetch("https://raw.githubusercontent.com/nvkelso/natural-earth-vector/master/geojson/ne_10m_admin_0_countries.geojson");
+        const geo = await res.json();
+
+        worldPolygons = geo.features.filter(feature => {
+            const name = countryName(feature);
+            return REQUIRED_COUNTRIES.includes(name);
+        });
+
+        world.polygonsData(worldPolygons);
+    } catch (e) {
+        console.warn("Country borders could not be loaded.", e);
+    }
+
+    setTimeout(() => loading.classList.add("hide"), 700);
+
+    function refreshPolygons() {
+        world.polygonsData([...worldPolygons]);
+    }
+
+    function updatePhase(tag, title, text) {
+        phaseTag.textContent = tag;
+        phaseTitle.textContent = title;
+        phaseText.textContent = text;
+    }
+
+    function showChip(type, name) {
+        placeChip.classList.remove("show");
+
+        setTimeout(() => {
+            placeType.textContent = type;
+            placeName.textContent = name;
+            placeChip.classList.add("show");
+        }, 160);
+    }
+
+    function showDialogue(country, index) {
+        dialogue.classList.remove("show");
+
+        setTimeout(() => {
+            dialogueCount.textContent =
+                String(index + 1).padStart(2, "0") + " / " +
+                String(partnerLocations.length).padStart(2, "0");
+
+            dialogueTitle.textContent = country.name;
+            dialogueText.textContent = country.text;
+            dialogue.classList.add("show");
+        }, 260);
+    }
+
+    function hideDialogue() {
+        dialogue.classList.remove("show");
+    }
+
+    function makeArc(from, to, type) {
+        return {
+            startLat: from.lat,
+            startLng: from.lng,
+            endLat: to.lat,
+            endLng: to.lng,
+            color: type === "main"
+                ? ["rgba(255,255,255,0.10)", "#ffffff", "#22c55e"]
+                : ["rgba(255,255,255,0.08)", "#bae6fd", "#facc15"]
+        };
+    }
+
+    function showPointAndLabel(location, points, labels) {
+        if (!points.find(p => p.name === location.name)) {
+            points.push(location);
+        }
+
+        labels = labels.filter(l => l.type !== "country-active");
+
+        if (location.type === "country") {
+            labels.push({
+                ...location,
+                type: "country-active",
+                label: location.name.toUpperCase()
+            });
+        } else {
+            labels.push(location);
+        }
+
+        world.pointsData([...points]);
+        world.labelsData([...labels]);
+
+        return labels;
+    }
+
+    function runJourney() {
+        let points = [];
+        let labels = [];
+        let arcs = [];
+
+        highlightedCountries = [];
+        activeCountryName = "";
+
+        world.pointsData([]);
+        world.labelsData([]);
+        world.arcsData([]);
+        world.ringsData([]);
+        refreshPolygons();
+        hideDialogue();
+
+        updatePhase(
+            "Phase 01",
+            "World Bank Headquarters",
+            "The journey begins in Washington, DC before moving toward Thailand."
+        );
+
+        showChip("Headquarters", "World Bank Headquarters — Washington, DC");
+
+        world.pointOfView({
+            lat: hq.lat,
+            lng: hq.lng,
+            altitude: 1.12
+        }, 2200);
+
+        setTimeout(() => {
+            activeCountryName = hq.polygonName;
+            highlightedCountries.push(hq.polygonName);
+            refreshPolygons();
+
+            labels = showPointAndLabel(hq, points, labels);
+
+            world.ringsData([{
+                lat: hq.lat,
+                lng: hq.lng,
+                maxR: 3.6,
+                speed: 1.0,
+                repeat: 1000
+            }]);
+        }, 1500);
+
+        setTimeout(() => {
+            updatePhase(
+                "Phase 02",
+                "AIT YCA, Thailand",
+                "The globe moves to Thailand and highlights the regional secretariat."
+            );
+
+            showChip("Regional Secretariat", "Yunus Center AIT — Thailand");
+
+            world.pointOfView({
+                lat: yca.lat,
+                lng: yca.lng,
+                altitude: 1.08
+            }, 2400);
+        }, 4000);
+
+        setTimeout(() => {
+            activeCountryName = yca.polygonName;
+            highlightedCountries.push(yca.polygonName);
+            refreshPolygons();
+
+            arcs.push(makeArc(hq, yca, "main"));
+            world.arcsData([...arcs]);
+
+            labels = showPointAndLabel(yca, points, labels);
+
+            world.ringsData([{
+                lat: yca.lat,
+                lng: yca.lng,
+                maxR: 3.6,
+                speed: 1.0,
+                repeat: 1000
+            }]);
+        }, 5900);
+
+        setTimeout(() => {
+            updatePhase(
+                "Phase 03",
+                "Partner Countries",
+                "The globe now stops rotating. Each partner country is centered, highlighted, and shown for 10 seconds."
+            );
+
+            showChip("Partner Countries", "South Asia Partner Network");
+
+            world.controls().autoRotate = false;
+            world.controls().update();
+
+            activeCountryName = "";
+            refreshPolygons();
+
+            world.pointOfView({
+                lat: 18,
+                lng: 82,
+                altitude: 1.52
+            }, 2200);
+        }, 8300);
+
+        partnerLocations.forEach((country, index) => {
+            setTimeout(() => {
+                activeCountryName = country.polygonName;
+
+                if (!highlightedCountries.includes(country.polygonName)) {
+                    highlightedCountries.push(country.polygonName);
+                }
+
+                refreshPolygons();
+
+                updatePhase(
+                    "Partner " + String(index + 1).padStart(2, "0"),
+                    country.name,
+                    "Showing " + country.name + " as part of the WePOWER partner country network."
+                );
+
+                showChip("Partner Country", country.name);
+                showDialogue(country, index);
+
+                arcs.push(makeArc(yca, country, "partner"));
+                world.arcsData([...arcs]);
+
+                world.pointOfView({
+                    lat: country.lat,
+                    lng: country.lng,
+                    altitude: country.zoom
+                }, 2200);
+
+                labels = showPointAndLabel({
+                    ...country,
+                    type: "country"
+                }, points, labels);
+
+                world.ringsData([{
+                    lat: country.lat,
+                    lng: country.lng,
+                    maxR: country.name === "India" || country.name === "Pakistan" ? 4.5 : 3,
+                    speed: 0.8,
+                    repeat: 1600
+                }]);
+
+            }, 11200 + index * COUNTRY_DURATION);
+        });
+
+        setTimeout(() => {
+            updatePhase(
+                "Final View",
+                "Complete Regional Network",
+                "The full partner country network is now visible and centered on South Asia."
+            );
+
+            hideDialogue();
+            showChip("Complete Network", "World Bank, AIT YCA, and Partner Countries");
+
+            activeCountryName = "";
+            refreshPolygons();
+            world.ringsData([]);
+
+            world.pointOfView({
+                lat: 18,
+                lng: 82,
+                altitude: 1.5
+            }, 2200);
+
+        }, 11200 + partnerLocations.length * COUNTRY_DURATION + 2500);
+    }
+
+    let hasPlayed = false;
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (!entry.isIntersecting || hasPlayed) return;
+            hasPlayed = true;
+            runJourney();
+        });
+    }, { threshold: 0.25 });
+
+    observer.observe(section);
+});
+</script>
+</section>
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         const observer = new IntersectionObserver((entries) => {

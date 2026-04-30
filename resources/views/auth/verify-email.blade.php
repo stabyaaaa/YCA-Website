@@ -50,7 +50,7 @@
             <form method="POST" action="{{ route('verification.send') }}">
                 @csrf
 
-                <button type="submit"
+                <button id="resendBtn" type="submit"
                         class="w-full rounded-xl bg-blue-600 px-5 py-3 text-sm font-semibold text-white shadow-lg shadow-blue-600/20 transition hover:bg-blue-700">
                     Resend Verification Email
                 </button>
@@ -72,4 +72,59 @@
     </div>
 
 </div>
+@if (session('email_sent'))
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const btn = document.getElementById('resendBtn');
+    if (!btn) return;
+
+    const delays = [30, 60, 120];
+
+    let attempts = parseInt(localStorage.getItem('verification_attempts') || 0);
+    let lastSent = parseInt(localStorage.getItem('verification_last_sent') || 0);
+
+    function getDelay() {
+        return delays[Math.min(attempts, delays.length - 1)];
+    }
+
+    function disableButton(seconds) {
+        btn.disabled = true;
+
+        let remaining = seconds;
+        btn.innerText = `Resend in ${remaining}s`;
+
+        const timer = setInterval(() => {
+            remaining--;
+            btn.innerText = `Resend in ${remaining}s`;
+
+            if (remaining <= 0) {
+                clearInterval(timer);
+                btn.disabled = false;
+                btn.innerText = 'Resend verification email';
+            }
+        }, 1000);
+    }
+
+    // Keep disabled after page reload
+    if (lastSent) {
+        const elapsed = Math.floor((Date.now() - lastSent) / 1000);
+        const delay = getDelay();
+
+        if (elapsed < delay) {
+            disableButton(delay - elapsed);
+        }
+    }
+
+    btn.closest('form').addEventListener('submit', function () {
+        const delay = getDelay();
+
+        localStorage.setItem('verification_last_sent', Date.now());
+        localStorage.setItem('verification_attempts', attempts + 1);
+
+        btn.disabled = true;
+        btn.innerText = `Resend in ${delay}s`;
+    });
+});
+</script>
+@endif
 @endsection

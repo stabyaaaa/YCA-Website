@@ -7,6 +7,8 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Auth\Events\Registered;
 
 class RegisteredUserController extends Controller
 {
@@ -20,12 +22,16 @@ class RegisteredUserController extends Controller
             'email.unique' => 'This email is already registered. Please login instead.',
         ]);
 
-        User::create([
+        $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);
 
-        return back()->with('success', 'Registration successful.');
+        Auth::login($user); // (assuming you already have this)
+        event(new Registered($user));
+        return redirect()
+        ->route('verification.notice')
+        ->with('email_sent', true);;
     }
 }

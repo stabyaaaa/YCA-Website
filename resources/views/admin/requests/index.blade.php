@@ -16,10 +16,11 @@
 
                 <thead class="bg-gray-100 text-gray-700 uppercase text-sm">
                     <tr>
+                        
+                        <th class="px-6 py-3 text-left">User</th>
+                        <th class="px-6 py-3 text-left">Email</th>
                         <th class="px-6 py-3 text-left">Requested By</th>
                         <th class="px-6 py-3 text-left">Requester Email</th>
-                        <th class="px-6 py-3 text-left">Target User</th>
-                        <th class="px-6 py-3 text-left">Target Email</th>
                         <th class="px-6 py-3 text-left">New Role</th>
                         <th class="px-6 py-3 text-center">Actions</th>
                     </tr>
@@ -37,15 +38,7 @@
 
                     <tr class="hover:bg-gray-50 transition">
 
-                        {{-- Requested By --}}
-                        <td class="px-6 py-4 text-sm font-medium text-gray-800">
-                            {{ $admin->name ?? 'N/A' }}
-                        </td>
-
-                        {{-- Requester Email --}}
-                        <td class="px-6 py-4 text-sm text-gray-600">
-                            {{ $admin->email ?? 'N/A' }}
-                        </td>
+                    
 
                         {{-- Target User --}}
                         <td class="px-6 py-4 text-sm font-medium text-gray-800">
@@ -56,6 +49,17 @@
                         <td class="px-6 py-4 text-sm text-gray-600">
                             {{ $user->email ?? 'N/A' }}
                         </td>
+
+                        {{-- Requested By --}}
+                        <td class="px-6 py-4 text-sm font-medium text-gray-800">
+                            {{ $admin->name ?? 'N/A' }}
+                        </td>
+
+                        {{-- Requester Email --}}
+                        <td class="px-6 py-4 text-sm text-gray-600">
+                            {{ $admin->email ?? 'N/A' }}
+                        </td>
+
 
                         {{-- New Role Badge --}}
                         <td class="px-6 py-4">

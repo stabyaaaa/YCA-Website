@@ -535,170 +535,162 @@
         </div>
     </div>
 </section>
-<!-- ================= PARTNERS + NETWORK ================= -->
-<section class="py-20 lg:py-28 bg-slate-100">
-    <div class="page-shell">
+<!-- ================= GLOBAL WEPOWER NETWORK MAP ================= -->
+<section class="relative py-20 lg:py-28 overflow-hidden bg-[#eef7fb]">
+    <div class="max-w-screen-2xl mx-auto px-5 sm:px-8 lg:px-12">
 
-        <!-- HEADER -->
-        <div class="text-center max-w-4xl mx-auto mb-16">
-            <p class="text-sm uppercase tracking-[0.25em] text-cyan-brand mb-4 animate-on-scroll">
-                Partners & Chapters
-            </p>
-            <h2 class="text-4xl sm:text-5xl lg:text-6xl font-bold text-slate-900 mb-5 animate-on-scroll">
-                Multi-Country Network With National Anchors
+        <div class="text-center mb-8">
+            <h2 class="font-serif text-4xl sm:text-5xl lg:text-6xl font-bold text-[#08285c]">
+                A Global Network for Sustainable Development
             </h2>
-            <p class="text-lg sm:text-xl text-slate-600 leading-relaxed animate-on-scroll" style="transition-delay: 0.1s;">
-                WePOWER brings together diverse partners across South Asia, while National Chapters strengthen coordination, ownership, and long-term action inside each country.
+            <p class="mt-3 text-lg sm:text-xl text-slate-600">
+                Connecting headquarters, regional coordination, and South Asian country partners.
             </p>
         </div>
 
-        <!-- MAIN GRID -->
-        <div class="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+        <div class="relative min-h-[620px] lg:min-h-[760px] rounded-[34px] overflow-hidden bg-[#eaf6fb] shadow-[0_30px_90px_rgba(15,23,42,0.14)] border border-white">
 
-            <!-- LEFT SIDE -->
-            <div class="space-y-6">
-                <div class="bg-white rounded-3xl p-8 shadow-lg border border-slate-200 card-hover animate-on-scroll">
-                    <div class="text-4xl mb-5">🤝</div>
-                    <h3 class="text-2xl font-bold text-slate-900 mb-3">Who participates</h3>
-                    <p class="text-slate-600 leading-relaxed">
-                        Power utilities, universities, professional associations, government-linked organizations, and other institutions committed to more inclusive energy-sector participation.
-                    </p>
+            <img
+                src="https://upload.wikimedia.org/wikipedia/commons/8/83/Equirectangular_projection_SW.jpg"
+                alt="World map"
+                class="absolute inset-0 w-full h-full object-cover opacity-[0.32] mix-blend-multiply"
+            >
+
+            <div class="absolute inset-0 bg-gradient-to-br from-white/75 via-cyan-50/25 to-blue-100/40"></div>
+
+            <svg class="absolute inset-0 w-full h-full z-10 pointer-events-none" viewBox="0 0 1400 760" preserveAspectRatio="none">
+
+                <!-- HQ to AIT YCA Thailand: solid glowing data line -->
+                <path
+                    class="hq-to-yca-line"
+                    d="M235 300 C430 145, 760 190, 1045 350"
+                />
+
+                <circle class="data-pulse pulse-1" r="7">
+                    <animateMotion dur="4s" repeatCount="indefinite" path="M235 300 C430 145, 760 190, 1045 350" />
+                </circle>
+                <circle class="data-pulse pulse-2" r="5">
+                    <animateMotion dur="4s" begin="1.2s" repeatCount="indefinite" path="M235 300 C430 145, 760 190, 1045 350" />
+                </circle>
+
+                <!-- YCA to South Asian countries: packet style lines -->
+                <path class="packet-line" d="M1045 350 C975 280, 890 250, 805 230" />
+                <path class="packet-line" d="M1045 350 C970 300, 900 285, 830 270" />
+                <path class="packet-line" d="M1045 350 C965 330, 890 330, 805 335" />
+                <path class="packet-line" d="M1045 350 C975 360, 905 375, 825 390" />
+                <path class="packet-line" d="M1045 350 C970 390, 895 440, 815 500" />
+                <path class="packet-line" d="M1045 350 C925 315, 780 310, 680 320" />
+                <path class="packet-line" d="M1045 350 C945 410, 830 455, 710 500" />
+
+            </svg>
+
+            <!-- Headquarters -->
+            <div class="absolute left-[4%] top-[31%] z-30 hidden sm:block">
+                <p class="text-xl font-extrabold text-[#08285c] leading-tight">
+                    HEADQUARTERS<br>WORLD BANK
+                </p>
+                <p class="text-base text-[#08285c]/80 mt-2">
+                    Washington, DC<br>USA
+                </p>
+            </div>
+
+            <div class="map-hub absolute left-[17%] top-[36%] z-30">
+                <div class="hub-icon bg-[#08285c]">🏛️</div>
+            </div>
+
+            <!-- Thailand YCA -->
+            <div class="map-hub absolute right-[23%] top-[45%] z-30">
+                <div class="hub-icon hub-yca bg-[#2e7d32]">🏫</div>
+            </div>
+
+            <div class="absolute right-[8%] top-[43%] z-30 hidden sm:block">
+                <p class="text-xl font-extrabold text-[#2e7d32] leading-tight">
+                    REGIONAL SECRETARIAT<br>AIT YCA
+                </p>
+                <p class="text-base text-[#2e7d32]/90 mt-2">
+                    Thailand
+                </p>
+            </div>
+
+            <!-- Country Nodes -->
+            <div class="country-node absolute left-[57%] top-[27%] z-30">Nepal</div>
+            <div class="country-node absolute left-[59%] top-[33%] z-30">Bhutan</div>
+            <div class="country-node absolute left-[57%] top-[42%] z-30">India</div>
+            <div class="country-node absolute left-[60%] top-[49%] z-30">Bangladesh</div>
+            <div class="country-node absolute left-[57%] top-[64%] z-30">Sri Lanka</div>
+            <div class="country-node absolute left-[47%] top-[41%] z-30">Pakistan</div>
+            <div class="country-node absolute left-[50%] top-[63%] z-30">Maldives</div>
+
+            <!-- Legend -->
+            <div class="absolute left-6 bottom-28 z-40 w-[260px] rounded-3xl bg-white/75 backdrop-blur-md border border-white/70 shadow-xl p-5 hidden md:block">
+                <div class="legend-row">
+                    <span class="legend-icon bg-[#08285c]">🏛️</span>
+                    <div>
+                        <h5>HEADQUARTERS</h5>
+                        <p>World Bank<br>Washington, DC, USA</p>
+                    </div>
                 </div>
 
-                <div class="bg-white rounded-3xl p-8 shadow-lg border border-slate-200 card-hover animate-on-scroll" style="transition-delay: 0.08s;">
-                    <div class="text-4xl mb-5">🌍</div>
-                    <h3 class="text-2xl font-bold text-slate-900 mb-3">Regional collaboration</h3>
-                    <p class="text-slate-600 leading-relaxed">
-                        Shared learning across countries helps partners exchange ideas, compare approaches, and accelerate what works.
-                    </p>
+                <div class="legend-row">
+                    <span class="legend-icon bg-[#2e7d32]">🏫</span>
+                    <div>
+                        <h5>REGIONAL SECRETARIAT</h5>
+                        <p>AIT YCA<br>Thailand</p>
+                    </div>
                 </div>
 
-                <div class="bg-white rounded-3xl p-8 shadow-lg border border-slate-200 card-hover animate-on-scroll" style="transition-delay: 0.16s;">
-                    <div class="text-4xl mb-5">🏢</div>
-                    <h3 class="text-2xl font-bold text-slate-900 mb-3">National Chapters</h3>
-                    <p class="text-slate-600 leading-relaxed">
-                        Chapters help embed WePOWER’s agenda in national institutions, build country ownership, and strengthen sustainability.
-                    </p>
+                <div class="legend-row">
+                    <span class="legend-icon bg-[#e5a82e]">●</span>
+                    <div>
+                        <h5>COUNTRY PARTNERS</h5>
+                        <p>Nepal, Bhutan, India, Bangladesh, Maldives, Pakistan, Sri Lanka</p>
+                    </div>
                 </div>
             </div>
 
-            <!-- RIGHT SIDE -->
-            <div class="animate-on-scroll" style="transition-delay: 0.2s;">
-                <div class="relative h-[560px] sm:h-[600px] rounded-[34px] overflow-hidden border border-slate-200 bg-white shadow-[0_28px_80px_-24px_rgba(15,23,42,0.18)]">
-
-                    <!-- premium soft light background -->
-                    <div class="absolute inset-0 bg-white"></div>
-                    <div class="absolute inset-0 opacity-100"
-                         style="background:
-                            radial-gradient(circle at 50% 50%, rgba(1,157,222,0.05) 0%, rgba(1,157,222,0.02) 18%, rgba(255,255,255,0) 38%),
-                            radial-gradient(circle at 14% 18%, rgba(243,22,113,0.05) 0%, rgba(243,22,113,0) 32%),
-                            radial-gradient(circle at 86% 82%, rgba(233,146,16,0.05) 0%, rgba(233,146,16,0) 30%);">
+            <!-- Bottom Text -->
+            <div class="absolute left-[16%] right-[8%] bottom-8 z-40">
+                <div class="grid grid-cols-2 md:grid-cols-5 gap-4 border-t border-slate-300/70 pt-5">
+                    <div class="value-item">
+                        <span>🤝</span>
+                        <h4>COLLABORATE</h4>
+                        <p>Building regional partnerships</p>
                     </div>
-
-                    <!-- inner frame -->
-                    <div class="absolute inset-[14px] rounded-[26px] border border-slate-100 pointer-events-none"></div>
-
-                    <!-- title -->
-                    <div class="absolute top-8 left-8 z-20">
-                        <p class="text-xs uppercase tracking-[0.24em] text-slate-500 mb-2">Regional Footprint</p>
-                        <h3 class="text-2xl font-bold text-slate-900">Connected Across South Asia</h3>
+                    <div class="value-item">
+                        <span>💡</span>
+                        <h4>SHARE</h4>
+                        <p>Knowledge from HQ to region</p>
                     </div>
-
-                    <!-- CENTER HUB -->
-                    <div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-20">
-                        <div class="w-36 h-36 rounded-full p-[2px] shadow-[0_20px_50px_rgba(15,23,42,0.12)]"
-                             style="background: linear-gradient(135deg, rgba(1,157,222,0.95), rgba(243,22,113,0.92));">
-                            <div class="w-full h-full rounded-full bg-white flex flex-col items-center justify-center text-center px-4">
-                                <span class="text-[11px] uppercase tracking-[0.24em] text-slate-500 mb-1">WePOWER</span>
-                                <span class="text-lg font-bold text-slate-900 leading-tight">Network</span>
-                            </div>
-                        </div>
+                    <div class="value-item">
+                        <span>🌐</span>
+                        <h4>CONNECT</h4>
+                        <p>Linking South Asian countries</p>
                     </div>
-
-                    <!-- equal-angle lines for 7 nodes -->
-                    <svg class="absolute inset-0 w-full h-full pointer-events-none z-0" viewBox="0 0 1000 600" preserveAspectRatio="none">
-                        <!-- center: 500,300 -->
-                        <!-- radius endpoints distributed by 360/7 = 51.43° -->
-                        <line x1="500" y1="300" x2="500" y2="118" stroke="rgba(148,163,184,0.28)" stroke-width="5"/>
-                        <line x1="500" y1="300" x2="642" y2="186" stroke="rgba(148,163,184,0.28)" stroke-width="5"/>
-                        <line x1="500" y1="300" x2="676" y2="341" stroke="rgba(148,163,184,0.28)" stroke-width="5"/>
-                        <line x1="500" y1="300" x2="579" y2="464" stroke="rgba(148,163,184,0.28)" stroke-width="5"/>
-                        <line x1="500" y1="300" x2="421" y2="464" stroke="rgba(148,163,184,0.28)" stroke-width="5"/>
-                        <line x1="500" y1="300" x2="324" y2="341" stroke="rgba(148,163,184,0.28)" stroke-width="5"/>
-                        <line x1="500" y1="300" x2="358" y2="186" stroke="rgba(148,163,184,0.28)" stroke-width="5"/>
-                    </svg>
-
-                    <!-- NODES : equally spaced -->
-
-                    <!-- 1 Nepal -->
-                    <div class="absolute left-1/2 top-[15%] -translate-x-1/2 z-10">
-                        <div class="node-premium node-premium-active">
-                            <img src="https://flagcdn.com/w40/np.png" 
-                                    alt="Nepal flag" 
-                                    class="flag-rectangle"
-                                    style="width:28px; height:28px;">
-                            <span>Nepal</span>
-                        </div>
+                    <div class="value-item">
+                        <span>👥</span>
+                        <h4>EMPOWER</h4>
+                        <p>Supporting people and institutions</p>
                     </div>
-
-                    <!-- 2 Bhutan -->
-                    <div class="absolute right-[14%] top-[27%] z-10">
-                        <div class="node-premium node-premium-active">
-                            <img src="https://flagcdn.com/w40/bt.png" alt="Bhutan flag" class="flag-rectangle">
-                            <span>Bhutan</span>
-                        </div>
+                    <div class="value-item">
+                        <span>🍃</span>
+                        <h4>SUSTAIN</h4>
+                        <p>Long-term regional impact</p>
                     </div>
+                </div>
 
-                    <!-- 3 India -->
-                    <div class="absolute right-[11%] top-[54%] z-10">
-                        <div class="node-premium node-premium-active">
-                            <img src="https://flagcdn.com/w40/in.png" alt="India flag" class="flag-rectangle">
-                            <span>India</span>
-                        </div>
-                    </div>
-
-                    <!-- 4 Sri Lanka -->
-                    <div class="absolute right-[19%] bottom-[17%] z-10">
-                        <div class="node-premium node-premium-active">
-                            <img src="https://flagcdn.com/w40/lk.png" 
-                            alt="Sri Lanka flag"
-                            class="flag-rectangle "
-                            style="width:28px; height:28px;">
-                            <span>Sri Lanka</span>
-                        </div>
-                    </div>
-
-                    <!-- 5 Maldives -->
-                    <div class="absolute left-[19%] bottom-[17%] z-10">
-                        <div class="node-premium node-premium-active">
-                            <img src="https://flagcdn.com/w40/mv.png" alt="Maldives flag" class="flag-rectangle">
-                            <span>Maldives</span>
-                        </div>
-                    </div>
-
-                    <!-- 6 Pakistan -->
-                    <div class="absolute left-[11%] top-[54%] z-10">
-                        <div class="node-premium node-premium-active">
-                            <img src="https://flagcdn.com/w40/pk.png" alt="Pakistan flag" class="flag-rectangle">
-                            <span>Pakistan</span>
-                        </div>
-                    </div>
-
-                    <!-- 7 Bangladesh -->
-                    <div class="absolute left-[12%] top-[27%] z-10">
-                        <div class="node-premium node-premium-active">
-                            <img src="https://flagcdn.com/w40/bd.png" alt="Bangladesh flag" class="flag-rectangle">
-                            <span>Bangladesh</span>
-                        </div>
-                    </div>
-
+                <div class="text-center mt-6">
+                    <h3 class="font-serif text-2xl font-bold text-[#08285c]">
+                        Headquarters to Secretariat. Secretariat to Countries.
+                    </h3>
+                    <p class="font-serif italic text-xl text-[#2e7d32] mt-1">
+                        One Regional Network. Shared Purpose.
+                    </p>
                 </div>
             </div>
 
         </div>
     </div>
 </section>
-
 
 <!-- ================= LONG TERM VISION ================= -->
 <section class="py-20 lg:py-28 bg-white">
@@ -787,6 +779,167 @@
     </div>
 </section>
 
+<style>
+    .hq-to-yca-line {
+    fill: none;
+    stroke: rgba(245, 185, 73, 0.95);
+    stroke-width: 4;
+    stroke-linecap: round;
+    filter:
+        drop-shadow(0 0 4px rgba(245,185,73,0.9))
+        drop-shadow(0 0 12px rgba(245,185,73,0.75));
+}
+
+.data-pulse {
+    fill: #fff7c7;
+    stroke: #f5b949;
+    stroke-width: 3;
+    filter: drop-shadow(0 0 10px rgba(245,185,73,1));
+}
+
+.packet-line {
+    fill: none;
+    stroke: rgba(46, 125, 50, 0.85);
+    stroke-width: 2.4;
+    stroke-linecap: round;
+    stroke-dasharray: 2 14;
+    filter: drop-shadow(0 0 7px rgba(46,125,50,0.75));
+    animation: packetFlow 5s linear infinite;
+}
+
+@keyframes packetFlow {
+    to {
+        stroke-dashoffset: -160;
+    }
+}
+
+.map-hub {
+    transform: translate(-50%, -50%);
+}
+
+.hub-icon {
+    width: 86px;
+    height: 86px;
+    border-radius: 999px;
+    border: 8px solid white;
+    box-shadow:
+        0 0 0 2px rgba(255,255,255,0.7),
+        0 0 35px rgba(245,185,73,0.9),
+        0 18px 35px rgba(15,23,42,0.25);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.1rem;
+    color: white;
+}
+
+.hub-yca {
+    box-shadow:
+        0 0 0 2px rgba(255,255,255,0.7),
+        0 0 35px rgba(46,125,50,0.9),
+        0 18px 35px rgba(15,23,42,0.25);
+}
+
+.country-node {
+    padding: 0.45rem 0.85rem;
+    border-radius: 999px;
+    background: rgba(255,255,255,0.9);
+    border: 1px solid rgba(226,232,240,0.95);
+    box-shadow:
+        0 10px 25px rgba(15,23,42,0.12),
+        0 0 16px rgba(46,125,50,0.18);
+    font-size: 0.78rem;
+    font-weight: 800;
+    color: #08285c;
+    backdrop-filter: blur(10px);
+}
+
+.country-node::before {
+    content: "";
+    display: inline-block;
+    width: 9px;
+    height: 9px;
+    margin-right: 0.45rem;
+    border-radius: 999px;
+    background: #e5a82e;
+    box-shadow: 0 0 12px rgba(229,168,46,0.9);
+}
+
+.legend-row {
+    display: flex;
+    gap: 0.8rem;
+    align-items: flex-start;
+    margin-bottom: 1rem;
+}
+
+.legend-row:last-child {
+    margin-bottom: 0;
+}
+
+.legend-icon {
+    width: 34px;
+    height: 34px;
+    border-radius: 999px;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.95rem;
+    flex-shrink: 0;
+}
+
+.legend-row h5 {
+    font-size: 0.72rem;
+    font-weight: 900;
+    color: #08285c;
+    line-height: 1rem;
+}
+
+.legend-row p {
+    font-size: 0.68rem;
+    line-height: 0.95rem;
+    color: #08285c;
+    margin-top: 0.15rem;
+}
+
+.value-item {
+    text-align: center;
+    color: #08285c;
+}
+
+.value-item span {
+    display: block;
+    font-size: 1.8rem;
+    margin-bottom: 0.45rem;
+}
+
+.value-item h4 {
+    font-size: 0.78rem;
+    font-weight: 900;
+    letter-spacing: 0.02em;
+}
+
+.value-item p {
+    font-size: 0.68rem;
+    line-height: 0.95rem;
+    color: #1e3a5f;
+    margin-top: 0.25rem;
+}
+
+@media (max-width: 768px) {
+    .hub-icon {
+        width: 68px;
+        height: 68px;
+        font-size: 1.6rem;
+        border-width: 6px;
+    }
+
+    .country-node {
+        font-size: 0.65rem;
+        padding: 0.35rem 0.6rem;
+    }
+}
+</style>
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         const observer = new IntersectionObserver((entries) => {

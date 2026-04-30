@@ -129,7 +129,7 @@
                     <p>
                         <strong class="text-white">Email:</strong>
                         <a href="mailto:sawtth@ait.asia" class="hover:text-cyan-400 transition">
-                            sawtth@ait.asia
+                            wepower-sec@ait.asia
                         </a>
                     </p>
 

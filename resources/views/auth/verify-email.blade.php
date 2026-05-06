@@ -70,7 +70,6 @@
             </p>
         </div>
     </div>
-
 </div>
 @if (session('email_sent'))
 <script>

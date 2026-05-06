@@ -9,39 +9,54 @@
         --pink: #F31671;
         --orange: #E99210;
         --cyan: #019DDE;
+    }
 
-        --slate-950: #020617;
-        --slate-900: #0f172a;
-        --slate-800: #1e293b;
-        --slate-700: #334155;
-        --slate-600: #475569;
-        --slate-500: #64748b;
-        --slate-200: #e2e8f0;
-        --slate-100: #f1f5f9;
+    .partner-card {
+        position: relative;
+        overflow: hidden;
+        isolation: isolate;
+    }
+
+    .partner-card::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background:
+            radial-gradient(circle at top right, rgba(1,157,222,0.18), transparent 35%),
+            radial-gradient(circle at bottom left, rgba(243,22,113,0.12), transparent 35%);
+        opacity: 0;
+        transition: opacity .4s ease;
+        z-index: -1;
+    }
+
+    .partner-card:hover::before {
+        opacity: 1;
+    }
+
+    .partner-card.hide {
+        display: none;
     }
 </style>
 
 <div class="relative overflow-hidden bg-gradient-to-br from-slate-50 via-white to-indigo-50/40">
 
-    <!-- Soft background -->
     <div class="absolute inset-0 pointer-events-none">
         <div class="absolute -top-24 -left-24 w-72 h-72 bg-indigo-200/30 rounded-full blur-3xl"></div>
         <div class="absolute top-1/3 -right-24 w-80 h-80 bg-cyan-200/25 rounded-full blur-3xl"></div>
         <div class="absolute bottom-0 left-1/3 w-72 h-72 bg-purple-200/20 rounded-full blur-3xl"></div>
     </div>
 
-    <!-- Page wrapper -->
     <section class="relative pt-28 sm:pt-32 lg:pt-36 pb-16 sm:pb-20 lg:pb-24">
         <div class="max-w-screen-2xl mx-auto px-5 sm:px-8 lg:px-12">
 
-            <!-- ================= INTRO ================= -->
+            <!-- INTRO -->
             <div class="max-w-3xl mx-auto text-center mb-12 lg:mb-14">
                 <p class="text-[11px] sm:text-xs uppercase tracking-[0.32em] text-[var(--pink)] font-semibold mb-4">
                     Our Network
                 </p>
 
                 <h1 class="text-3xl sm:text-4xl lg:text-[44px] font-semibold tracking-tight leading-[1.2] text-slate-900">
-                    Partners Driving Change  
+                    Partners Driving Change
                     <span class="block text-[var(--cyan)] mt-5">
                         Across the Power Sector
                     </span>
@@ -57,7 +72,7 @@
                 </p>
             </div>
 
-            <!-- ================= STATS ================= -->
+            <!-- STATS -->
             <div class="grid grid-cols-1 md:grid-cols-3 gap-4 lg:gap-6 mb-10 lg:mb-14">
                 <div class="rounded-3xl border border-[rgba(1,157,222,0.15)] bg-white/80 backdrop-blur-xl shadow-sm px-6 py-6 text-center">
                     <div class="h-1 w-10 rounded-full bg-[var(--cyan)] mx-auto mb-3"></div>
@@ -78,43 +93,55 @@
                 </div>
             </div>
 
-            <!-- Filter / Search Bar -->
-            <div class="mb-10 lg:mb-14 animate-on-scroll">
+            <!-- FILTER / SEARCH -->
+            <div class="mb-10 lg:mb-14">
                 <div class="rounded-[2rem] border border-[rgba(1,157,222,0.15)] bg-white/85 backdrop-blur-xl shadow-[0_16px_50px_rgba(15,23,42,0.07)] p-4 sm:p-5 lg:p-6">
                     <div class="flex flex-col lg:flex-row gap-4 lg:items-center lg:justify-between">
                         <div class="flex flex-wrap gap-3">
-                            <button class="px-4 py-2 rounded-full text-white text-sm font-medium transition bg-[var(--cyan)] hover:opacity-90 shadow-[0_6px_20px_rgba(1,157,222,0.25)]">
+                            <button data-filter="all" class="partner-filter px-4 py-2 rounded-full text-white text-sm font-medium transition bg-[var(--cyan)] hover:opacity-90 shadow-[0_6px_20px_rgba(1,157,222,0.25)]">
                                 All Partners
                             </button>
-                            <button class="px-4 py-2 rounded-full text-sm font-medium transition bg-[rgba(1,157,222,0.08)] text-[var(--cyan)] hover:bg-[var(--cyan)] hover:text-white">
-                                Utilities
+
+                            <button data-filter="Private Utility" class="partner-filter px-4 py-2 rounded-full text-sm font-medium transition bg-[rgba(1,157,222,0.08)] text-[var(--cyan)] hover:bg-[var(--cyan)] hover:text-white">
+                                Private Utility
                             </button>
-                            <button class="px-4 py-2 rounded-full text-sm font-medium transition bg-[rgba(243,22,113,0.08)] text-[var(--pink)] hover:bg-[var(--pink)] hover:text-white">
-                                Government
+
+                            <button data-filter="Public Utility" class="partner-filter px-4 py-2 rounded-full text-sm font-medium transition bg-[rgba(243,22,113,0.08)] text-[var(--pink)] hover:bg-[var(--pink)] hover:text-white">
+                                Public Utility
                             </button>
-                            <button class="px-4 py-2 rounded-full text-sm font-medium transition bg-[rgba(233,146,16,0.08)] text-[var(--orange)] hover:bg-[var(--orange)] hover:text-white">
+
+                            <button data-filter="Academia" class="partner-filter px-4 py-2 rounded-full text-sm font-medium transition bg-[rgba(233,146,16,0.08)] text-[var(--orange)] hover:bg-[var(--orange)] hover:text-white">
                                 Academia
                             </button>
-                            <button class="px-4 py-2 rounded-full text-sm font-medium transition bg-slate-100 text-slate-600 hover:bg-slate-900 hover:text-white">
+
+                            <button data-filter="Government" class="partner-filter px-4 py-2 rounded-full text-sm font-medium transition bg-[rgba(99,102,241,0.08)] text-indigo-500 hover:bg-indigo-500 hover:text-white">
+                                Government
+                            </button>
+
+                            <button data-filter="Association" class="partner-filter px-4 py-2 rounded-full text-sm font-medium transition bg-[rgba(16,185,129,0.08)] text-emerald-600 hover:bg-emerald-600 hover:text-white">
+                                Association
+                            </button>
+
+                            <button data-filter="Development Partner" class="partner-filter px-4 py-2 rounded-full text-sm font-medium transition bg-slate-100 text-slate-600 hover:bg-slate-900 hover:text-white">
                                 Development Partners
                             </button>
                         </div>
 
                         <div class="w-full lg:w-[320px]">
-                            <input 
-                                type="text" 
+                            <input
+                                id="partnerSearch"
+                                type="text"
                                 placeholder="Search partner..."
-                                class="w-full rounded-full border border-[rgba(1,157,222,0.2)] bg-white px-5 py-3 text-sm text-slate-700 
-                                       placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-[var(--cyan)]/30 focus:border-[var(--cyan)] transition"
+                                class="w-full rounded-full border border-[rgba(1,157,222,0.2)] bg-white px-5 py-3 text-sm text-slate-700 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-[var(--cyan)]/30 focus:border-[var(--cyan)] transition"
                             >
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Logo grid wrapper -->
+            <!-- PARTNERS -->
             <div class="rounded-[2rem] border border-white/70 bg-white/75 backdrop-blur-xl shadow-[0_20px_60px_rgba(15,23,42,0.08)] p-5 sm:p-6 lg:p-8">
-                
+
                 <div class="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-6 lg:mb-8">
                     <div>
                         <p class="text-sm uppercase tracking-[0.22em] text-slate-500 mb-2">
@@ -127,107 +154,141 @@
                 </div>
 
                 @php
-    // WePOWER South Asia Partners - Updated from your serial list
-    $partnerData = [
-        4  => ['name' => 'IEEE Women in Engineering (WIE)', 'website' => 'https://wie.ieee.org/'],
-        5  => ['name' => 'Asian Development Bank (ADB)', 'website' => 'https://www.adb.org'],
-        6  => ['name' => 'Fenaka Corporation Limited', 'website' => 'https://fenaka.mv'],
-        7  => ['name' => 'Lanka Electricity Company (LECO)', 'website' => 'https://www.leco.lk'],
-        8  => ['name' => 'Partner 8', 'website' => '#'],                    // xxxxx
-        9  => ['name' => 'K-Electric (KE)', 'website' => '#'],
-        10 => ['name' => 'Dhaka Electric Supply Company (DESCO)', 'website' => '#'],
-        11 => ['name' => 'Partner 11', 'website' => '#'],                    // xxxx
-        12 => ['name' => 'American International University-Bangladesh (AIUB)', 'website' => 'https://www.aiub.edu'],
-        13 => ['name' => 'Partner 13', 'website' => '#'],                    // xxxxxx
-        14 => ['name' => 'Vision Mechatronics Pvt. Ltd.', 'website' => 'https://www.vmechatronics.com'],
-        15 => ['name' => "Nepal Engineers' Association", 'website' => 'https://www.neanepal.org.np'],
-        16 => ['name' => 'Partner 16', 'website' => '#'],                    // xxxx
-        17 => ['name' => 'Skill Council for Green Jobs (SCGJ)', 'website' => 'https://sscgj.in'],
-        18 => ['name' => 'BSES Yamuna Power Limited (BYPL)', 'website' => 'https://www.bsesdelhi.com/web/bypl/home'],
-        19 => ['name' => 'Multan Electric Power Company (MEPCO)', 'website' => '#'],
-        20 => ['name' => 'Women in Engineering Pakistan', 'website' => '#'],  // or Women Engineers Pakistan #########
-        21 => ['name' => 'IEEE Bangladesh Section', 'website' => '#'],
-        22 => ['name' => 'Nepal Electricity Authority (NEA)', 'website' => 'https://nea.org.np'],
-        23 => ['name' => 'Institute of Engineering, Tribhuvan University (IOE / TU Nepal)', 'website' => 'https://ioe.tu.edu.np'],
-        24 => ['name' => 'BSES Rajdhani Power Limited (BRPL)', 'website' => 'https://www.bsesdelhi.com/web/brpl/home'],
-        25 => ['name' => 'Partner 25', 'website' => '#'],                    // xxxx
-        26 => ['name' => 'Partner 26', 'website' => '#'],                    // xxxxx
-        27 => ['name' => 'Lahore Electric Supply Company (LESCO)', 'website' => '#'],
-        28 => ['name' => 'Samudayik Upavokta Samiti / Community Electricity Users Group Nepal', 'website' => '#'],
-        29 => ['name' => 'Grameen Shakti', 'website' => '#'],
-        30 => ['name' => 'Partner 30', 'website' => '#'],                    // xxxxxx
-        31 => ['name' => 'Partner 31', 'website' => '#'],                    // xxxxx
-        32 => ['name' => 'United States Agency for International Development (USAID)', 'website' => 'https://www.usaid.gov'],
-        33 => ['name' => 'Druk Green Power Corporation', 'website' => 'https://www.drukgreen.bt'],
-        34 => ['name' => 'Tata Power Delhi Distribution Limited (Tata Power DDL)', 'website' => '#'],
-        35 => ['name' => 'Energy Efficiency Services Limited (EESL)', 'website' => '#'],
-        36 => ['name' => 'Bhutan Power Corporation (BPC)', 'website' => 'https://www.bpc.bt'],
-        37 => ['name' => 'Infrastructure Development Company Limited (IDCOL)', 'website' => 'https://www.idcol.org'],
-        38 => ['name' => 'Partner 39', 'website' => '#'],                    // xxxx
+                    $partnerData = [
+                        4  => ['name' => 'IEEE Women in Engineering (WIE)', 'category' => 'Association', 'website' => 'https://wie.ieee.org/'],
+                        5  => ['name' => 'Asian Development Bank (ADB)', 'category' => 'Development Partner', 'website' => 'https://www.adb.org'],
+                        6  => ['name' => 'Fenaka Corporation Limited', 'category' => 'Public Utility', 'website' => 'https://fenaka.mv'],
+                        7  => ['name' => 'Lanka Electricity Company (LECO)', 'category' => 'Public Utility', 'website' => 'https://www.leco.lk'],
+                        8  => ['name' => 'Partner 8', 'category' => 'Public Utility', 'website' => '#'],
+                        9  => ['name' => 'K-Electric (KE)', 'category' => 'Public Utility', 'website' => '#'],
+                        10 => ['name' => 'Dhaka Electric Supply Company (DESCO)', 'category' => 'Public Utility', 'website' => '#'],
+                        11 => ['name' => 'Partner 11', 'category' => 'Public Utility', 'website' => '#'],
+                        12 => ['name' => 'American International University-Bangladesh (AIUB)', 'category' => 'Academia', 'website' => 'https://www.aiub.edu'],
+                        13 => ['name' => 'Partner 13', 'category' => 'Public Utility', 'website' => '#'],
+                        14 => ['name' => 'Vision Mechatronics Pvt. Ltd.', 'category' => 'Private Utility', 'website' => 'https://www.vmechatronics.com'],
+                        15 => ['name' => "Nepal Engineers' Association", 'category' => 'Association', 'website' => 'https://www.neanepal.org.np'],
+                        16 => ['name' => 'Partner 16', 'category' => 'Public Utility', 'website' => '#'],
+                        17 => ['name' => 'Skill Council for Green Jobs (SCGJ)', 'category' => 'Government', 'website' => 'https://sscgj.in'],
+                        18 => ['name' => 'BSES Yamuna Power Limited (BYPL)', 'category' => 'Public Utility', 'website' => 'https://www.bsesdelhi.com/web/bypl/home'],
+                        19 => ['name' => 'Multan Electric Power Company (MEPCO)', 'category' => 'Public Utility', 'website' => '#'],
+                        20 => ['name' => 'Women in Engineering Pakistan', 'category' => 'Association', 'website' => '#'],
+                        21 => ['name' => 'IEEE Bangladesh Section', 'category' => 'Academia', 'website' => '#'],
+                        22 => ['name' => 'Nepal Electricity Authority (NEA)', 'category' => 'Public Utility', 'website' => 'https://nea.org.np'],
+                        23 => ['name' => 'Institute of Engineering, Tribhuvan University (IOE / TU Nepal)', 'category' => 'Academia', 'website' => 'https://ioe.tu.edu.np'],
+                        24 => ['name' => 'BSES Rajdhani Power Limited (BRPL)', 'category' => 'Public Utility', 'website' => 'https://www.bsesdelhi.com/web/brpl/home'],
+                        26 => ['name' => 'Partner 26', 'category' => 'Private Utility', 'website' => '#'],
+                        27 => ['name' => 'Lahore Electric Supply Company (LESCO)', 'category' => 'Private Utility', 'website' => '#'],
+                        28 => ['name' => 'Samudayik Upavokta Samiti / Community Electricity Users Group Nepal', 'category' => 'Private Utility', 'website' => '#'],
+                        29 => ['name' => 'Grameen Shakti', 'category' => 'Private Utility', 'website' => '#'],
+                        30 => ['name' => 'Partner 30', 'category' => 'Public Utility', 'website' => '#'],
+                        31 => ['name' => 'Partner 31', 'category' => 'Private Utility', 'website' => '#'],
+                        32 => ['name' => 'United States Agency for International Development (USAID)', 'category' => 'Development Partner', 'website' => 'https://www.usaid.gov'],
+                        33 => ['name' => 'Druk Green Power Corporation', 'category' => 'Public Utility', 'website' => 'https://www.drukgreen.bt'],
+                        34 => ['name' => 'Tata Power Delhi Distribution Limited (Tata Power DDL)', 'category' => 'Private Utility', 'website' => '#'],
+                        35 => ['name' => 'Energy Efficiency Services Limited (EESL)', 'category' => 'Public Utility', 'website' => '#'],
+                        36 => ['name' => 'Bhutan Power Corporation (BPC)', 'category' => 'Public Utility', 'website' => 'https://www.bpc.bt'],
+                        37 => ['name' => 'Infrastructure Development Company Limited (IDCOL)', 'category' => 'Development Partner', 'website' => 'https://www.idcol.org'],
+                        38 => ['name' => 'Partner 38', 'category' => 'Association', 'website' => '#'],
+                        39 => ['name' => 'Peshawar Electric Supply Company (PESCO)', 'category' => 'Government', 'website' => 'https://www.pesco.gov.pk'],
+                        40 => ['name' => 'Partner 40', 'category' => 'Association', 'website' => '#'],
+                        41 => ['name' => 'National Power Training Institute (NPTI)', 'category' => 'Academia', 'website' => 'https://npti.gov.in'],
+                        42 => ['name' => 'Partner 42', 'category' => 'Public Utility', 'website' => '#'],
+                        43 => ['name' => 'NTPC Limited', 'category' => 'Private Utility', 'website' => 'https://www.ntpc.co.in'],
+                        44 => ['name' => 'Hyderabad Electric Supply Company (HESCO)', 'category' => 'Development Partner', 'website' => '#'],
+                        45 => ['name' => 'Electricity Generation Company of Bangladesh (EGCB)', 'category' => 'Public Utility', 'website' => 'https://www.egcb.com.bd'],
+                        46 => ['name' => 'Partner 46', 'category' => 'Public Utility', 'website' => '#'],
+                        47 => ['name' => 'Feedback Energy Distribution Company (FEDCO)', 'category' => 'Private Utility', 'website' => '#'],
+                        48 => ['name' => 'Grassroots Trading Network for Women (GTNfW)', 'category' => 'Private Utility', 'website' => '#'],
+                        49 => ['name' => 'Bangladesh Power Management Institute (BPMI)', 'category' => 'Public Utility', 'website' => 'https://bpmi.gov.bd'],
+                        50 => ['name' => 'Power Grid Corporation of India (POWERGRID)', 'category' => 'Academia', 'website' => 'https://www.powergrid.in'],
+                        51 => ['name' => 'Central Power Purchasing Agency (CPPA-G)', 'category' => 'Government', 'website' => '#'],
+                        52 => ['name' => 'Partner 52', 'category' => 'Academia', 'website' => '#'],
+                        53 => ['name' => 'National Power Control Centre (NPCC)', 'category' => 'Public Utility', 'website' => '#'],
+                        54 => ['name' => 'Partner 54', 'category' => 'Public Utility', 'website' => '#'],
+                        55 => ['name' => 'Indian Institute of Technology Kanpur', 'category' => 'Academia', 'website' => 'https://iitk.ac.in'],
+                        56 => ['name' => 'Partner 56', 'category' => 'Private Utility', 'website' => '#'],
+                        57 => ['name' => 'Independent Power Producers Association Nepal (IPPAN)', 'category' => 'Association', 'website' => 'https://www.ippan.org.np'],
+                        58 => ['name' => 'Partner 58', 'category' => 'Government', 'website' => '#'],
+                        59 => ['name' => 'Butwal Power Company / Butwal Power Grid', 'category' => 'Academia', 'website' => '#'],
+                        60 => ['name' => 'Women Network for Energy and Environment (WoNEE)', 'category' => 'Academia', 'website' => 'https://wonee.org.np'],
+                    ];
 
-        39 => ['name' => 'Peshawar Electric Supply Company (PESCO)', 'website' => 'https://www.pesco.gov.pk'],
-        40 => ['name' => 'Partner 39', 'website' => '#'],                    // xxxx
-        41 => ['name' => 'National Power Training Institute (NPTI)', 'website' => 'https://npti.gov.in'],
-        42 => ['name' => 'Partner 41', 'website' => '#'],                    // xxxx
-        43 => ['name' => 'NTPC Limited', 'website' => 'https://www.ntpc.co.in'],
-        44 => ['name' => 'Hyderabad Electric Supply Company (HESCO)', 'website' => '#'],
-        45 => ['name' => 'Electricity Generation Company of Bangladesh (EGCB)', 'website' => 'https://www.egcb.com.bd'],
-        46 => ['name' => 'Partner 45', 'website' => '#'],                    // xxxx
-        47 => ['name' => 'Feedback Energy Distribution Company (FEDCO)', 'website' => '#'],
-        48 => ['name' => 'Grassroots Trading Network for Women (GTNfW)', 'website' => '#'],
-        49 => ['name' => 'Bangladesh Power Management Institute (BPMI)', 'website' => 'https://bpmi.gov.bd'],
-        50 => ['name' => 'Power Grid Corporation of India (POWERGRID)', 'website' => 'https://www.powergrid.in'],
-        51 => ['name' => 'Central Power Purchasing Agency (CPPA-G)', 'website' => '#'],
-        52 => ['name' => 'Partner 51', 'website' => '#'],                    // xxxx
-        53 => ['name' => 'National Power Control Centre (NPCC)', 'website' => '#'],
-        54 => ['name' => 'Partner 53', 'website' => '#'],                    // kbpra (possibly KB PRA or similar)
-        55 => ['name' => 'भारतीय प्रौद्योगिकी संस्थान कानपुर', 'website' => 'https://iitk.ac.in/new/hindi/'],  // bharatiya pradho...
-        56 => ['name' => 'Partner 55', 'website' => '#'],                    // xxx
-        57 => ['name' => 'Independent Power Producers Association Nepal (IPPAN)', 'website' => 'https://www.ippan.org.np'],
-        58 => ['name' => 'Partner 57', 'website' => '#'],                    // xxxxxx
-        59 => ['name' => 'Butwal Power Company / Butwal Power Grid', 'website' => ''],
-        60 => ['name' => 'Women Network for Energy and Environment (WoNEE)', 'website' => 'https://wonee.org.np'],
-        61 => ['name' => 'Partner 60', 'website' => '#'],                    // extra if needed
-    ];
-@endphp
+                    function partnerBadgeClass($category) {
+                        return match ($category) {
+                            'Public Utility' => 'bg-[rgba(243,22,113,0.10)] text-[var(--pink)]',
+                            'Private Utility' => 'bg-[rgba(1,157,222,0.10)] text-[var(--cyan)]',
+                            'Academia' => 'bg-[rgba(233,146,16,0.12)] text-[var(--orange)]',
+                            'Government' => 'bg-indigo-50 text-indigo-600',
+                            'Association' => 'bg-emerald-50 text-emerald-600',
+                            'Development Partner' => 'bg-slate-100 text-slate-600',
+                            default => 'bg-slate-100 text-slate-600',
+                        };
+                    }
+                @endphp
 
-                <!-- Partner logos grid - only render if image exists -->
-                <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-4 sm:gap-5 lg:gap-6">
+                <div id="partnerGrid" class="grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-5 lg:gap-6">
                     @for ($i = 4; $i <= 60; $i++)
                         @php
-                            $data    = $partnerData[$i] ?? ['name' => "Partner {$i}", 'website' => '#'];
-                            $name    = $data['name'];
-                            $website = $data['website'];
+                            $data = $partnerData[$i] ?? ['name' => "Partner {$i}", 'category' => 'Public Utility', 'website' => '#'];
+                            $name = $data['name'];
+                            $category = $data['category'];
+                            $website = $data['website'] ?: '#';
 
                             $logoJpg = "images/partners/image{$i}.jpg";
                             $logoPng = "images/partners/image{$i}.png";
-
-                            // Check if at least one image file exists
                             $hasImage = file_exists(public_path($logoJpg)) || file_exists(public_path($logoPng));
                         @endphp
 
                         @if($hasImage)
-                            <a href="{{ $website }}" 
-                               target="_blank" 
+                            <a href="{{ $website }}"
+                               target="_blank"
                                rel="noopener noreferrer"
                                title="Visit {{ $name }} website"
-                               class="group rounded-2xl border border-slate-200/70 bg-white min-h-[150px] sm:min-h-[160px] flex flex-col items-center justify-center p-5 sm:p-6 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 overflow-hidden relative">
-                                
+                               data-name="{{ strtolower($name) }}"
+                               data-category="{{ $category }}"
+                               class="partner-card group rounded-[1.6rem] border border-slate-200/70 bg-white min-h-[220px] sm:min-h-[240px] flex flex-col items-center justify-center p-6 shadow-[0_10px_30px_rgba(15,23,42,0.06)] hover:shadow-[0_22px_55px_rgba(15,23,42,0.14)] hover:-translate-y-1 transition-all duration-300">
+
+                                <!-- Badge -->
+                                <div class="absolute top-4 left-4 z-20">
+                                    <span class="inline-flex items-center rounded-full px-3 py-1 text-[10px] font-semibold tracking-wide {{ partnerBadgeClass($category) }}">
+                                        {{ $category }}
+                                    </span>
+                                </div>
+
+                                <!-- Decorative Glow -->
+                                <div class="absolute -top-12 -right-12 w-32 h-32 rounded-full bg-[var(--cyan)]/10 blur-2xl opacity-0 group-hover:opacity-100 transition duration-500"></div>
+                                <div class="absolute -bottom-12 -left-12 w-32 h-32 rounded-full bg-[var(--pink)]/10 blur-2xl opacity-0 group-hover:opacity-100 transition duration-500"></div>
+
                                 <!-- Logo -->
-                                <div class="flex-1 flex items-center justify-center pb-2">
+                                <div class="relative z-10 flex flex-1 items-center justify-center w-full pt-8">
                                     <img
                                         src="{{ asset($logoJpg) }}"
                                         alt="{{ $name }}"
                                         onerror="this.onerror=null; this.src='{{ asset($logoPng) }}';"
-                                        class="h-12 sm:h-14 lg:h-16 w-auto object-contain opacity-90 group-hover:opacity-100 transition duration-300"
+                                        class="max-h-24 sm:max-h-28 lg:max-h-32 max-w-[85%] object-contain transition duration-500 group-hover:scale-110"
                                     >
                                 </div>
 
-                                <!-- Partner Name (visible on hover) -->
-                                <div class="mt-2 text-center opacity-0 group-hover:opacity-100 transition-all duration-300 px-2">
-                                    <p class="text-xs font-medium text-slate-700 leading-tight line-clamp-2">
+                                <!-- Name -->
+                                <div class="relative z-10 mt-5 text-center">
+                                    <p class="text-sm font-semibold text-slate-800 leading-snug line-clamp-2">
                                         {{ $name }}
                                     </p>
+                                </div>
+
+                                <!-- Hover Overlay -->
+                                <div class="absolute inset-0 z-30 flex flex-col items-center justify-center text-center px-5 bg-white/92 backdrop-blur-md opacity-0 group-hover:opacity-100 transition duration-300">
+                                    <p class="text-base font-bold text-slate-900 leading-snug">
+                                        {{ $name }}
+                                    </p>
+
+                                    <p class="mt-2 text-xs text-slate-500">
+                                        {{ $category }}
+                                    </p>
+
+                                    <span class="mt-5 inline-flex items-center justify-center rounded-full bg-slate-900 text-white px-4 py-2 text-xs font-semibold shadow-lg">
+                                        Visit Website →
+                                    </span>
                                 </div>
                             </a>
                         @endif
@@ -235,10 +296,11 @@
                 </div>
             </div>
 
-            <!-- Bottom block -->
+            <!-- CTA -->
             <div class="mt-12 lg:mt-16">
                 <div class="relative overflow-hidden rounded-[2rem] bg-slate-900 text-white px-6 sm:px-8 lg:px-12 py-10 lg:py-12 shadow-[0_20px_70px_rgba(15,23,42,0.18)]">
                     <div class="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(99,102,241,0.26),transparent_30%),radial-gradient(circle_at_bottom_left,rgba(6,182,212,0.18),transparent_30%)]"></div>
+
                     <div class="relative flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
                         <div class="max-w-2xl">
                             <p class="text-sm uppercase tracking-[0.22em] text-cyan-300 mb-3">
@@ -252,6 +314,7 @@
                                 our partners help expand pathways for women across the power and energy sector.
                             </p>
                         </div>
+
                         <div class="flex-shrink-0">
                             <a href="{{ url('/contact') }}"
                                class="inline-flex items-center justify-center rounded-full bg-white text-slate-900 px-6 py-3 text-sm font-semibold hover:bg-slate-100 transition">
@@ -265,5 +328,45 @@
         </div>
     </section>
 </div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const filterButtons = document.querySelectorAll('.partner-filter');
+        const cards = document.querySelectorAll('.partner-card');
+        const searchInput = document.getElementById('partnerSearch');
+
+        let activeFilter = 'all';
+
+        function filterPartners() {
+            const searchValue = searchInput.value.toLowerCase().trim();
+
+            cards.forEach(card => {
+                const name = card.dataset.name || '';
+                const category = card.dataset.category || '';
+
+                const matchesFilter = activeFilter === 'all' || category === activeFilter;
+                const matchesSearch = name.includes(searchValue);
+
+                card.classList.toggle('hide', !(matchesFilter && matchesSearch));
+            });
+        }
+
+        filterButtons.forEach(button => {
+            button.addEventListener('click', function () {
+                activeFilter = this.dataset.filter;
+
+                filterButtons.forEach(btn => {
+                    btn.classList.remove('bg-[var(--cyan)]', 'text-white', 'shadow-[0_6px_20px_rgba(1,157,222,0.25)]');
+                });
+
+                this.classList.add('bg-[var(--cyan)]', 'text-white', 'shadow-[0_6px_20px_rgba(1,157,222,0.25)]');
+
+                filterPartners();
+            });
+        });
+
+        searchInput.addEventListener('input', filterPartners);
+    });
+</script>
 
 @endsection

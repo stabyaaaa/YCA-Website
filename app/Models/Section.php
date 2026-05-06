@@ -6,7 +6,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class Section extends Model
 {
-    protected $fillable = ['page_id','section_key','sort_order'];
+    protected $fillable = ['page_id', 'section_key', 'sort_order'];
+
+    public function page()
+    {
+        return $this->belongsTo(Page::class);
+    }
 
     public function fields()
     {

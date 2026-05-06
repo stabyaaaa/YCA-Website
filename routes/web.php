@@ -71,9 +71,7 @@ Route::middleware('redirect.unverified')->group(function () {
         ->name('home');
 
 
-    Route::get('/about', function () {
-        return view('about');
-    })->name('about');
+    Route::get('/about', [HomeController::class, 'about'])->name('about');
 
     Route::get('/news', function () {
         return view('news');
@@ -153,7 +151,7 @@ Route::middleware(['auth', 'verified', 'role:admin,super_admin'])->group(functio
     Route::post('/admin/cms/inline-image-update', [CMSController::class, 'inlineImageUpdate'])
     ->name('cms.inline.image.update');
 
-    Route::post('admin/cms/inline/file-update', [CmsController::class, 'inlineFileUpdate'])
+    Route::post('/admin/cms/inline/file-update', [CmsController::class, 'inlineFileUpdate'])
     ->name('cms.inline.file.update');
 
 });

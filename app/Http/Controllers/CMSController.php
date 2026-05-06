@@ -9,8 +9,17 @@ use App\Models\Field;
 
 class CMSController extends Controller
 {
+    private function authorizeCmsEditor(): void
+    {
+        if (!auth()->check() || !in_array(auth()->user()->role, ['admin', 'super_admin'])) {
+            abort(403, 'Unauthorized');
+        }
+    }
+
     public function edit(Page $page)
     {
+        $this->authorizeCmsEditor();
+
         $page->load('sections.fields');
 
         return view('admin.cms.edit', compact('page'));
@@ -18,13 +27,15 @@ class CMSController extends Controller
 
     public function update(Request $request, Page $page)
     {
+        $this->authorizeCmsEditor();
+
         $page->load('sections.fields');
 
         foreach ($page->sections as $section) {
             foreach ($section->fields as $field) {
                 if ($request->has($field->id)) {
                     $field->update([
-                        'field_value' => $request->input($field->id)
+                        'field_value' => $request->input($field->id),
                     ]);
                 }
             }
@@ -38,102 +49,134 @@ class CMSController extends Controller
     }
 
     public function inlineUpdate(Request $request)
-{
-    $request->validate([
-        'page_id' => 'required|exists:pages,id',
-        'section' => 'required|string',
-        'field' => 'required|string',
-        'value' => 'nullable|string',
-    ]);
+    {
+        $this->authorizeCmsEditor();
 
-    $section = Section::where('page_id', $request->page_id)
-        ->where('section_key', $request->section)
-        ->first();
+        $request->validate([
+            'page_id' => 'required|exists:pages,id',
+            'section' => 'required|string',
+            'field' => 'required|string',
+            'value' => 'nullable|string',
+        ]);
 
-    if (! $section) {
+        $section = Section::where('page_id', $request->page_id)
+            ->where('section_key', $request->section)
+            ->first();
+
+        if (! $section) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Section not found',
+            ], 404);
+        }
+
+        $field = Field::where('section_id', $section->id)
+            ->where('field_key', $request->field)
+            ->first();
+
+        if (! $field) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Field not found: ' . $request->field,
+            ], 404);
+        }
+
+        $field->update([
+            'field_value' => $request->value,
+        ]);
+
         return response()->json([
-            'success' => false,
-            'message' => 'Section not found',
-        ], 404);
+            'success' => true,
+        ]);
     }
 
-    $field = Field::where('section_id', $section->id)
-        ->where('field_key', $request->field)
-        ->first();
-
-    if (! $field) {
-        return response()->json([
-            'success' => false,
-            'message' => 'Field not found: ' . $request->field,
-        ], 404);
-    }
-
-    $field->update([
-        'field_value' => $request->value,
-    ]);
-
-    return response()->json([
-        'success' => true,
-    ]);
-    }
     public function inlineImageUpdate(Request $request)
-{
-    $request->validate([
-        'page_id' => 'required|exists:pages,id',
-        'section' => 'required|string',
-        'field' => 'required|string',
-        'image' => 'required|image|mimes:jpg,jpeg,png,webp|max:4096',
-    ]);
+    {
+        $this->authorizeCmsEditor();
 
-    $section = Section::where('page_id', $request->page_id)
-        ->where('section_key', $request->section)
-        ->firstOrFail();
+        $request->validate([
+            'page_id' => 'required|exists:pages,id',
+            'section' => 'required|string',
+            'field' => 'required|string',
+            'image' => 'required|image|mimes:jpg,jpeg,png,webp|max:4096',
+        ]);
 
-    $field = Field::where('section_id', $section->id)
-        ->where('field_key', $request->field)
-        ->firstOrFail();
+        $section = Section::where('page_id', $request->page_id)
+            ->where('section_key', $request->section)
+            ->first();
 
-    $path = $request->file('image')->store('cms', 'public');
+        if (! $section) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Section not found',
+            ], 404);
+        }
 
-    $field->update([
-        'field_value' => 'storage/' . $path,
-    ]);
+        $field = Field::where('section_id', $section->id)
+            ->where('field_key', $request->field)
+            ->first();
 
-    return response()->json([
-        'success' => true,
-        'path' => asset('storage/' . $path),
-    ]);
-}
-    public function inlineFileUpdate(Request $request)
-{
-    $request->validate([
-        'page_id' => 'required',
-        'section' => 'required|string',
-        'field' => 'required|string',
-        'file' => 'required|file|mimes:pdf|max:20480',
-    ]);
+        if (! $field) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Field not found: ' . $request->field,
+            ], 404);
+        }
 
-    $path = $request->file('file')->store('files', 'public');
+        $path = $request->file('image')->store('cms', 'public');
 
-    $field = Field::whereHas('section', function ($q) use ($request) {
-        $q->where('section_key', $request->section)
-          ->where('page_id', $request->page_id);
-    })->where('field_key', $request->field)->first();
+        $field->update([
+            'field_value' => 'storage/' . $path,
+        ]);
 
-    if (!$field) {
         return response()->json([
-            'success' => false,
-            'message' => 'Field not found'
-        ], 404);
+            'success' => true,
+            'path' => asset('storage/' . $path),
+        ]);
     }
 
-    $field->update([
-        'field_value' => 'storage/' . $path
-    ]);
+    public function inlineFileUpdate(Request $request)
+    {
+        $this->authorizeCmsEditor();
 
-    return response()->json([
-        'success' => true,
-        'path' => asset('storage/' . $path)
-    ]);
-}
+        $request->validate([
+            'page_id' => 'required|exists:pages,id',
+            'section' => 'required|string',
+            'field' => 'required|string',
+            'file' => 'required|file|mimes:pdf|max:20480',
+        ]);
+
+        $section = Section::where('page_id', $request->page_id)
+            ->where('section_key', $request->section)
+            ->first();
+
+        if (! $section) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Section not found',
+            ], 404);
+        }
+
+        $field = Field::where('section_id', $section->id)
+            ->where('field_key', $request->field)
+            ->first();
+
+        if (! $field) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Field not found: ' . $request->field,
+            ], 404);
+        }
+
+        $path = $request->file('file')->store('files', 'public');
+
+        $field->update([
+            'field_value' => 'storage/' . $path,
+        ]);
+
+        return response()->json([
+            'success' => true,
+            'path' => asset('storage/' . $path),
+        ]);
+    }
 }

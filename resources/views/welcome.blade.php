@@ -133,6 +133,13 @@
                 Save Changes
             </button>
 
+            <button
+                type="button"
+                id="cancelHeroEdit"
+                class="hidden px-5 py-2.5 rounded-xl bg-white border border-slate-200 text-slate-700 font-semibold shadow-lg hover:bg-slate-100 transition">
+                Cancel
+            </button>
+
             <label
                 id="heroImageUploadLabel"
                 class="hidden px-5 py-2.5 rounded-xl bg-white/10 backdrop-blur-xl border border-white/20 text-white font-semibold shadow-2xl hover:bg-white/20 transition cursor-pointer">
@@ -284,6 +291,13 @@
                 class="hidden px-5 py-2.5 rounded-xl bg-cyan-brand text-white font-semibold shadow-2xl hover:scale-105 transition">
                 Save Changes
             </button>
+
+            <button
+                type="button"
+                id="cancelStatsEdit"
+                class="hidden px-5 py-2.5 rounded-xl bg-white border border-slate-200 text-slate-700 font-semibold shadow-lg hover:bg-slate-100 transition">
+                Cancel
+            </button>
         </div>
     @endif
 
@@ -348,6 +362,13 @@
                 id="saveWhyEdit"
                 class="hidden px-5 py-2.5 rounded-xl bg-cyan-brand text-white font-semibold shadow-2xl hover:scale-105 transition">
                 Save Changes
+            </button>
+
+            <button
+                type="button"
+                id="cancelWhyEdit"
+                class="hidden px-5 py-2.5 rounded-xl bg-white border border-slate-200 text-slate-700 font-semibold shadow-lg hover:bg-slate-100 transition">
+                Cancel
             </button>
         </div>
     @endif
@@ -580,6 +601,13 @@
                     Save Changes
                 </button>
 
+            <button
+                type="button"
+                id="cancelVoicesEdit"
+                class="hidden px-5 py-2.5 rounded-xl bg-white border border-slate-200 text-slate-700 font-semibold shadow-lg hover:bg-slate-100 transition">
+                Cancel
+            </button>
+
                 <label
                     id="voicesImageUploadLabel"
                     for="voicesImageUpload"
@@ -746,6 +774,13 @@
                 class="hidden px-5 py-2.5 rounded-xl bg-cyan-brand text-white font-semibold shadow-2xl hover:scale-105 transition">
                 Save Changes
             </button>
+
+            <button
+                type="button"
+                id="cancelChallengesEdit"
+                class="hidden px-5 py-2.5 rounded-xl bg-white border border-slate-200 text-slate-700 font-semibold shadow-lg hover:bg-slate-100 transition">
+                Cancel
+            </button>
         </div>
     @endif
 
@@ -842,6 +877,13 @@
                 id="saveInstitutionalEdit"
                 class="hidden px-5 py-2.5 rounded-xl bg-cyan-brand text-white font-semibold shadow-2xl hover:scale-105 transition">
                 Save Changes
+            </button>
+
+            <button
+                type="button"
+                id="cancelInstitutionalEdit"
+                class="hidden px-5 py-2.5 rounded-xl bg-white border border-slate-200 text-slate-700 font-semibold shadow-lg hover:bg-slate-100 transition">
+                Cancel
             </button>
 
             <label
@@ -1005,6 +1047,13 @@
                 Save Changes
             </button>
 
+            <button
+                type="button"
+                id="cancelReportEdit"
+                class="hidden px-5 py-2.5 rounded-xl bg-white border border-slate-200 text-slate-700 font-semibold shadow-lg hover:bg-slate-100 transition">
+                Cancel
+            </button>
+
             <label
                 id="reportImageUploadLabel"
                 for="reportImageUpload"
@@ -1079,281 +1128,130 @@
 </section>
 
 <script>
-const reportEditableFields = document.querySelectorAll('#report .cms-inline-edit');
-
-const enableReportBtn = document.getElementById('enableReportEdit');
-const saveReportBtn = document.getElementById('saveReportEdit');
-
-const reportImageUploadLabel = document.getElementById('reportImageUploadLabel');
-const reportImageUpload = document.getElementById('reportImageUpload');
-const reportImage = document.getElementById('reportImage');
-
-const reportFileUploadLabel = document.getElementById('reportFileUploadLabel');
-const reportFileUpload = document.getElementById('reportFileUpload');
-const reportDownloadLink = document.getElementById('reportDownloadLink');
-const reportViewLink = document.getElementById('reportViewLink');
-
-if (enableReportBtn && saveReportBtn) {
-    reportEditableFields.forEach((el) => {
-        el.setAttribute('contenteditable', 'false');
-    });
-
-    enableReportBtn.addEventListener('click', () => {
-        reportEditableFields.forEach((el) => {
-            el.setAttribute('contenteditable', 'true');
-            el.classList.add('cms-editable-active');
-        });
-
-        reportImageUploadLabel?.classList.remove('hidden');
-        reportFileUploadLabel?.classList.remove('hidden');
-
-        enableReportBtn.classList.add('hidden');
-        saveReportBtn.classList.remove('hidden');
-    });
-
-    saveReportBtn.addEventListener('click', async () => {
-        saveReportBtn.innerText = 'Saving...';
-
-        for (const el of reportEditableFields) {
-            const response = await fetch("{{ route('cms.inline.update') }}", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                    "Accept": "application/json",
-                    "X-CSRF-TOKEN": "{{ csrf_token() }}"
-                },
-                body: JSON.stringify({
-                    page_id: "{{ $page->id }}",
-                    section: el.dataset.section,
-                    field: el.dataset.field,
-                    value: el.innerText.trim()
-                })
-            });
-
-            if (!response.ok) {
-                const error = await response.json();
-                console.log(error);
-                saveReportBtn.innerText = error.message ?? 'Save Failed';
-                return;
-            }
-        }
-
-        reportEditableFields.forEach((el) => {
-            el.setAttribute('contenteditable', 'false');
-            el.classList.remove('cms-editable-active');
-        });
-
-        reportImageUploadLabel?.classList.add('hidden');
-        reportFileUploadLabel?.classList.add('hidden');
-
-        saveReportBtn.innerText = 'Saved ✓';
-
-        setTimeout(() => {
-            saveReportBtn.innerText = 'Save Changes';
-            saveReportBtn.classList.add('hidden');
-            enableReportBtn.classList.remove('hidden');
-        }, 1200);
-    });
-}
-
-
-// REPORT IMAGE UPLOAD
-if (reportImageUpload && reportImage) {
-    reportImageUpload.addEventListener('change', async () => {
-        const file = reportImageUpload.files[0];
-
-        if (!file) return;
-
-        const formData = new FormData();
-
-        formData.append('page_id', "{{ $page->id }}");
-        formData.append('section', 'report');
-        formData.append('field', 'image');
-        formData.append('image', file);
-
-        const response = await fetch("{{ route('cms.inline.image.update') }}", {
-            method: "POST",
-            headers: {
-                "X-CSRF-TOKEN": "{{ csrf_token() }}"
-            },
-            body: formData
-        });
-
-        const data = await response.json();
-
-        if (response.ok && data.success) {
-            reportImage.src = data.path;
-        } else {
-            alert(data.message ?? 'Image upload failed');
-        }
-    });
-}
-
-
-// REPORT PDF UPLOAD
-if (reportFileUpload && reportDownloadLink && reportViewLink) {
-    reportFileUpload.addEventListener('change', async () => {
-        const file = reportFileUpload.files[0];
-
-        if (!file) return;
-
-        const formData = new FormData();
-
-        formData.append('page_id', "{{ $page->id }}");
-        formData.append('section', 'report');
-        formData.append('field', 'file');
-        formData.append('file', file);
-
-        const response = await fetch("{{ route('cms.inline.file.update') }}", {
-            method: "POST",
-            headers: {
-                "X-CSRF-TOKEN": "{{ csrf_token() }}"
-            },
-            body: formData
-        });
-
-        const data = await response.json();
-
-        if (response.ok && data.success) {
-            reportDownloadLink.href = data.path;
-            reportViewLink.href = data.path;
-        } else {
-            alert(data.message ?? 'PDF upload failed');
-        }
-    });
-}
-</script>
-
-<script>
-const institutionalEditableFields = document.querySelectorAll('#institutional .cms-inline-edit');
-
-const enableInstitutionalBtn = document.getElementById('enableInstitutionalEdit');
-const saveInstitutionalBtn = document.getElementById('saveInstitutionalEdit');
-
-const institutionalImageUploadLabel = document.getElementById('institutionalImageUploadLabel');
-const institutionalImageUpload = document.getElementById('institutionalImageUpload');
-const institutionalImage = document.getElementById('institutionalImage');
-
-if (enableInstitutionalBtn && saveInstitutionalBtn) {
-    institutionalEditableFields.forEach((el) => {
-        el.setAttribute('contenteditable', 'false');
-    });
-
-    enableInstitutionalBtn.addEventListener('click', () => {
-        institutionalEditableFields.forEach((el) => {
-            el.setAttribute('contenteditable', 'true');
-            el.classList.add('cms-editable-active');
-        });
-
-        institutionalImageUploadLabel?.classList.remove('hidden');
-
-        enableInstitutionalBtn.classList.add('hidden');
-        saveInstitutionalBtn.classList.remove('hidden');
-    });
-
-    saveInstitutionalBtn.addEventListener('click', async () => {
-        saveInstitutionalBtn.innerText = 'Saving...';
-
-        for (const el of institutionalEditableFields) {
-            const response = await fetch("{{ route('cms.inline.update') }}", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                    "Accept": "application/json",
-                    "X-CSRF-TOKEN": "{{ csrf_token() }}"
-                },
-                body: JSON.stringify({
-                    page_id: "{{ $page->id }}",
-                    section: el.dataset.section,
-                    field: el.dataset.field,
-                    value: el.innerText.trim()
-                })
-            });
-
-            if (!response.ok) {
-                const error = await response.json();
-                console.log(error);
-                saveInstitutionalBtn.innerText = error.message ?? 'Save Failed';
-                return;
-            }
-        }
-
-        institutionalEditableFields.forEach((el) => {
-            el.setAttribute('contenteditable', 'false');
-            el.classList.remove('cms-editable-active');
-        });
-
-        institutionalImageUploadLabel?.classList.add('hidden');
-
-        saveInstitutionalBtn.innerText = 'Saved ✓';
-
-        setTimeout(() => {
-            saveInstitutionalBtn.innerText = 'Save Changes';
-            saveInstitutionalBtn.classList.add('hidden');
-            enableInstitutionalBtn.classList.remove('hidden');
-        }, 1200);
-    });
-}
-
-if (institutionalImageUpload && institutionalImage) {
-    institutionalImageUpload.addEventListener('change', async () => {
-        const file = institutionalImageUpload.files[0];
-
-        if (!file) return;
-
-        const formData = new FormData();
-
-        formData.append('page_id', "{{ $page->id }}");
-        formData.append('section', 'institutional');
-        formData.append('field', 'image');
-        formData.append('image', file);
-
-        const response = await fetch("{{ route('cms.inline.image.update') }}", {
-            method: "POST",
-            headers: {
-                "X-CSRF-TOKEN": "{{ csrf_token() }}"
-            },
-            body: formData
-        });
-
-        const data = await response.json();
-
-        if (response.ok && data.success) {
-            institutionalImage.src = data.path;
-        } else {
-            alert(data.message ?? 'Image upload failed');
-        }
-    });
-}
-</script>
-<script>
 /*
 |--------------------------------------------------------------------------
-| Inline CMS Edit: Hero + Stats + Why
+| Inline CMS Editor with Cancel + Preview-only Uploads
 |--------------------------------------------------------------------------
+| Text changes are saved only after clicking Save Changes.
+| Image/PDF changes are also saved only after clicking Save Changes.
+| Cancel restores original text and image preview without saving anything.
 */
 
 function setupCmsEditor(config) {
     const fields = document.querySelectorAll(config.selector);
     const enableBtn = document.getElementById(config.enableBtnId);
     const saveBtn = document.getElementById(config.saveBtnId);
+    const cancelBtn = document.getElementById(config.cancelBtnId);
 
     if (!enableBtn || !saveBtn) return;
+
+    let originalValues = {};
+    let selectedUploads = {};
+    let originalMedia = {};
+    let objectUrls = [];
+
+    const uploads = config.uploads || [];
+
+    function setEditing(isEditing) {
+        fields.forEach((el) => {
+            el.setAttribute('contenteditable', isEditing ? 'true' : 'false');
+            el.classList.toggle('cms-editable-active', isEditing);
+        });
+
+        config.onToggle?.(isEditing);
+
+        enableBtn.classList.toggle('hidden', isEditing);
+        saveBtn.classList.toggle('hidden', !isEditing);
+        cancelBtn?.classList.toggle('hidden', !isEditing);
+    }
+
+    function rememberOriginalState() {
+        originalValues = {};
+
+        fields.forEach((el) => {
+            const key = `${el.dataset.section}.${el.dataset.field}`;
+            originalValues[key] = el.innerText;
+        });
+
+        originalMedia = {};
+        selectedUploads = {};
+        objectUrls.forEach((url) => URL.revokeObjectURL(url));
+        objectUrls = [];
+
+        uploads.forEach((upload) => {
+            const previewEl = document.getElementById(upload.previewId);
+
+            if (!previewEl) return;
+
+            if (upload.previewAttr === 'href') {
+                originalMedia[upload.previewId] = previewEl.href;
+            } else {
+                originalMedia[upload.previewId] = previewEl.src;
+            }
+        });
+    }
+
+    function restoreOriginalState() {
+        fields.forEach((el) => {
+            const key = `${el.dataset.section}.${el.dataset.field}`;
+            if (originalValues[key] !== undefined) {
+                el.innerText = originalValues[key];
+            }
+        });
+
+        uploads.forEach((upload) => {
+            const previewEl = document.getElementById(upload.previewId);
+            if (!previewEl || originalMedia[upload.previewId] === undefined) return;
+
+            if (upload.previewAttr === 'href') {
+                previewEl.href = originalMedia[upload.previewId];
+            } else {
+                previewEl.src = originalMedia[upload.previewId];
+            }
+        });
+
+        selectedUploads = {};
+        objectUrls.forEach((url) => URL.revokeObjectURL(url));
+        objectUrls = [];
+    }
 
     fields.forEach((el) => {
         el.setAttribute('contenteditable', 'false');
     });
 
-    enableBtn.addEventListener('click', () => {
-        fields.forEach((el) => {
-            el.setAttribute('contenteditable', 'true');
-            el.classList.add('cms-editable-active');
+    uploads.forEach((upload) => {
+        const input = document.getElementById(upload.inputId);
+        const previewEl = document.getElementById(upload.previewId);
+
+        if (!input) return;
+
+        input.addEventListener('change', () => {
+            const file = input.files[0];
+            if (!file) return;
+
+            selectedUploads[upload.inputId] = file;
+
+            // Images preview immediately but are NOT saved until Save Changes.
+            if (upload.type === 'image' && previewEl) {
+                const objectUrl = URL.createObjectURL(file);
+                objectUrls.push(objectUrl);
+                previewEl.src = objectUrl;
+            }
+
+            // PDFs/files are only stored in memory until Save Changes.
+            // Link href is intentionally not changed before save.
         });
+    });
 
-        config.onEnable?.();
+    enableBtn.addEventListener('click', () => {
+        rememberOriginalState();
+        setEditing(true);
+    });
 
-        enableBtn.classList.add('hidden');
-        saveBtn.classList.remove('hidden');
+    cancelBtn?.addEventListener('click', () => {
+        restoreOriginalState();
+        setEditing(false);
+        saveBtn.innerText = 'Save Changes';
     });
 
     saveBtn.addEventListener('click', async () => {
@@ -1383,268 +1281,219 @@ function setupCmsEditor(config) {
             }
         }
 
-        fields.forEach((el) => {
-            el.setAttribute('contenteditable', 'false');
-            el.classList.remove('cms-editable-active');
-        });
+        for (const upload of uploads) {
+            const file = selectedUploads[upload.inputId];
+            if (!file) continue;
 
-        config.onSave?.();
+            const formData = new FormData();
+            formData.append('page_id', "{{ $page->id }}");
+            formData.append('section', upload.section);
+            formData.append('field', upload.field);
+            formData.append(upload.payloadName, file);
+
+            const response = await fetch(upload.route, {
+                method: "POST",
+                headers: {
+                    "X-CSRF-TOKEN": "{{ csrf_token() }}"
+                },
+                body: formData
+            });
+
+            const data = await response.json();
+
+            if (!response.ok || !data.success) {
+                alert(data.message ?? 'Upload failed');
+                saveBtn.innerText = 'Save Failed';
+                return;
+            }
+
+            if (upload.afterSave) {
+                upload.afterSave(data);
+            } else {
+                const previewEl = document.getElementById(upload.previewId);
+                if (previewEl && data.path) {
+                    if (upload.previewAttr === 'href') {
+                        previewEl.href = data.path;
+                    } else {
+                        previewEl.src = data.path;
+                    }
+                }
+            }
+        }
+
+        selectedUploads = {};
+        objectUrls.forEach((url) => URL.revokeObjectURL(url));
+        objectUrls = [];
+
+        setEditing(false);
 
         saveBtn.innerText = 'Saved ✓';
 
         setTimeout(() => {
             saveBtn.innerText = 'Save Changes';
-            saveBtn.classList.add('hidden');
-            enableBtn.classList.remove('hidden');
         }, 1200);
     });
 }
-
 
 // HERO
 setupCmsEditor({
     selector: '#hero .cms-inline-edit',
     enableBtnId: 'enableHeroEdit',
     saveBtnId: 'saveHeroEdit',
-    onEnable: () => {
-        document.getElementById('heroImageUploadLabel')?.classList.remove('hidden');
+    cancelBtnId: 'cancelHeroEdit',
+    onToggle: (isEditing) => {
+        document.getElementById('heroImageUploadLabel')?.classList.toggle('hidden', !isEditing);
     },
-    onSave: () => {
-        document.getElementById('heroImageUploadLabel')?.classList.add('hidden');
-    }
+    uploads: [
+        {
+            type: 'image',
+            inputId: 'heroImageUpload',
+            previewId: 'heroBackgroundImage',
+            section: 'hero',
+            field: 'background_image',
+            payloadName: 'image',
+            route: "{{ route('cms.inline.image.update') }}"
+        }
+    ]
 });
-
 
 // STATS
 setupCmsEditor({
     selector: '#insights .cms-inline-edit',
     enableBtnId: 'enableStatsEdit',
-    saveBtnId: 'saveStatsEdit'
+    saveBtnId: 'saveStatsEdit',
+    cancelBtnId: 'cancelStatsEdit'
 });
-
 
 // WHY
 setupCmsEditor({
     selector: '#about .cms-inline-edit',
     enableBtnId: 'enableWhyEdit',
-    saveBtnId: 'saveWhyEdit'
+    saveBtnId: 'saveWhyEdit',
+    cancelBtnId: 'cancelWhyEdit'
 });
 
-
-// HERO IMAGE UPLOAD
-const imageUpload = document.getElementById('heroImageUpload');
-const heroImage = document.getElementById('heroBackgroundImage');
-
-if (imageUpload && heroImage) {
-    imageUpload.addEventListener('change', async () => {
-        const file = imageUpload.files[0];
-
-        if (!file) return;
-
-        const formData = new FormData();
-
-        formData.append('page_id', "{{ $page->id }}");
-        formData.append('section', 'hero');
-        formData.append('field', 'background_image');
-        formData.append('image', file);
-
-        const response = await fetch("{{ route('cms.inline.image.update') }}", {
-            method: "POST",
-            headers: {
-                "X-CSRF-TOKEN": "{{ csrf_token() }}"
-            },
-            body: formData
-        });
-
-        const data = await response.json();
-
-        if (response.ok && data.success) {
-            heroImage.src = data.path;
-        } else {
-            alert(data.message ?? 'Image upload failed');
+// VOICES
+setupCmsEditor({
+    selector: '#voices .cms-inline-edit',
+    enableBtnId: 'enableVoicesEdit',
+    saveBtnId: 'saveVoicesEdit',
+    cancelBtnId: 'cancelVoicesEdit',
+    onToggle: (isEditing) => {
+        document.getElementById('voicesImageUploadLabel')?.classList.toggle('hidden', !isEditing);
+    },
+    uploads: [
+        {
+            type: 'image',
+            inputId: 'voicesImageUpload',
+            previewId: 'voicesBackgroundImage',
+            section: 'voices',
+            field: 'background_image',
+            payloadName: 'image',
+            route: "{{ route('cms.inline.image.update') }}"
         }
-    });
-}
-// HERO IMAGE UPLOAD
-if (imageUpload && heroImage) {
-    imageUpload.addEventListener('change', async () => {
-        const file = imageUpload.files[0];
+    ]
+});
 
-        if (!file) return;
+// CHALLENGES
+setupCmsEditor({
+    selector: '#challenges .cms-inline-edit',
+    enableBtnId: 'enableChallengesEdit',
+    saveBtnId: 'saveChallengesEdit',
+    cancelBtnId: 'cancelChallengesEdit'
+});
 
-        const formData = new FormData();
-
-        formData.append('page_id', "{{ $page->id }}");
-        formData.append('section', 'hero');
-        formData.append('field', 'background_image');
-        formData.append('image', file);
-
-        const response = await fetch("{{ route('cms.inline.image.update') }}", {
-            method: "POST",
-            headers: {
-                "X-CSRF-TOKEN": "{{ csrf_token() }}"
-            },
-            body: formData
-        });
-
-        const data = await response.json();
-
-        if (response.ok && data.success) {
-            heroImage.src = data.path;
-        } else {
-            alert(data.message ?? 'Image upload failed');
+// INSTITUTIONAL
+setupCmsEditor({
+    selector: '#institutional .cms-inline-edit',
+    enableBtnId: 'enableInstitutionalEdit',
+    saveBtnId: 'saveInstitutionalEdit',
+    cancelBtnId: 'cancelInstitutionalEdit',
+    onToggle: (isEditing) => {
+        document.getElementById('institutionalImageUploadLabel')?.classList.toggle('hidden', !isEditing);
+    },
+    uploads: [
+        {
+            type: 'image',
+            inputId: 'institutionalImageUpload',
+            previewId: 'institutionalImage',
+            section: 'institutional',
+            field: 'image',
+            payloadName: 'image',
+            route: "{{ route('cms.inline.image.update') }}"
         }
-    });
-}
+    ]
+});
 
-    /*
-    |--------------------------------------------------------------------------
-    | Smooth Scroll
-    |--------------------------------------------------------------------------
-    */
+// REPORT
+setupCmsEditor({
+    selector: '#report .cms-inline-edit',
+    enableBtnId: 'enableReportEdit',
+    saveBtnId: 'saveReportEdit',
+    cancelBtnId: 'cancelReportEdit',
+    onToggle: (isEditing) => {
+        document.getElementById('reportImageUploadLabel')?.classList.toggle('hidden', !isEditing);
+        document.getElementById('reportFileUploadLabel')?.classList.toggle('hidden', !isEditing);
+    },
+    uploads: [
+        {
+            type: 'image',
+            inputId: 'reportImageUpload',
+            previewId: 'reportImage',
+            section: 'report',
+            field: 'image',
+            payloadName: 'image',
+            route: "{{ route('cms.inline.image.update') }}"
+        },
+        {
+            type: 'file',
+            inputId: 'reportFileUpload',
+            previewId: 'reportDownloadLink',
+            previewAttr: 'href',
+            section: 'report',
+            field: 'file',
+            payloadName: 'file',
+            route: "{{ route('cms.inline.file.update') }}",
+            afterSave: (data) => {
+                const downloadLink = document.getElementById('reportDownloadLink');
+                const viewLink = document.getElementById('reportViewLink');
 
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function(e) {
-            const target = document.querySelector(this.getAttribute('href'));
-
-            if (target) {
-                e.preventDefault();
-                target.scrollIntoView({ behavior: 'smooth' });
+                if (downloadLink && data.path) downloadLink.href = data.path;
+                if (viewLink && data.path) viewLink.href = data.path;
             }
-        });
-    });
+        }
+    ]
+});
 
-    /*
-    |--------------------------------------------------------------------------
-    | Scroll Animation Observer
-    |--------------------------------------------------------------------------
-    */
-
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('visible');
-            }
-        });
-    }, { threshold: 0.15 });
-
-    document.querySelectorAll('.animate-on-scroll').forEach(el => observer.observe(el));
-</script> 
-<script>
 /*
 |--------------------------------------------------------------------------
-| VOICES SECTION CMS EDIT + IMAGE UPLOAD
+| Smooth Scroll
 |--------------------------------------------------------------------------
 */
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function(e) {
+        const target = document.querySelector(this.getAttribute('href'));
 
-const voicesEditableFields = document.querySelectorAll('#voices .cms-inline-edit');
-
-const enableVoicesBtn = document.getElementById('enableVoicesEdit');
-const saveVoicesBtn = document.getElementById('saveVoicesEdit');
-
-const voicesImageUploadLabel = document.getElementById('voicesImageUploadLabel');
-const voicesImageUpload = document.getElementById('voicesImageUpload');
-const voicesBackgroundImage = document.getElementById('voicesBackgroundImage');
-
-if (enableVoicesBtn && saveVoicesBtn) {
-
-    voicesEditableFields.forEach((el) => {
-        el.setAttribute('contenteditable', 'false');
-    });
-
-    enableVoicesBtn.addEventListener('click', () => {
-
-        voicesEditableFields.forEach((el) => {
-            el.setAttribute('contenteditable', 'true');
-            el.classList.add('cms-editable-active');
-        });
-
-        voicesImageUploadLabel?.classList.remove('hidden');
-
-        enableVoicesBtn.classList.add('hidden');
-        saveVoicesBtn.classList.remove('hidden');
-    });
-
-    saveVoicesBtn.addEventListener('click', async () => {
-
-        saveVoicesBtn.innerText = 'Saving...';
-
-        for (const el of voicesEditableFields) {
-
-            const response = await fetch("{{ route('cms.inline.update') }}", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                    "Accept": "application/json",
-                    "X-CSRF-TOKEN": "{{ csrf_token() }}"
-                },
-                body: JSON.stringify({
-                    page_id: "{{ $page->id }}",
-                    section: el.dataset.section,
-                    field: el.dataset.field,
-                    value: el.innerText.trim()
-                })
-            });
-
-            if (!response.ok) {
-                const error = await response.json();
-                console.log(error);
-                saveVoicesBtn.innerText = error.message ?? 'Save Failed';
-                return;
-            }
-        }
-
-        voicesEditableFields.forEach((el) => {
-            el.setAttribute('contenteditable', 'false');
-            el.classList.remove('cms-editable-active');
-        });
-
-        voicesImageUploadLabel?.classList.add('hidden');
-
-        saveVoicesBtn.innerText = 'Saved ✓';
-
-        setTimeout(() => {
-            saveVoicesBtn.innerText = 'Save Changes';
-            saveVoicesBtn.classList.add('hidden');
-            enableVoicesBtn.classList.remove('hidden');
-        }, 1200);
-    });
-}
-
-
-// VOICES IMAGE UPLOAD
-if (voicesImageUpload && voicesBackgroundImage) {
-
-    voicesImageUpload.addEventListener('change', async () => {
-
-        const file = voicesImageUpload.files[0];
-
-        if (!file) return;
-
-        const formData = new FormData();
-
-        formData.append('page_id', "{{ $page->id }}");
-        formData.append('section', 'voices');
-        formData.append('field', 'background_image');
-        formData.append('image', file);
-
-        const response = await fetch("{{ route('cms.inline.image.update') }}", {
-            method: "POST",
-            headers: {
-                "X-CSRF-TOKEN": "{{ csrf_token() }}"
-            },
-            body: formData
-        });
-
-        const data = await response.json();
-
-        if (response.ok && data.success) {
-            voicesBackgroundImage.src = data.path;
-        } else {
-            alert(data.message ?? 'Image upload failed');
+        if (target) {
+            e.preventDefault();
+            target.scrollIntoView({ behavior: 'smooth' });
         }
     });
-}
+});
+
+/*
+|--------------------------------------------------------------------------
+| Scroll Animation Observer
+|--------------------------------------------------------------------------
+*/
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+        }
+    });
+}, { threshold: 0.15 });
+
+document.querySelectorAll('.animate-on-scroll').forEach(el => observer.observe(el));
 </script>
-
 @endsection

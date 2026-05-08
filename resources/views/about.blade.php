@@ -186,6 +186,15 @@
                 Save Changes
             </button>
 
+            <button
+                type="button"
+                id="cancelAboutHeroEdit"
+                class="hidden px-5 py-2.5 rounded-xl bg-white border border-slate-200 text-slate-700 font-semibold shadow-lg hover:bg-slate-100 transition">
+                Cancel
+            </button>
+
+
+
             <label
                 id="aboutHeroImageUploadLabel"
                 for="aboutHeroImageUpload"
@@ -373,6 +382,15 @@
                 Save Changes
             </button>
 
+            <button
+                type="button"
+                id="cancelWhoEdit"
+                class="hidden px-5 py-2.5 rounded-xl bg-white border border-slate-200 text-slate-700 font-semibold shadow-lg hover:bg-slate-100 transition">
+                Cancel
+            </button>
+
+
+
             <label
                 id="whoImageUploadLabel"
                 for="whoImageUpload"
@@ -454,6 +472,13 @@
                 class="hidden px-5 py-2.5 rounded-xl bg-cyan-brand text-white font-semibold shadow-2xl hover:scale-105 transition">
                 Save Changes
             </button>
+
+            <button type="button" id="cancelWhyExistsEdit"
+                class="hidden px-5 py-2.5 rounded-xl bg-white border border-slate-200 text-slate-700 font-semibold shadow-lg hover:bg-slate-100 transition">
+                Cancel
+            </button>
+
+
 
             <label id="whyExistsImageUploadLabel" for="whyExistsImageUpload"
                 class="hidden px-5 py-2.5 rounded-xl bg-white border border-slate-200 text-slate-700 font-semibold shadow-lg hover:bg-slate-100 transition cursor-pointer">
@@ -569,6 +594,15 @@
                 class="hidden px-5 py-2.5 rounded-xl bg-cyan-brand text-white font-semibold shadow-2xl hover:scale-105 transition">
                 Save Changes
             </button>
+
+            <button
+                type="button"
+                id="cancelFrameworkEdit"
+                class="hidden px-5 py-2.5 rounded-xl bg-white border border-slate-200 text-slate-700 font-semibold shadow-lg hover:bg-slate-100 transition">
+                Cancel
+            </button>
+
+
         </div>
     @endif
 
@@ -664,6 +698,15 @@
                 class="hidden px-5 py-2.5 rounded-xl bg-cyan-brand text-white font-semibold shadow-2xl hover:scale-105 transition">
                 Save Changes
             </button>
+
+            <button
+                type="button"
+                id="cancelHowEdit"
+                class="hidden px-5 py-2.5 rounded-xl bg-white border border-slate-200 text-slate-700 font-semibold shadow-lg hover:bg-slate-100 transition">
+                Cancel
+            </button>
+
+
 
             <label
                 id="howImageUploadLabel"
@@ -809,36 +852,114 @@
     </div>
 </section>
 <script>
-const howEditableFields = document.querySelectorAll('#how-it-works .cms-inline-edit');
+/*
+|--------------------------------------------------------------------------
+| Inline CMS editor with Cancel + delayed media save
+|--------------------------------------------------------------------------
+| Text changes are saved only when Save Changes is clicked.
+| Image changes are previewed first and uploaded only when Save Changes is clicked.
+| Cancel restores original text and original image without saving anything.
+*/
 
-const enableHowBtn = document.getElementById('enableHowEdit');
-const saveHowBtn = document.getElementById('saveHowEdit');
+function setupInlineCmsSection(config) {
+    const fields = document.querySelectorAll(config.selector);
+    const enableBtn = document.getElementById(config.enableBtnId);
+    const saveBtn = document.getElementById(config.saveBtnId);
+    const cancelBtn = document.getElementById(config.cancelBtnId);
 
-const howImageUploadLabel = document.getElementById('howImageUploadLabel');
-const howImageUpload = document.getElementById('howImageUpload');
-const howImage = document.getElementById('howImage');
+    const imageLabel = config.image ? document.getElementById(config.image.labelId) : null;
+    const imageInput = config.image ? document.getElementById(config.image.inputId) : null;
+    const imageEl = config.image ? document.getElementById(config.image.imageId) : null;
 
-if (enableHowBtn && saveHowBtn) {
-    howEditableFields.forEach((el) => {
+    if (!enableBtn || !saveBtn || !cancelBtn) return;
+
+    let originalValues = {};
+    let originalImageSrc = null;
+    let selectedImageFile = null;
+    let previewUrl = null;
+
+    function setEditing(isEditing) {
+        fields.forEach((el) => {
+            el.setAttribute('contenteditable', isEditing ? 'true' : 'false');
+            el.classList.toggle('cms-editable-active', isEditing);
+        });
+
+        if (imageLabel) {
+            imageLabel.classList.toggle('hidden', !isEditing);
+        }
+
+        enableBtn.classList.toggle('hidden', isEditing);
+        saveBtn.classList.toggle('hidden', !isEditing);
+        cancelBtn.classList.toggle('hidden', !isEditing);
+    }
+
+    function clearPreviewUrl() {
+        if (previewUrl) {
+            URL.revokeObjectURL(previewUrl);
+            previewUrl = null;
+        }
+    }
+
+    function resetSelectedImage() {
+        selectedImageFile = null;
+        clearPreviewUrl();
+
+        if (imageInput) {
+            imageInput.value = '';
+        }
+    }
+
+    fields.forEach((el) => {
         el.setAttribute('contenteditable', 'false');
     });
 
-    enableHowBtn.addEventListener('click', () => {
-        howEditableFields.forEach((el) => {
-            el.setAttribute('contenteditable', 'true');
-            el.classList.add('cms-editable-active');
+    enableBtn.addEventListener('click', () => {
+        originalValues = {};
+
+        fields.forEach((el) => {
+            const key = `${el.dataset.section}.${el.dataset.field}`;
+            originalValues[key] = el.innerText;
         });
 
-        howImageUploadLabel?.classList.remove('hidden');
-
-        enableHowBtn.classList.add('hidden');
-        saveHowBtn.classList.remove('hidden');
+        originalImageSrc = imageEl ? imageEl.src : null;
+        resetSelectedImage();
+        setEditing(true);
     });
 
-    saveHowBtn.addEventListener('click', async () => {
-        saveHowBtn.innerText = 'Saving...';
+    cancelBtn.addEventListener('click', () => {
+        fields.forEach((el) => {
+            const key = `${el.dataset.section}.${el.dataset.field}`;
+            if (Object.prototype.hasOwnProperty.call(originalValues, key)) {
+                el.innerText = originalValues[key];
+            }
+        });
 
-        for (const el of howEditableFields) {
+        if (imageEl && originalImageSrc) {
+            imageEl.src = originalImageSrc;
+        }
+
+        resetSelectedImage();
+        saveBtn.innerText = 'Save Changes';
+        setEditing(false);
+    });
+
+    if (imageInput && imageEl) {
+        imageInput.addEventListener('change', () => {
+            const file = imageInput.files[0];
+            if (!file) return;
+
+            selectedImageFile = file;
+            clearPreviewUrl();
+
+            previewUrl = URL.createObjectURL(file);
+            imageEl.src = previewUrl;
+        });
+    }
+
+    saveBtn.addEventListener('click', async () => {
+        saveBtn.innerText = 'Saving...';
+
+        for (const el of fields) {
             const response = await fetch("{{ route('cms.inline.update') }}", {
                 method: "POST",
                 headers: {
@@ -855,444 +976,162 @@ if (enableHowBtn && saveHowBtn) {
             });
 
             if (!response.ok) {
-                const error = await response.json();
+                let error = {};
+                try {
+                    error = await response.json();
+                } catch (e) {}
+
                 console.log(error);
-                saveHowBtn.innerText = error.message ?? 'Save Failed';
+                saveBtn.innerText = error.message ?? 'Save Failed';
                 return;
             }
         }
 
-        howEditableFields.forEach((el) => {
-            el.setAttribute('contenteditable', 'false');
-            el.classList.remove('cms-editable-active');
-        });
+        if (config.image && selectedImageFile) {
+            const formData = new FormData();
 
-        howImageUploadLabel?.classList.add('hidden');
+            formData.append('page_id', "{{ $page->id }}");
+            formData.append('section', config.image.section);
+            formData.append('field', config.image.field);
+            formData.append('image', selectedImageFile);
 
-        saveHowBtn.innerText = 'Saved ✓';
-
-        setTimeout(() => {
-            saveHowBtn.innerText = 'Save Changes';
-            saveHowBtn.classList.add('hidden');
-            enableHowBtn.classList.remove('hidden');
-        }, 1200);
-    });
-}
-
-if (howImageUpload && howImage) {
-    howImageUpload.addEventListener('change', async () => {
-        const file = howImageUpload.files[0];
-
-        if (!file) return;
-
-        const formData = new FormData();
-
-        formData.append('page_id', "{{ $page->id }}");
-        formData.append('section', 'how_it_works');
-        formData.append('field', 'image');
-        formData.append('image', file);
-
-        const response = await fetch("{{ route('cms.inline.image.update') }}", {
-            method: "POST",
-            headers: {
-                "X-CSRF-TOKEN": "{{ csrf_token() }}"
-            },
-            body: formData
-        });
-
-        const data = await response.json();
-
-        if (response.ok && data.success) {
-            howImage.src = data.path;
-        } else {
-            alert(data.message ?? 'Image upload failed');
-        }
-    });
-}
-</script>
-<script>
-const frameworkEditableFields = document.querySelectorAll('#our-framework .cms-inline-edit');
-
-const enableFrameworkBtn = document.getElementById('enableFrameworkEdit');
-const saveFrameworkBtn = document.getElementById('saveFrameworkEdit');
-
-if (enableFrameworkBtn && saveFrameworkBtn) {
-    frameworkEditableFields.forEach((el) => {
-        el.setAttribute('contenteditable', 'false');
-    });
-
-    enableFrameworkBtn.addEventListener('click', () => {
-        frameworkEditableFields.forEach((el) => {
-            el.setAttribute('contenteditable', 'true');
-            el.classList.add('cms-editable-active');
-        });
-
-        enableFrameworkBtn.classList.add('hidden');
-        saveFrameworkBtn.classList.remove('hidden');
-    });
-
-    saveFrameworkBtn.addEventListener('click', async () => {
-        saveFrameworkBtn.innerText = 'Saving...';
-
-        for (const el of frameworkEditableFields) {
-            const response = await fetch("{{ route('cms.inline.update') }}", {
+            const imageResponse = await fetch("{{ route('cms.inline.image.update') }}", {
                 method: "POST",
                 headers: {
-                    "Content-Type": "application/json",
-                    "Accept": "application/json",
                     "X-CSRF-TOKEN": "{{ csrf_token() }}"
                 },
-                body: JSON.stringify({
-                    page_id: "{{ $page->id }}",
-                    section: el.dataset.section,
-                    field: el.dataset.field,
-                    value: el.innerText.trim()
-                })
+                body: formData
             });
 
-            if (!response.ok) {
-                const error = await response.json();
-                console.log(error);
-                saveFrameworkBtn.innerText = error.message ?? 'Save Failed';
-                return;
-            }
-        }
+            const imageData = await imageResponse.json();
 
-        frameworkEditableFields.forEach((el) => {
-            el.setAttribute('contenteditable', 'false');
-            el.classList.remove('cms-editable-active');
-        });
+            if (imageResponse.ok && imageData.success) {
+                clearPreviewUrl();
+                imageEl.src = imageData.path;
+                originalImageSrc = imageData.path;
+                selectedImageFile = null;
 
-        saveFrameworkBtn.innerText = 'Saved ✓';
-
-        setTimeout(() => {
-            saveFrameworkBtn.innerText = 'Save Changes';
-            saveFrameworkBtn.classList.add('hidden');
-            enableFrameworkBtn.classList.remove('hidden');
-        }, 1200);
-    });
-}
-</script>
-<script>
-const whyExistsEditableFields = document.querySelectorAll('#why-exists .cms-inline-edit');
-
-const enableWhyExistsBtn = document.getElementById('enableWhyExistsEdit');
-const saveWhyExistsBtn = document.getElementById('saveWhyExistsEdit');
-
-const whyExistsImageUploadLabel = document.getElementById('whyExistsImageUploadLabel');
-const whyExistsImageUpload = document.getElementById('whyExistsImageUpload');
-const whyExistsImage = document.getElementById('whyExistsImage');
-
-if (enableWhyExistsBtn && saveWhyExistsBtn) {
-    whyExistsEditableFields.forEach((el) => {
-        el.setAttribute('contenteditable', 'false');
-    });
-
-    enableWhyExistsBtn.addEventListener('click', () => {
-        whyExistsEditableFields.forEach((el) => {
-            el.setAttribute('contenteditable', 'true');
-            el.classList.add('cms-editable-active');
-        });
-
-        whyExistsImageUploadLabel?.classList.remove('hidden');
-
-        enableWhyExistsBtn.classList.add('hidden');
-        saveWhyExistsBtn.classList.remove('hidden');
-    });
-
-    saveWhyExistsBtn.addEventListener('click', async () => {
-        saveWhyExistsBtn.innerText = 'Saving...';
-
-        for (const el of whyExistsEditableFields) {
-            const response = await fetch("{{ route('cms.inline.update') }}", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                    "Accept": "application/json",
-                    "X-CSRF-TOKEN": "{{ csrf_token() }}"
-                },
-                body: JSON.stringify({
-                    page_id: "{{ $page->id }}",
-                    section: el.dataset.section,
-                    field: el.dataset.field,
-                    value: el.innerText.trim()
-                })
-            });
-
-            if (!response.ok) {
-                const error = await response.json();
-                console.log(error);
-                saveWhyExistsBtn.innerText = error.message ?? 'Save Failed';
-                return;
-            }
-        }
-
-        whyExistsEditableFields.forEach((el) => {
-            el.setAttribute('contenteditable', 'false');
-            el.classList.remove('cms-editable-active');
-        });
-
-        whyExistsImageUploadLabel?.classList.add('hidden');
-
-        saveWhyExistsBtn.innerText = 'Saved ✓';
-
-        setTimeout(() => {
-            saveWhyExistsBtn.innerText = 'Save Changes';
-            saveWhyExistsBtn.classList.add('hidden');
-            enableWhyExistsBtn.classList.remove('hidden');
-        }, 1200);
-    });
-}
-
-if (whyExistsImageUpload && whyExistsImage) {
-    whyExistsImageUpload.addEventListener('change', async () => {
-        const file = whyExistsImageUpload.files[0];
-
-        if (!file) return;
-
-        const formData = new FormData();
-
-        formData.append('page_id', "{{ $page->id }}");
-        formData.append('section', 'why_exists');
-        formData.append('field', 'image');
-        formData.append('image', file);
-
-        const response = await fetch("{{ route('cms.inline.image.update') }}", {
-            method: "POST",
-            headers: {
-                "X-CSRF-TOKEN": "{{ csrf_token() }}"
-            },
-            body: formData
-        });
-
-        const data = await response.json();
-
-        if (response.ok && data.success) {
-            whyExistsImage.src = data.path;
-        } else {
-            alert(data.message ?? 'Image upload failed');
-        }
-    });
-}
-</script>
-<script>
-const whoEditableFields = document.querySelectorAll('#who-we-are .cms-inline-edit');
-
-const enableWhoBtn = document.getElementById('enableWhoEdit');
-const saveWhoBtn = document.getElementById('saveWhoEdit');
-
-const whoImageUploadLabel = document.getElementById('whoImageUploadLabel');
-const whoImageUpload = document.getElementById('whoImageUpload');
-const whoImage = document.getElementById('whoImage');
-
-if (enableWhoBtn && saveWhoBtn) {
-    whoEditableFields.forEach((el) => {
-        el.setAttribute('contenteditable', 'false');
-    });
-
-    enableWhoBtn.addEventListener('click', () => {
-        whoEditableFields.forEach((el) => {
-            el.setAttribute('contenteditable', 'true');
-            el.classList.add('cms-editable-active');
-        });
-
-        whoImageUploadLabel?.classList.remove('hidden');
-
-        enableWhoBtn.classList.add('hidden');
-        saveWhoBtn.classList.remove('hidden');
-    });
-
-    saveWhoBtn.addEventListener('click', async () => {
-        saveWhoBtn.innerText = 'Saving...';
-
-        for (const el of whoEditableFields) {
-            const response = await fetch("{{ route('cms.inline.update') }}", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                    "Accept": "application/json",
-                    "X-CSRF-TOKEN": "{{ csrf_token() }}"
-                },
-                body: JSON.stringify({
-                    page_id: "{{ $page->id }}",
-                    section: el.dataset.section,
-                    field: el.dataset.field,
-                    value: el.innerText.trim()
-                })
-            });
-
-            if (!response.ok) {
-                const error = await response.json();
-                console.log(error);
-                saveWhoBtn.innerText = error.message ?? 'Save Failed';
-                return;
-            }
-        }
-
-        whoEditableFields.forEach((el) => {
-            el.setAttribute('contenteditable', 'false');
-            el.classList.remove('cms-editable-active');
-        });
-
-        whoImageUploadLabel?.classList.add('hidden');
-
-        saveWhoBtn.innerText = 'Saved ✓';
-
-        setTimeout(() => {
-            saveWhoBtn.innerText = 'Save Changes';
-            saveWhoBtn.classList.add('hidden');
-            enableWhoBtn.classList.remove('hidden');
-        }, 1200);
-    });
-}
-
-if (whoImageUpload && whoImage) {
-    whoImageUpload.addEventListener('change', async () => {
-        const file = whoImageUpload.files[0];
-
-        if (!file) return;
-
-        const formData = new FormData();
-
-        formData.append('page_id', "{{ $page->id }}");
-        formData.append('section', 'who_we_are');
-        formData.append('field', 'image');
-        formData.append('image', file);
-
-        const response = await fetch("{{ route('cms.inline.image.update') }}", {
-            method: "POST",
-            headers: {
-                "X-CSRF-TOKEN": "{{ csrf_token() }}"
-            },
-            body: formData
-        });
-
-        const data = await response.json();
-
-        if (response.ok && data.success) {
-            whoImage.src = data.path;
-        } else {
-            alert(data.message ?? 'Image upload failed');
-        }
-    });
-}
-</script>
-<script>
-const aboutHeroEditableFields = document.querySelectorAll('#aboutHero .cms-inline-edit');
-
-const enableAboutHeroBtn = document.getElementById('enableAboutHeroEdit');
-const saveAboutHeroBtn = document.getElementById('saveAboutHeroEdit');
-
-const aboutHeroImageUploadLabel = document.getElementById('aboutHeroImageUploadLabel');
-const aboutHeroImageUpload = document.getElementById('aboutHeroImageUpload');
-const aboutHeroImage = document.getElementById('aboutHeroImage');
-
-if (enableAboutHeroBtn && saveAboutHeroBtn) {
-    aboutHeroEditableFields.forEach((el) => {
-        el.setAttribute('contenteditable', 'false');
-    });
-
-    enableAboutHeroBtn.addEventListener('click', () => {
-        aboutHeroEditableFields.forEach((el) => {
-            el.setAttribute('contenteditable', 'true');
-            el.classList.add('cms-editable-active');
-        });
-
-        aboutHeroImageUploadLabel?.classList.remove('hidden');
-
-        enableAboutHeroBtn.classList.add('hidden');
-        saveAboutHeroBtn.classList.remove('hidden');
-    });
-
-    saveAboutHeroBtn.addEventListener('click', async () => {
-        saveAboutHeroBtn.innerText = 'Saving...';
-
-        for (const el of aboutHeroEditableFields) {
-            const response = await fetch("{{ route('cms.inline.update') }}", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                    "Accept": "application/json",
-                    "X-CSRF-TOKEN": "{{ csrf_token() }}"
-                },
-                body: JSON.stringify({
-                    page_id: "{{ $page->id }}",
-                    section: el.dataset.section,
-                    field: el.dataset.field,
-                    value: el.innerText.trim()
-                })
-            });
-
-            if (!response.ok) {
-                const error = await response.json();
-                console.log(error);
-                saveAboutHeroBtn.innerText = error.message ?? 'Save Failed';
-                return;
-            }
-        }
-
-        aboutHeroEditableFields.forEach((el) => {
-            el.setAttribute('contenteditable', 'false');
-            el.classList.remove('cms-editable-active');
-        });
-
-        aboutHeroImageUploadLabel?.classList.add('hidden');
-
-        saveAboutHeroBtn.innerText = 'Saved ✓';
-
-        setTimeout(() => {
-            saveAboutHeroBtn.innerText = 'Save Changes';
-            saveAboutHeroBtn.classList.add('hidden');
-            enableAboutHeroBtn.classList.remove('hidden');
-        }, 1200);
-    });
-}
-
-if (aboutHeroImageUpload && aboutHeroImage) {
-    aboutHeroImageUpload.addEventListener('change', async () => {
-        const file = aboutHeroImageUpload.files[0];
-
-        if (!file) return;
-
-        const formData = new FormData();
-
-        formData.append('page_id', "{{ $page->id }}");
-        formData.append('section', 'about_hero');
-        formData.append('field', 'image');
-        formData.append('image', file);
-
-        const response = await fetch("{{ route('cms.inline.image.update') }}", {
-            method: "POST",
-            headers: {
-                "X-CSRF-TOKEN": "{{ csrf_token() }}"
-            },
-            body: formData
-        });
-
-        const data = await response.json();
-
-        if (response.ok && data.success) {
-            aboutHeroImage.src = data.path;
-        } else {
-            alert(data.message ?? 'Image upload failed');
-        }
-    });
-}
-</script>
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach((entry) => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
+                if (imageInput) {
+                    imageInput.value = '';
                 }
-            });
-        }, { threshold: 0.12 });
+            } else {
+                alert(imageData.message ?? 'Image upload failed');
+                saveBtn.innerText = 'Save Failed';
+                return;
+            }
+        }
 
-        document.querySelectorAll('.animate-on-scroll').forEach((el) => {
-            observer.observe(el);
+        fields.forEach((el) => {
+            el.setAttribute('contenteditable', 'false');
+            el.classList.remove('cms-editable-active');
         });
+
+        saveBtn.innerText = 'Saved ✓';
+
+        setTimeout(() => {
+            saveBtn.innerText = 'Save Changes';
+            setEditing(false);
+        }, 1200);
     });
+}
+
+setupInlineCmsSection({
+    selector: '#aboutHero .cms-inline-edit',
+    enableBtnId: 'enableAboutHeroEdit',
+    saveBtnId: 'saveAboutHeroEdit',
+    cancelBtnId: 'cancelAboutHeroEdit',
+    image: {
+        labelId: 'aboutHeroImageUploadLabel',
+        inputId: 'aboutHeroImageUpload',
+        imageId: 'aboutHeroImage',
+        section: 'about_hero',
+        field: 'image'
+    }
+});
+
+setupInlineCmsSection({
+    selector: '#who-we-are .cms-inline-edit',
+    enableBtnId: 'enableWhoEdit',
+    saveBtnId: 'saveWhoEdit',
+    cancelBtnId: 'cancelWhoEdit',
+    image: {
+        labelId: 'whoImageUploadLabel',
+        inputId: 'whoImageUpload',
+        imageId: 'whoImage',
+        section: 'who_we_are',
+        field: 'image'
+    }
+});
+
+setupInlineCmsSection({
+    selector: '#why-exists .cms-inline-edit',
+    enableBtnId: 'enableWhyExistsEdit',
+    saveBtnId: 'saveWhyExistsEdit',
+    cancelBtnId: 'cancelWhyExistsEdit',
+    image: {
+        labelId: 'whyExistsImageUploadLabel',
+        inputId: 'whyExistsImageUpload',
+        imageId: 'whyExistsImage',
+        section: 'why_exists',
+        field: 'image'
+    }
+});
+
+setupInlineCmsSection({
+    selector: '#our-framework .cms-inline-edit',
+    enableBtnId: 'enableFrameworkEdit',
+    saveBtnId: 'saveFrameworkEdit',
+    cancelBtnId: 'cancelFrameworkEdit'
+});
+
+setupInlineCmsSection({
+    selector: '#how-it-works .cms-inline-edit',
+    enableBtnId: 'enableHowEdit',
+    saveBtnId: 'saveHowEdit',
+    cancelBtnId: 'cancelHowEdit',
+    image: {
+        labelId: 'howImageUploadLabel',
+        inputId: 'howImageUpload',
+        imageId: 'howImage',
+        section: 'how_it_works',
+        field: 'image'
+    }
+});
+
+/*
+|--------------------------------------------------------------------------
+| Smooth scroll
+|--------------------------------------------------------------------------
+*/
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function(e) {
+        const target = document.querySelector(this.getAttribute('href'));
+
+        if (target) {
+            e.preventDefault();
+            target.scrollIntoView({ behavior: 'smooth' });
+        }
+    });
+});
+
+/*
+|--------------------------------------------------------------------------
+| Scroll animation observer
+|--------------------------------------------------------------------------
+*/
+document.addEventListener('DOMContentLoaded', function () {
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+            }
+        });
+    }, { threshold: 0.12 });
+
+    document.querySelectorAll('.animate-on-scroll').forEach((el) => {
+        observer.observe(el);
+    });
+});
 </script>
 
 @endsection

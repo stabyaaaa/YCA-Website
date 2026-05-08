@@ -11,8 +11,88 @@ use App\Http\Controllers\CMSController;
 use App\Http\Controllers\Auth\GoogleController;
 use App\Http\Controllers\Auth\EmailVerificationNotificationController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\MessageController;
 
 
+// ======================================================
+// USER-TO-USER CHAT ROUTES
+// ======================================================
+//
+// Features:
+// - Friends list
+// - Start private conversation
+// - Open chat window
+// - Send messages
+// - Live polling for latest messages
+//
+// Access:
+// - Only authenticated users
+// - Only verified users
+//
+// ======================================================
+
+Route::middleware(['auth', 'verified'])->group(function () {
+
+    // =========================================
+    // CHAT HOME / FRIEND LIST
+    // =========================================
+    //
+    // Shows:
+    // - accepted friends
+    // - existing conversations
+    //
+    Route::get('/messages', [MessageController::class, 'index'])
+        ->name('messages.index');
+
+
+    // =========================================
+    // START CONVERSATION
+    // =========================================
+    //
+    // Creates:
+    // - conversation
+    // - conversation participants
+    //
+    // Redirects to chat window
+    //
+    Route::post('/messages/start/{user}', [MessageController::class, 'start'])
+        ->name('messages.start');
+
+
+    // =========================================
+    // OPEN CHAT WINDOW
+    // =========================================
+    //
+    // Displays:
+    // - conversation messages
+    // - chat interface
+    //
+    Route::get('/messages/{conversation}', [MessageController::class, 'show'])
+        ->name('messages.show');
+
+
+    // =========================================
+    // SEND MESSAGE
+    // =========================================
+    //
+    // Stores new message in database
+    // Returns JSON response
+    //
+    Route::post('/messages/{conversation}/send', [MessageController::class, 'send'])
+        ->name('messages.send');
+
+
+    // =========================================
+    // FETCH LATEST MESSAGES
+    // =========================================
+    //
+    // Used for:
+    // - AJAX polling
+    // - live chat updates
+    //
+    Route::get('/messages/{conversation}/latest', [MessageController::class, 'latest'])
+        ->name('messages.latest');
+});
 /*
 |--------------------------------------------------------------------------
 | Email Verification Routes

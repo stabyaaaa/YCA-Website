@@ -11,6 +11,37 @@
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
+{{-- =========================================
+     CHAT BUTTON
+========================================= --}}
+@auth
+    <a href="{{ route('messages.index') }}"
+       class="relative inline-flex items-center gap-2 px-4 py-2 rounded-xl
+              bg-white/10 border border-white/10 text-white
+              hover:bg-pink-600 hover:border-pink-500
+              transition duration-300 group">
+
+        {{-- Chat Icon --}}
+        <svg xmlns="http://www.w3.org/2000/svg"
+             class="w-5 h-5 transition-transform duration-300 group-hover:scale-110"
+             fill="none"
+             viewBox="0 0 24 24"
+             stroke="currentColor">
+
+            <path stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-4l-4 4v-4z"/>
+        </svg>
+
+        <span class="font-medium">
+            Messages
+        </span>
+
+        {{-- Optional Notification Dot --}}
+        <span class="absolute -top-1 -right-1 w-3 h-3 bg-pink-500 rounded-full animate-pulse"></span>
+    </a>
+@endauth
 <div class="ai-chat-widget" id="aiChatWidget">
     <div class="ai-chat-label">AI Assistant</div>
 

@@ -31,65 +31,23 @@ use App\Http\Controllers\MessageController;
 //
 // ======================================================
 
-Route::middleware(['auth', 'verified'])->group(function () {
 
-    // =========================================
-    // CHAT HOME / FRIEND LIST
-    // =========================================
-    //
-    // Shows:
-    // - accepted friends
-    // - existing conversations
-    //
+Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/messages', [MessageController::class, 'index'])
         ->name('messages.index');
 
-
-    // =========================================
-    // START CONVERSATION
-    // =========================================
-    //
-    // Creates:
-    // - conversation
-    // - conversation participants
-    //
-    // Redirects to chat window
-    //
     Route::post('/messages/start/{user}', [MessageController::class, 'start'])
         ->name('messages.start');
 
+    Route::post('/messages/start-ajax/{user}', [MessageController::class, 'startAjax'])
+        ->name('messages.start.ajax');
 
-    // =========================================
-    // OPEN CHAT WINDOW
-    // =========================================
-    //
-    // Displays:
-    // - conversation messages
-    // - chat interface
-    //
     Route::get('/messages/{conversation}', [MessageController::class, 'show'])
         ->name('messages.show');
 
-
-    // =========================================
-    // SEND MESSAGE
-    // =========================================
-    //
-    // Stores new message in database
-    // Returns JSON response
-    //
     Route::post('/messages/{conversation}/send', [MessageController::class, 'send'])
         ->name('messages.send');
 
-
-    // =========================================
-    // FETCH LATEST MESSAGES
-    // =========================================
-    //
-    // Used for:
-    // - AJAX polling
-    // - live chat updates
-    //
     Route::get('/messages/{conversation}/latest', [MessageController::class, 'latest'])
         ->name('messages.latest');
 });

@@ -249,7 +249,7 @@
             </div>
 
             <h1 class="mt-7 text-5xl md:text-6xl lg:text-7xl font-light text-[var(--charcoal-deep)] leading-[0.95] tracking-tight reveal-smooth">
-                Let’s Start a Thoughtful Conversation
+                Let’s Start a Conversation
             </h1>
 
             <p class="mt-8 text-lg md:text-xl text-[var(--gray-warm)] leading-relaxed max-w-3xl mx-auto reveal-smooth" style="transition-delay: 0.18s;">

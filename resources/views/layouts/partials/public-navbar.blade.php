@@ -81,7 +81,7 @@
                                 class="flex items-center gap-2 px-5 py-2 rounded-xl bg-gradient-to-r from-indigo-600 to-blue-600 text-white font-medium shadow-md hover:shadow-xl hover:scale-[1.05] transition"
                             >
                                 <span>
-                                    {{ $user->role === 'super_admin' ? 'Super Admin' : 'Admin' }}
+                                    {{ $user->role === 'super_admin' ? 'Dashboard' : 'Admin' }}
                                 </span>
 
                                 @if($user->role === 'super_admin' && $pendingCount > 0)
@@ -105,7 +105,7 @@
                                 <a href="{{ route('users.index') }}" class="dropdown-item">
                                     Manage Users
                                 </a>
-
+                                
                                 @if($user->role === 'admin')
                                     <a href="{{ route('admin.my.requests') }}" class="dropdown-item">
                                         My Requests
@@ -122,6 +122,16 @@
                                             </span>
                                         @endif
                                     </a>
+                                @endif
+                                @if($user->role === 'admin' || $user->role === 'super_admin')
+                                <a href="{{ route('admin.contact-messages.index') }}" class="dropdown-item">
+                                    Contact Messages
+                                        @if($unreadMessageCount > 0)
+                                        <span class="badge-red">
+                                            {{ $unreadMessageCount }}
+                                        </span>
+                                    @endif
+                                </a>
                                 @endif
                             </div>
                         </div>

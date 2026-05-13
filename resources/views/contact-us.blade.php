@@ -3,7 +3,45 @@
 @section('title', 'Contact')
 
 @section('content')
+@if(session('success'))
+    <div
+        id="success-alert"
+        class="mb-6 relative overflow-hidden rounded-2xl border border-emerald-200 bg-gradient-to-r from-emerald-50 to-white px-6 py-5 shadow-sm"
+    >
 
+        <div class="flex items-start gap-4">
+
+            <div class="flex h-11 w-11 items-center justify-center rounded-xl bg-emerald-100 text-emerald-600 text-xl shrink-0">
+                ✓
+            </div>
+
+            <div class="flex-1">
+
+                <h4 class="text-base font-semibold text-emerald-800">
+                    Message Sent Successfully
+                </h4>
+
+                <p class="mt-1 text-sm leading-relaxed text-emerald-700">
+                    {{ session('success') }}
+                </p>
+
+            </div>
+
+            <button
+                type="button"
+                onclick="document.getElementById('success-alert').remove()"
+                class="text-emerald-500 hover:text-emerald-700 transition"
+            >
+                ✕
+            </button>
+
+        </div>
+
+        <!-- progress line -->
+        <div class="absolute bottom-0 left-0 h-1 bg-emerald-400 animate-success-bar"></div>
+
+    </div>
+@endif
 <style>
     :root {
         --warm-cream: #fdfaf7;
@@ -233,8 +271,33 @@
         border: 1px solid rgba(139,124,246,0.1);
         box-shadow: 0 22px 50px rgba(15, 23, 42, 0.06);
     }
-</style>
+    @keyframes successBar {
+    from {
+        width: 100%;
+    }
 
+    to {
+        width: 0%;
+    }
+}
+
+.animate-success-bar {
+    animation: successBar 5s linear forwards;
+}
+</style>
+<script>
+    setTimeout(() => {
+        const alert = document.getElementById('success-alert');
+
+        if (alert) {
+            alert.style.transition = 'all 0.4s ease';
+            alert.style.opacity = '0';
+            alert.style.transform = 'translateY(-10px)';
+
+            setTimeout(() => alert.remove(), 400);
+        }
+    }, 5000);
+</script>
 <section class="relative overflow-hidden bg-gradient-to-br from-[var(--warm-cream)] via-[#f6f1ff] to-white">
     <div class="absolute inset-0 pointer-events-none">
         <div class="absolute -top-20 -left-20 w-72 h-72 rounded-full bg-[var(--lavender-muted)]/30 blur-3xl"></div>
@@ -290,47 +353,104 @@
 
                 <div class="divider-soft my-8"></div>
 
-                <form id="contact-form" class="space-y-6">
+                <form action="{{ route('contact.message.store') }}" method="POST" class="space-y-5">
+                    @csrf
+
                     <div class="grid md:grid-cols-2 gap-5">
                         <div>
-                            <label class="block text-sm font-medium text-[var(--charcoal-deep)] mb-2.5">First Name</label>
-                            <input type="text" class="input-glow" placeholder="Your first name">
+                            <label class="block text-sm font-medium text-[var(--charcoal-deep)] mb-2.5">
+                                First Name
+                            </label>
+
+                            <input
+                                type="text"
+                                name="first_name"
+                                class="input-glow"
+                                placeholder="Your first name"
+                                required
+                            >
                         </div>
+
                         <div>
-                            <label class="block text-sm font-medium text-[var(--charcoal-deep)] mb-2.5">Last Name</label>
-                            <input type="text" class="input-glow" placeholder="Your last name">
+                            <label class="block text-sm font-medium text-[var(--charcoal-deep)] mb-2.5">
+                                Last Name
+                            </label>
+
+                            <input
+                                type="text"
+                                name="last_name"
+                                class="input-glow"
+                                placeholder="Your last name"
+                                required
+                            >
                         </div>
                     </div>
 
                     <div>
-                        <label class="block text-sm font-medium text-[var(--charcoal-deep)] mb-2.5">Email</label>
-                        <input type="email" class="input-glow" placeholder="you@example.com">
+                        <label class="block text-sm font-medium text-[var(--charcoal-deep)] mb-2.5">
+                            Email
+                        </label>
+
+                        <input
+                            type="email"
+                            name="email"
+                            class="input-glow"
+                            placeholder="you@example.com"
+                            required
+                        >
                     </div>
 
                     <div>
-                        <label class="block text-sm font-medium text-[var(--charcoal-deep)] mb-2.5">Organization / Role</label>
-                        <input type="text" class="input-glow" placeholder="University, company, or designation">
+                        <label class="block text-sm font-medium text-[var(--charcoal-deep)] mb-2.5">
+                            Organization / Role
+                        </label>
+
+                        <input
+                            type="text"
+                            name="organization"
+                            class="input-glow"
+                            placeholder="University, company, or designation"
+                        >
                     </div>
 
                     <div>
-                        <label class="block text-sm font-medium text-[var(--charcoal-deep)] mb-2.5">Topic</label>
-                        <select class="input-glow appearance-none">
+                        <label class="block text-sm font-medium text-[var(--charcoal-deep)] mb-2.5">
+                            Topic
+                        </label>
+
+                        <select
+                            name="topic"
+                            class="input-glow appearance-none"
+                            required
+                        >
                             <option value="">Choose a topic</option>
-                            <option>Partnership or Collaboration</option>
-                            <option>Research / Data Inquiry</option>
-                            <option>Academic / Student Opportunity</option>
-                            <option>Media / Speaking Request</option>
-                            <option>General / Other</option>
+                            <option value="Partnership or Collaboration">Partnership or Collaboration</option>
+                            <option value="Research / Data Inquiry">Research / Data Inquiry</option>
+                            <option value="Academic / Student Opportunity">Academic / Student Opportunity</option>
+                            <option value="Media / Speaking Request">Media / Speaking Request</option>
+                            <option value="General / Other">General / Other</option>
                         </select>
                     </div>
 
                     <div>
-                        <label class="block text-sm font-medium text-[var(--charcoal-deep)] mb-2.5">Message</label>
-                        <textarea rows="7" class="input-glow resize-none" placeholder="Write your message here..."></textarea>
+                        <label class="block text-sm font-medium text-[var(--charcoal-deep)] mb-2.5">
+                            Message
+                        </label>
+
+                        <textarea
+                            rows="7"
+                            name="message"
+                            class="input-glow resize-none"
+                            placeholder="Write your message here..."
+                            required
+                        ></textarea>
                     </div>
 
                     <div class="pt-2">
-                        <button type="submit" class="btn-primary-soft w-full text-base md:text-lg py-4">
+                        <button
+                            type="submit"
+                            class="btn-primary-soft w-full text-base md:text-lg py-4"
+                        >
                             Send Message
                         </button>
                     </div>

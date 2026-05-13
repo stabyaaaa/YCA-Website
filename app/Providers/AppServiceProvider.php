@@ -5,8 +5,9 @@ namespace App\Providers;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\URL;
-use App\Models\AdminRequest;
 use Illuminate\Support\Facades\Auth;
+use App\Models\AdminRequest;
+use App\Models\ContactMessage;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -23,12 +24,27 @@ class AppServiceProvider extends ServiceProvider
 
         View::composer('*', function ($view) {
             $pendingCount = 0;
+            $unreadMessageCount = 0;
 
-            if (Auth::check() && Auth::user()->role === 'super_admin') {
-                $pendingCount = AdminRequest::where('status', 'pending')->count();
+            if (Auth::check()) {
+                $user = Auth::user();
+
+                if ($user->role === 'super_admin') {
+                    $pendingCount = AdminRequest::where('status', 'pending')->count();
+                }
+
+                if (in_array($user->role, ['admin', 'super_admin'])) {
+                    $unreadMessageCount = ContactMessage::whereIn('status', [
+                        'unread',
+                        'pending',
+                    ])->count();
+                }
             }
 
-            $view->with('pendingCount', $pendingCount);
+            $view->with([
+                'pendingCount' => $pendingCount,
+                'unreadMessageCount' => $unreadMessageCount,
+            ]);
         });
     }
 }

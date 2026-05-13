@@ -11,6 +11,37 @@ use App\Http\Controllers\CMSController;
 use App\Http\Controllers\Auth\GoogleController;
 use App\Http\Controllers\Auth\EmailVerificationNotificationController;
 
+
+
+
+use App\Http\Controllers\ContactMessageController;
+
+
+
+/*
+|--------------------------------------------------------------------------
+| Contact Form Route
+|--------------------------------------------------------------------------
+*/
+Route::post('/contact/message', [ContactMessageController::class, 'store'])
+    ->name('contact.message.store');
+
+Route::middleware(['auth', 'verified', 'role:admin,super_admin'])
+    ->prefix('admin')
+    ->name('admin.')
+    ->group(function () {
+        Route::get('/contact-messages', [ContactMessageController::class, 'index'])
+            ->name('contact-messages.index');
+
+        Route::get('/contact-messages/{contactMessage}', [ContactMessageController::class, 'show'])
+            ->name('contact-messages.show');
+
+        Route::patch('/contact-messages/{contactMessage}/status', [ContactMessageController::class, 'updateStatus'])
+            ->name('contact-messages.update-status');
+
+        Route::delete('/contact-messages/{contactMessage}', [ContactMessageController::class, 'destroy'])
+            ->name('contact-messages.destroy');
+    });
 /*
 |--------------------------------------------------------------------------
 | Email Verification Routes

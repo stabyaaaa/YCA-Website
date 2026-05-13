@@ -23,3 +23,6 @@ Homestead.json
 Homestead.yaml
 Thumbs.db
 resources/views/partners-copy.blade.php
+future.xml
+draw.xml
+system_architecture.xml

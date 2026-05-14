@@ -92,52 +92,59 @@
                     <p class="mt-2 text-xs uppercase tracking-[0.18em] text-slate-500">Commitment to Inclusion</p>
                 </div>
             </div>
+<!-- FILTER / SEARCH -->
+<div class="mb-10 lg:mb-14">
+    <div class="rounded-[2rem] border border-[rgba(1,157,222,0.15)] bg-white/85 backdrop-blur-xl shadow-[0_16px_50px_rgba(15,23,42,0.07)] p-4 sm:p-5 lg:p-6">
+        <div class="flex flex-col lg:flex-row gap-4 lg:items-center lg:justify-between">
+            <div class="flex flex-wrap gap-3">
+                <button data-filter="all" class="partner-filter px-4 py-2 rounded-full text-white text-sm font-medium transition bg-[var(--cyan)] hover:opacity-90 shadow-[0_6px_20px_rgba(1,157,222,0.25)]">
+                    All Partners
+                </button>
 
-            <!-- FILTER / SEARCH -->
-            <div class="mb-10 lg:mb-14">
-                <div class="rounded-[2rem] border border-[rgba(1,157,222,0.15)] bg-white/85 backdrop-blur-xl shadow-[0_16px_50px_rgba(15,23,42,0.07)] p-4 sm:p-5 lg:p-6">
-                    <div class="flex flex-col lg:flex-row gap-4 lg:items-center lg:justify-between">
-                        <div class="flex flex-wrap gap-3">
-                            <button data-filter="all" class="partner-filter px-4 py-2 rounded-full text-white text-sm font-medium transition bg-[var(--cyan)] hover:opacity-90 shadow-[0_6px_20px_rgba(1,157,222,0.25)]">
-                                All Partners
-                            </button>
+                <button data-filter="Private Utility" class="partner-filter px-4 py-2 rounded-full text-sm font-medium transition bg-[rgba(1,157,222,0.08)] text-[var(--cyan)] hover:bg-[var(--cyan)] hover:text-white">
+                    Private Utility
+                </button>
 
-                            <button data-filter="Private Utility" class="partner-filter px-4 py-2 rounded-full text-sm font-medium transition bg-[rgba(1,157,222,0.08)] text-[var(--cyan)] hover:bg-[var(--cyan)] hover:text-white">
-                                Private Utility
-                            </button>
+                <button data-filter="Public Utility" class="partner-filter px-4 py-2 rounded-full text-sm font-medium transition bg-[rgba(243,22,113,0.08)] text-[var(--pink)] hover:bg-[var(--pink)] hover:text-white">
+                    Public Utility
+                </button>
 
-                            <button data-filter="Public Utility" class="partner-filter px-4 py-2 rounded-full text-sm font-medium transition bg-[rgba(243,22,113,0.08)] text-[var(--pink)] hover:bg-[var(--pink)] hover:text-white">
-                                Public Utility
-                            </button>
+                <button data-filter="Academia" class="partner-filter px-4 py-2 rounded-full text-sm font-medium transition bg-[rgba(233,146,16,0.08)] text-[var(--orange)] hover:bg-[var(--orange)] hover:text-white">
+                    Academia
+                </button>
 
-                            <button data-filter="Academia" class="partner-filter px-4 py-2 rounded-full text-sm font-medium transition bg-[rgba(233,146,16,0.08)] text-[var(--orange)] hover:bg-[var(--orange)] hover:text-white">
-                                Academia
-                            </button>
+                <button data-filter="Government" class="partner-filter px-4 py-2 rounded-full text-sm font-medium transition bg-[rgba(99,102,241,0.08)] text-indigo-500 hover:bg-indigo-500 hover:text-white">
+                    Government
+                </button>
 
-                            <button data-filter="Government" class="partner-filter px-4 py-2 rounded-full text-sm font-medium transition bg-[rgba(99,102,241,0.08)] text-indigo-500 hover:bg-indigo-500 hover:text-white">
-                                Government
-                            </button>
+                <button data-filter="Association" class="partner-filter px-4 py-2 rounded-full text-sm font-medium transition bg-[rgba(16,185,129,0.08)] text-emerald-600 hover:bg-emerald-600 hover:text-white">
+                    Association
+                </button>
 
-                            <button data-filter="Association" class="partner-filter px-4 py-2 rounded-full text-sm font-medium transition bg-[rgba(16,185,129,0.08)] text-emerald-600 hover:bg-emerald-600 hover:text-white">
-                                Association
-                            </button>
+                <button data-filter="Private Company" class="partner-filter px-4 py-2 rounded-full text-sm font-medium transition bg-cyan-50 text-cyan-600 hover:bg-cyan-600 hover:text-white">
+                    Private Company
+                </button>
 
-                            <button data-filter="Development Partner" class="partner-filter px-4 py-2 rounded-full text-sm font-medium transition bg-slate-100 text-slate-600 hover:bg-slate-900 hover:text-white">
-                                Development Partners
-                            </button>
-                        </div>
+                <button data-filter="Public Company" class="partner-filter px-4 py-2 rounded-full text-sm font-medium transition bg-pink-50 text-pink-600 hover:bg-pink-600 hover:text-white">
+                    Public Company
+                </button>
 
-                        <div class="w-full lg:w-[320px]">
-                            <input
-                                id="partnerSearch"
-                                type="text"
-                                placeholder="Search partner..."
-                                class="w-full rounded-full border border-[rgba(1,157,222,0.2)] bg-white px-5 py-3 text-sm text-slate-700 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-[var(--cyan)]/30 focus:border-[var(--cyan)] transition"
-                            >
-                        </div>
-                    </div>
-                </div>
+                <button data-filter="NPO/NGO" class="partner-filter px-4 py-2 rounded-full text-sm font-medium transition bg-violet-50 text-violet-600 hover:bg-violet-600 hover:text-white">
+                    NPO/NGO
+                </button>
             </div>
+
+            <div class="w-full lg:w-[320px]">
+                <input
+                    id="partnerSearch"
+                    type="text"
+                    placeholder="Search partner..."
+                    class="w-full rounded-full border border-[rgba(1,157,222,0.2)] bg-white px-5 py-3 text-sm text-slate-700 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-[var(--cyan)]/30 focus:border-[var(--cyan)] transition"
+                >
+            </div>
+        </div>
+    </div>
+</div>
 
             <!-- PARTNERS -->
             <div class="rounded-[2rem] border border-white/70 bg-white/75 backdrop-blur-xl shadow-[0_20px_60px_rgba(15,23,42,0.08)] p-5 sm:p-6 lg:p-8">
@@ -155,61 +162,61 @@
 
                 @php
                     $partnerData = [
-                        4  => ['name' => 'IEEE Women in Engineering (WIE)', 'category' => 'Association', 'website' => 'https://wie.ieee.org/'],
-                        5  => ['name' => 'Asian Development Bank (ADB)', 'category' => 'Development Partner', 'website' => 'https://www.adb.org'],
+                        4  => ['name' => 'IEEE Women in Engineering (WIE)', 'category' => 'P', 'website' => 'https://wie.ieee.org/'],
+                        5  => ['name' => 'Asian Development Bank (ADB)', 'category' => 'International Organization', 'website' => 'https://www.adb.org'],
                         6  => ['name' => 'Fenaka Corporation Limited', 'category' => 'Public Utility', 'website' => 'https://fenaka.mv'],
-                        7  => ['name' => 'Lanka Electricity Company (LECO)', 'category' => 'Public Utility', 'website' => 'https://www.leco.lk'],
-                        8  => ['name' => 'Partner 8', 'category' => 'Public Utility', 'website' => '#'],
-                        9  => ['name' => 'K-Electric (KE)', 'category' => 'Public Utility', 'website' => '#'],
+                        7  => ['name' => 'Lanka Electricity Company (LECO)', 'category' => 'Private Utility', 'website' => 'https://www.leco.lk'],
+                        8  => ['name' => 'Ceylon Electricity Board', 'category' => 'Public Utility', 'website' => '#'],
+                        9  => ['name' => 'K-Electric (KE)', 'category' => 'Private Utility', 'website' => '#'],
                         10 => ['name' => 'Dhaka Electric Supply Company (DESCO)', 'category' => 'Public Utility', 'website' => '#'],
-                        11 => ['name' => 'Partner 11', 'category' => 'Public Utility', 'website' => '#'],
+                        11 => ['name' => 'Power Grid Bangladesh (PLC)', 'category' => 'Public Utility', 'website' => '#'],
                         12 => ['name' => 'American International University-Bangladesh (AIUB)', 'category' => 'Academia', 'website' => 'https://www.aiub.edu'],
-                        13 => ['name' => 'Partner 13', 'category' => 'Public Utility', 'website' => '#'],
-                        14 => ['name' => 'Vision Mechatronics Pvt. Ltd.', 'category' => 'Private Utility', 'website' => 'https://www.vmechatronics.com'],
+                        13 => ['name' => 'University of Ruhuna', 'category' => 'Academia', 'website' => '#'],
+                        14 => ['name' => 'Vision Mechatronics Pvt. Ltd.', 'category' => 'Private Company', 'website' => 'https://www.vmechatronics.com'],
                         15 => ['name' => "Nepal Engineers' Association", 'category' => 'Association', 'website' => 'https://www.neanepal.org.np'],
-                        16 => ['name' => 'Partner 16', 'category' => 'Public Utility', 'website' => '#'],
-                        17 => ['name' => 'Skill Council for Green Jobs (SCGJ)', 'category' => 'Government', 'website' => 'https://sscgj.in'],
-                        18 => ['name' => 'BSES Yamuna Power Limited (BYPL)', 'category' => 'Public Utility', 'website' => 'https://www.bsesdelhi.com/web/bypl/home'],
+                        16 => ['name' => 'Sri Lanka Sustainable Energy Authority', 'category' => 'Government', 'website' => '#'],
+                        17 => ['name' => 'Skill Council for Green Jobs (SCGJ)', 'category' => 'Academia', 'website' => 'https://sscgj.in'],
+                        18 => ['name' => 'BSES Yamuna Power Limited (BYPL)', 'category' => 'Private Utility', 'website' => 'https://www.bsesdelhi.com/web/bypl/home'],
                         19 => ['name' => 'Multan Electric Power Company (MEPCO)', 'category' => 'Public Utility', 'website' => '#'],
-                        20 => ['name' => 'Women in Engineering Pakistan', 'category' => 'Association', 'website' => '#'],
-                        21 => ['name' => 'IEEE Bangladesh Section', 'category' => 'Academia', 'website' => '#'],
+                        20 => ['name' => 'Women in Engineering Pakistan', 'category' => 'Civil Society Organization', 'website' => '#'],
+                        21 => ['name' => 'IEEE Bangladesh Section', 'category' => 'Association', 'website' => '#'],
                         22 => ['name' => 'Nepal Electricity Authority (NEA)', 'category' => 'Public Utility', 'website' => 'https://nea.org.np'],
                         23 => ['name' => 'Institute of Engineering, Tribhuvan University (IOE / TU Nepal)', 'category' => 'Academia', 'website' => 'https://ioe.tu.edu.np'],
-                        24 => ['name' => 'BSES Rajdhani Power Limited (BRPL)', 'category' => 'Public Utility', 'website' => 'https://www.bsesdelhi.com/web/brpl/home'],
-                        26 => ['name' => 'Partner 26', 'category' => 'Private Utility', 'website' => '#'],
-                        27 => ['name' => 'Lahore Electric Supply Company (LESCO)', 'category' => 'Private Utility', 'website' => '#'],
-                        28 => ['name' => 'Samudayik Upavokta Samiti / Community Electricity Users Group Nepal', 'category' => 'Private Utility', 'website' => '#'],
-                        29 => ['name' => 'Grameen Shakti', 'category' => 'Private Utility', 'website' => '#'],
-                        30 => ['name' => 'Partner 30', 'category' => 'Public Utility', 'website' => '#'],
-                        31 => ['name' => 'Partner 31', 'category' => 'Private Utility', 'website' => '#'],
-                        32 => ['name' => 'United States Agency for International Development (USAID)', 'category' => 'Development Partner', 'website' => 'https://www.usaid.gov'],
+                        24 => ['name' => 'BSES Rajdhani Power Limited (BRPL)', 'category' => 'Private Utility', 'website' => 'https://www.bsesdelhi.com/web/brpl/home'],
+                        26 => ['name' => 'Pakhtunkhwa Energy Development Authority', 'category' => 'P', 'website' => '#'],
+                        27 => ['name' => 'Lahore Electric Supply Company (LESCO)', 'category' => 'Public Utility', 'website' => '#'],
+                        28 => ['name' => 'Samudayik Upavokta Samiti / Community Electricity Users Group Nepal', 'category' => 'Association', 'website' => '#'],
+                        29 => ['name' => 'Grameen Shakti', 'category' => 'NPO/NGO', 'website' => '#'],
+                        30 => ['name' => 'Bangladesh Rural Electrification Board', 'category' => 'Public Utility', 'website' => '#'],
+                        31 => ['name' => 'Water and Power Development Authority', 'category' => 'Public Utility', 'website' => '#'],
+                        32 => ['name' => 'United States Agency for International Development (USAID)', 'category' => 'H', 'website' => 'https://www.usaid.gov'],
                         33 => ['name' => 'Druk Green Power Corporation', 'category' => 'Public Utility', 'website' => 'https://www.drukgreen.bt'],
                         34 => ['name' => 'Tata Power Delhi Distribution Limited (Tata Power DDL)', 'category' => 'Private Utility', 'website' => '#'],
                         35 => ['name' => 'Energy Efficiency Services Limited (EESL)', 'category' => 'Public Utility', 'website' => '#'],
                         36 => ['name' => 'Bhutan Power Corporation (BPC)', 'category' => 'Public Utility', 'website' => 'https://www.bpc.bt'],
-                        37 => ['name' => 'Infrastructure Development Company Limited (IDCOL)', 'category' => 'Development Partner', 'website' => 'https://www.idcol.org'],
-                        38 => ['name' => 'Partner 38', 'category' => 'Association', 'website' => '#'],
-                        39 => ['name' => 'Peshawar Electric Supply Company (PESCO)', 'category' => 'Government', 'website' => 'https://www.pesco.gov.pk'],
-                        40 => ['name' => 'Partner 40', 'category' => 'Association', 'website' => '#'],
+                        37 => ['name' => 'Infrastructure Development Company Limited (IDCOL)', 'category' => 'Public Utility', 'website' => 'https://www.idcol.org'],
+                        38 => ['name' => 'Bangladesh Power Development Board', 'category' => 'Public Utility', 'website' => '#'],
+                        39 => ['name' => 'Peshawar Electric Supply Company (PESCO)', 'category' => 'Public Utility', 'website' => 'https://www.pesco.gov.pk'],
+                        40 => ['name' => 'University of Sri Jayewardenepura', 'category' => 'Academia', 'website' => '#'],
                         41 => ['name' => 'National Power Training Institute (NPTI)', 'category' => 'Academia', 'website' => 'https://npti.gov.in'],
-                        42 => ['name' => 'Partner 42', 'category' => 'Public Utility', 'website' => '#'],
-                        43 => ['name' => 'NTPC Limited', 'category' => 'Private Utility', 'website' => 'https://www.ntpc.co.in'],
-                        44 => ['name' => 'Hyderabad Electric Supply Company (HESCO)', 'category' => 'Development Partner', 'website' => '#'],
-                        45 => ['name' => 'Electricity Generation Company of Bangladesh (EGCB)', 'category' => 'Public Utility', 'website' => 'https://www.egcb.com.bd'],
-                        46 => ['name' => 'Partner 46', 'category' => 'Public Utility', 'website' => '#'],
+                        42 => ['name' => 'Alternative Energy Promition Center (ADPC)', 'category' => 'Government', 'website' => '#'],
+                        43 => ['name' => 'NTPC Limited', 'category' => 'Public Utility', 'website' => 'https://www.ntpc.co.in'],
+                        44 => ['name' => 'Hyderabad Electric Supply Company (HESCO)', 'category' => 'Public Utility', 'website' => '#'],
+                        45 => ['name' => 'Electricity Generation Company of Bangladesh (EGCB)', 'category' => 'Private Utility', 'website' => 'https://www.egcb.com.bd'],
+                        46 => ['name' => 'Engro Energy Limited', 'category' => 'Private Company', 'website' => '#'],
                         47 => ['name' => 'Feedback Energy Distribution Company (FEDCO)', 'category' => 'Private Utility', 'website' => '#'],
-                        48 => ['name' => 'Grassroots Trading Network for Women (GTNfW)', 'category' => 'Private Utility', 'website' => '#'],
+                        48 => ['name' => 'Grassroots Trading Network for Women (GTNfW)', 'category' => 'Public Company', 'website' => '#'],
                         49 => ['name' => 'Bangladesh Power Management Institute (BPMI)', 'category' => 'Public Utility', 'website' => 'https://bpmi.gov.bd'],
-                        50 => ['name' => 'Power Grid Corporation of India (POWERGRID)', 'category' => 'Academia', 'website' => 'https://www.powergrid.in'],
-                        51 => ['name' => 'Central Power Purchasing Agency (CPPA-G)', 'category' => 'Government', 'website' => '#'],
+                        50 => ['name' => 'Power Grid Corporation of India (POWERGRID)', 'category' => 'Public Utility', 'website' => 'https://www.powergrid.in'],
+                        51 => ['name' => 'Central Power Purchasing Agency (CPPA-G)', 'category' => 'Public Utility', 'website' => '#'],
                         52 => ['name' => 'Partner 52', 'category' => 'Academia', 'website' => '#'],
-                        53 => ['name' => 'National Power Control Centre (NPCC)', 'category' => 'Public Utility', 'website' => '#'],
+                        53 => ['name' => 'NTPC-Sail Power Company Limited', 'category' => 'Public Utility', 'website' => '#'],
                         54 => ['name' => 'Partner 54', 'category' => 'Public Utility', 'website' => '#'],
                         55 => ['name' => 'Indian Institute of Technology Kanpur', 'category' => 'Academia', 'website' => 'https://iitk.ac.in'],
                         56 => ['name' => 'Partner 56', 'category' => 'Private Utility', 'website' => '#'],
                         57 => ['name' => 'Independent Power Producers Association Nepal (IPPAN)', 'category' => 'Association', 'website' => 'https://www.ippan.org.np'],
-                        58 => ['name' => 'Partner 58', 'category' => 'Government', 'website' => '#'],
-                        59 => ['name' => 'Butwal Power Company / Butwal Power Grid', 'category' => 'Academia', 'website' => '#'],
+                        58 => ['name' => 'Electricity Regulatory Authority', 'category' => 'Government', 'website' => '#'],
+                        59 => ['name' => 'Butwal Power Company / Butwal Power Grid', 'category' => 'Private Utility', 'website' => '#'],
                         60 => ['name' => 'Women Network for Energy and Environment (WoNEE)', 'category' => 'Academia', 'website' => 'https://wonee.org.np'],
                     ];
 

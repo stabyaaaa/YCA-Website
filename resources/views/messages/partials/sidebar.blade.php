@@ -44,7 +44,7 @@
 
             <button type="button" data-tab="notFriends"
                     class="tab-btn rounded-xl px-4 py-3 text-sm font-bold text-slate-500 hover:text-slate-900">
-                Not Friends
+                Other Users
             </button>
         </div>
     </div>

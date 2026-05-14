@@ -19,8 +19,11 @@ class ContactMessageController extends Controller
         ]);
 
         ContactMessage::create($validated);
+        
 
-        return back()->with('success', 'Your message has been submitted successfully. Our team will get back to you soon.');
+        return response()->json([
+            'success' => true,
+            'message' => 'Message sent successfully.']);
     }
 
     public function index()

@@ -111,13 +111,11 @@
             <div class="border-t border-slate-200 pt-8">
                 <p class="text-sm text-slate-500 mb-3">Message</p>
 
-                <div class="rounded-xl bg-slate-50 border border-slate-200 p-6 text-slate-700 leading-relaxed whitespace-pre-line">
-                    {{ $contactMessage->message }}
+            <div class="rounded-xl bg-slate-50 border border-slate-200 p-6 text-slate-700 leading-relaxed whitespace-pre-line break-words overflow-hidden">                    {{ $contactMessage->message }}
                 </div>
             </div>
 
         </div>
-
     </div>
 </div>
 

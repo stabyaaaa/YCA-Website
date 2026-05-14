@@ -362,11 +362,149 @@
         </div>
     </div>
 </section>
-
-<!-- ================= WHO WE ARE ================= -->
-<section id="who-we-are" class="relative py-20 lg:py-28 bg-white">
+<!-- ================= ABOUT YUNUS CENTER AIT ================= -->
+<section id="about-yca" class="relative py-20 lg:py-28 bg-white overflow-hidden">
 
     @if(canEditCms())
+        <div class="absolute top-6 right-6 z-[9999] flex gap-3">
+            <button type="button" id="enableYcaEdit"
+                class="px-5 py-2.5 rounded-xl bg-pink-brand text-white font-semibold shadow-lg hover:bg-pink-600 transition">
+                Edit Yunus Center
+            </button>
+
+            <button type="button" id="saveYcaEdit"
+                class="hidden px-5 py-2.5 rounded-xl bg-cyan-brand text-white font-semibold shadow-2xl hover:scale-105 transition">
+                Save Changes
+            </button>
+
+            <button type="button" id="cancelYcaEdit"
+                class="hidden px-5 py-2.5 rounded-xl bg-white border border-slate-200 text-slate-700 font-semibold shadow-lg hover:bg-slate-100 transition">
+                Cancel
+            </button>
+
+            <label id="ycaImageUploadLabel" for="ycaImageUpload"
+                class="hidden px-5 py-2.5 rounded-xl bg-white border border-slate-200 text-slate-700 font-semibold shadow-lg hover:bg-slate-100 transition cursor-pointer">
+                Change Image
+                <input type="file" id="ycaImageUpload" accept="image/*" class="hidden">
+            </label>
+        </div>
+    @endif
+
+    <div class="absolute inset-0 bg-[linear-gradient(135deg,#ffffff_0%,#f8fafc_42%,#eef9ff_100%)]"></div>
+    <div class="absolute -top-32 -right-32 w-[34rem] h-[34rem] rounded-full blur-3xl bg-cyan-brand/15"></div>
+    <div class="absolute -bottom-32 -left-32 w-[30rem] h-[30rem] rounded-full blur-3xl bg-pink-brand/10"></div>
+
+    <div class="page-shell relative z-10">
+
+        <div class="grid lg:grid-cols-12 gap-10 lg:gap-16 items-center">
+
+            <!-- Image Block -->
+            <div class="lg:col-span-5 animate-on-scroll">
+                <div class="relative max-w-xl mx-auto lg:mx-0">
+
+                    <div class="absolute -top-6 -left-6 w-24 h-24 rounded-3xl bg-pink-brand/10"></div>
+                    <div class="absolute -bottom-6 -right-6 w-32 h-32 rounded-full bg-cyan-brand/10"></div>
+
+                    <div class="relative rounded-[2.2rem] overflow-hidden shadow-2xl border border-white bg-white p-3">
+                        <img
+                            id="ycaImage"
+                            src="{{ asset(cms($cms, 'about_yca', 'image', 'images/yca.jpg')) }}"
+                            alt="{{ cms($cms, 'about_yca', 'image_alt', 'Yunus Center AIT') }}"
+                            class="w-full h-[430px] lg:h-[560px] object-cover rounded-[1.7rem]">
+
+                        <div class="absolute inset-3 rounded-[1.7rem] bg-gradient-to-t from-slate-950/65 via-slate-900/10 to-transparent"></div>
+
+                        <div class="absolute left-8 right-8 bottom-8">
+                            <div class="rounded-3xl bg-white/90 backdrop-blur-xl border border-white/70 p-5 shadow-xl">
+                                <p
+                                    contenteditable="false"
+                                    data-section="about_yca"
+                                    data-field="card_title"
+                                    class="cms-inline-edit text-base font-bold text-slate-900">
+                                    {{ cms($cms, 'about_yca', 'card_title', 'Yunus Center AIT') }}
+                                </p>
+
+                                <p
+                                    contenteditable="false"
+                                    data-section="about_yca"
+                                    data-field="card_text"
+                                    class="cms-inline-edit mt-1 text-sm leading-relaxed text-slate-600">
+                                    {{ cms($cms, 'about_yca', 'card_text', 'Social business, innovation, and inclusive development.') }}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Text Block -->
+            <div class="lg:col-span-7 animate-on-scroll">
+
+                <p class="inline-flex items-center gap-3 text-sm uppercase tracking-[0.28em] text-slate-500 mb-6">
+                    <span class="w-10 h-px bg-pink-brand"></span>
+                    <span
+                        contenteditable="false"
+                        data-section="about_yca"
+                        data-field="eyebrow"
+                        class="cms-inline-edit">
+                        {{ cms($cms, 'about_yca', 'eyebrow', 'About Yunus Center') }}
+                    </span>
+                </p>
+
+                <h2
+                    contenteditable="false"
+                    data-section="about_yca"
+                    data-field="title"
+                    class="cms-inline-edit text-4xl sm:text-5xl lg:text-6xl font-extrabold text-slate-900 leading-[1.08] mb-7">
+                    {{ cms($cms, 'about_yca', 'title', 'A Center for Social Business, Research, and Inclusive Impact') }}
+                </h2>
+
+                <div class="relative pl-6 border-l-4 border-cyan-brand/30 mb-8">
+                    <p
+                        contenteditable="false"
+                        data-section="about_yca"
+                        data-field="paragraph_1"
+                        class="cms-inline-edit text-lg sm:text-xl text-slate-600 leading-relaxed">
+                        {{ cms($cms, 'about_yca', 'paragraph_1', 'Yunus Center AIT (YCA) is a collaboration between Nobel Laureate Professor Muhammad Yunus and the Asian Institute of Technology. As the first Yunus Center established within an academic institution, YCA works with a vision to harness the power of social business to help create a poverty-free world.') }}
+                    </p>
+                </div>
+
+                <div class="grid sm:grid-cols-2 gap-5 mb-8">
+<div class="rounded-3xl bg-white border border-slate-200 p-6 shadow-sm text-justify">                        
+
+                        <p
+                            contenteditable="false"
+                            data-section="about_yca"
+                            data-field="paragraph_2"
+                            class="cms-inline-edit text-slate-600 leading-relaxed">
+                            {{ cms($cms, 'about_yca', 'paragraph_2', 'YCA follows an action-learning approach that supports the development and implementation of social business models informed by research, technology, and partnerships, with a strong focus on gender equality and inclusive impact.') }}
+                        </p>
+                    </div>
+
+<div class="rounded-3xl bg-white border border-slate-200 p-6 shadow-sm text-justify">                        
+
+                        <p
+                            contenteditable="false"
+                            data-section="about_yca"
+                            data-field="paragraph_3"
+                            class="cms-inline-edit text-slate-600 leading-relaxed">
+                            {{ cms($cms, 'about_yca', 'paragraph_3', 'Drawing on the knowledge infrastructure and global research network of the Asian Institute of Technology, YCA connects with experts, institutions, and organizations across countries to promote practical, sustainable, and people-centered solutions.') }}
+                        </p>
+                    </div>
+                </div>
+
+                
+
+            </div>
+
+        </div>
+    </div>
+</section>
+
+
+<!-- ================= WHO WE ARE ================= -->
+<section id="who-we-are" class="relative py-20 lg:py-28 bg-slate-100/60">
+        @if(canEditCms())
         <div class="absolute top-6 right-6 z-[9999] flex gap-3">
             <button
                 type="button"
@@ -851,6 +989,9 @@
         </div>
     </div>
 </section>
+
+
+
 <script>
 /*
 |--------------------------------------------------------------------------
@@ -1094,6 +1235,19 @@ setupInlineCmsSection({
         inputId: 'howImageUpload',
         imageId: 'howImage',
         section: 'how_it_works',
+        field: 'image'
+    }
+});
+setupInlineCmsSection({
+    selector: '#about-yca .cms-inline-edit',
+    enableBtnId: 'enableYcaEdit',
+    saveBtnId: 'saveYcaEdit',
+    cancelBtnId: 'cancelYcaEdit',
+    image: {
+        labelId: 'ycaImageUploadLabel',
+        inputId: 'ycaImageUpload',
+        imageId: 'ycaImage',
+        section: 'about_yca',
         field: 'image'
     }
 });

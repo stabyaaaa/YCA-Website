@@ -3,45 +3,7 @@
 @section('title', 'Contact')
 
 @section('content')
-@if(session('success'))
-    <div
-        id="success-alert"
-        class="mb-6 relative overflow-hidden rounded-2xl border border-emerald-200 bg-gradient-to-r from-emerald-50 to-white px-6 py-5 shadow-sm"
-    >
 
-        <div class="flex items-start gap-4">
-
-            <div class="flex h-11 w-11 items-center justify-center rounded-xl bg-emerald-100 text-emerald-600 text-xl shrink-0">
-                ✓
-            </div>
-
-            <div class="flex-1">
-
-                <h4 class="text-base font-semibold text-emerald-800">
-                    Message Sent Successfully
-                </h4>
-
-                <p class="mt-1 text-sm leading-relaxed text-emerald-700">
-                    {{ session('success') }}
-                </p>
-
-            </div>
-
-            <button
-                type="button"
-                onclick="document.getElementById('success-alert').remove()"
-                class="text-emerald-500 hover:text-emerald-700 transition"
-            >
-                ✕
-            </button>
-
-        </div>
-
-        <!-- progress line -->
-        <div class="absolute bottom-0 left-0 h-1 bg-emerald-400 animate-success-bar"></div>
-
-    </div>
-@endif
 <style>
     :root {
         --warm-cream: #fdfaf7;
@@ -286,17 +248,107 @@
 }
 </style>
 <script>
-    setTimeout(() => {
-        const alert = document.getElementById('success-alert');
+document.addEventListener('DOMContentLoaded', function () {
+    const form = document.getElementById('contactForm');
+    const submitBtn = document.getElementById('submitBtn');
+    const submitText = document.getElementById('submitText');
+    const submitLoader = document.getElementById('submitLoader');
+    const successContainer = document.getElementById('ajaxSuccessContainer');
 
-        if (alert) {
-            alert.style.transition = 'all 0.4s ease';
-            alert.style.opacity = '0';
-            alert.style.transform = 'translateY(-10px)';
+    if (!form || !submitBtn || !submitText || !submitLoader || !successContainer) {
+        console.error('Contact form elements missing');
+        return;
+    }
 
-            setTimeout(() => alert.remove(), 400);
+    form.addEventListener('submit', async function (e) {
+        e.preventDefault();
+
+        submitBtn.disabled = true;
+        submitText.innerText = 'Sending...';
+        submitLoader.classList.remove('hidden');
+
+        const formData = new FormData(form);
+
+        try {
+            const response = await fetch(form.action, {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'X-Requested-With': 'XMLHttpRequest'
+                },
+                body: formData
+            });
+
+            const data = await response.json();
+
+            if (response.ok && data.success) {
+                form.reset();
+
+                submitText.innerText = 'Message Sent ✓';
+
+                successContainer.innerHTML = `
+                    <div
+                        id="success-alert"
+                        class="mb-6 relative overflow-hidden rounded-2xl border border-emerald-200 bg-gradient-to-r from-emerald-50 to-white px-6 py-5 shadow-sm"
+                    >
+                        <div class="flex items-start gap-4">
+                            <div class="flex h-11 w-11 items-center justify-center rounded-xl bg-emerald-100 text-emerald-600 text-xl shrink-0">
+                                ✓
+                            </div>
+
+                            <div class="flex-1">
+                                <h4 class="text-base font-semibold text-emerald-800">
+                                    Message Sent Successfully
+                                </h4>
+
+                                <p class="mt-1 text-sm leading-relaxed text-emerald-700">
+                                    ${data.message ?? 'Message sent successfully.'}
+                                </p>
+                            </div>
+
+                            <button
+                                type="button"
+                                onclick="document.getElementById('success-alert')?.remove()"
+                                class="text-emerald-500 hover:text-emerald-700 transition"
+                            >
+                                ✕
+                            </button>
+                        </div>
+
+                        <div class="absolute bottom-0 left-0 h-1 bg-emerald-400 animate-success-bar"></div>
+                    </div>
+                `;
+
+                setTimeout(function () {
+                    const alert = document.getElementById('success-alert');
+
+                    if (alert) {
+                        alert.style.transition = 'all 0.4s ease';
+                        alert.style.opacity = '0';
+                        alert.style.transform = 'translateY(-10px)';
+
+                        setTimeout(function () {
+                            alert.remove();
+                        }, 400);
+                    }
+                }, 1000);
+            } else {
+                submitText.innerText = 'Failed to Send';
+            }
+
+        } catch (error) {
+            console.error(error);
+            submitText.innerText = 'Server Error';
+        } finally {
+            submitLoader.classList.add('hidden');
+
+            setTimeout(function () {
+                submitText.innerText = 'Send Message';
+                submitBtn.disabled = false;
+            }, 2500);
         }
-    }, 5000);
+    });
+});
 </script>
 <section class="relative overflow-hidden bg-gradient-to-br from-[var(--warm-cream)] via-[#f6f1ff] to-white">
     <div class="absolute inset-0 pointer-events-none">
@@ -334,6 +386,45 @@
 
 <section class="bg-white">
     <div class="contact-constrain section-pad">
+        @if(session('success'))
+    <div
+        id="success-alert"
+        class="mb-6 relative overflow-hidden rounded-2xl border border-emerald-200 bg-gradient-to-r from-emerald-50 to-white px-6 py-5 shadow-sm"
+    >
+
+        <div class="flex items-start gap-4">
+
+            <div class="flex h-11 w-11 items-center justify-center rounded-xl bg-emerald-100 text-emerald-600 text-xl shrink-0">
+                ✓
+            </div>
+
+            <div class="flex-1">
+
+                <h4 class="text-base font-semibold text-emerald-800">
+                    Message Sent Successfully
+                </h4>
+
+                <p class="mt-1 text-sm leading-relaxed text-emerald-700">
+                    {{ session('success') }}
+                </p>
+
+            </div>
+
+            <button
+                type="button"
+                onclick="document.getElementById('success-alert').remove()"
+                class="text-emerald-500 hover:text-emerald-700 transition"
+            >
+                ✕
+            </button>
+
+        </div>
+
+        <!-- progress line -->
+        <div class="absolute bottom-0 left-0 h-1 bg-emerald-400 animate-success-bar"></div>
+
+    </div>
+@endif
         <div class="grid lg:grid-cols-[1.02fr_0.98fr] gap-10 xl:gap-14 items-start">
 
             <div class="soft-panel rounded-[2rem] p-6 md:p-8 lg:p-10 reveal-smooth">
@@ -352,9 +443,14 @@
                 </div>
 
                 <div class="divider-soft my-8"></div>
-
-                <form action="{{ route('contact.message.store') }}" method="POST" class="space-y-5">
-                    @csrf
+                    <div id="ajaxSuccessContainer"></div>
+                    <form
+                        id="contactForm"
+                        action="{{ route('contact.message.store') }}"
+                        method="POST"
+                        class="space-y-5"
+                    >                    
+                        @csrf
 
                     <div class="grid md:grid-cols-2 gap-5">
                         <div>
@@ -447,13 +543,37 @@
                     </div>
 
                     <div class="pt-2">
-                        <button
-                            type="submit"
-                            class="btn-primary-soft w-full text-base md:text-lg py-4"
-                        >
-                            Send Message
-                        </button>
-                    </div>
+    <button
+        id="submitBtn"
+        type="submit"
+        class="btn-primary-soft w-full text-base md:text-lg py-4 flex items-center justify-center gap-3"
+    >
+        <span id="submitText">Send Message</span>
+
+        <svg
+            id="submitLoader"
+            class="hidden animate-spin h-5 w-5"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+        >
+            <circle
+                class="opacity-25"
+                cx="12"
+                cy="12"
+                r="10"
+                stroke="currentColor"
+                stroke-width="4"
+            ></circle>
+
+            <path
+                class="opacity-75"
+                fill="currentColor"
+                d="M4 12a8 8 0 018-8v8H4z"
+            ></path>
+        </svg>
+    </button>
+</div>
                 </form>
             </div>
 

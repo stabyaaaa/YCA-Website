@@ -2,7 +2,20 @@
 @section('title', 'About Us')
 
 @section('content')
+@php
+    if (! function_exists('cms')) {
+        function cms($cms, $section, $field, $default = '') {
+            return $cms[$section][$field] ?? $default;
+        }
+    }
 
+    if (! function_exists('canEditCms')) {
+        function canEditCms() {
+            return auth()->check()
+                && in_array(auth()->user()->role, ['admin', 'super_admin']);
+        }
+    }
+@endphp
 <style>
     :root {
         --pink: #F31671;
@@ -136,10 +149,67 @@
     border: 1px solid rgba(15, 23, 42, 0.08);
     box-shadow: 0 2px 8px rgba(15, 23, 42, 0.10);
 }
-</style>
 
+    .cms-inline-edit {
+        transition: all 0.25s ease;
+        border-radius: 8px;
+    }
+
+    .cms-editable-active {
+        outline: 2px dashed rgba(1,157,222,0.55);
+        outline-offset: 6px;
+        cursor: text;
+        background: rgba(1,157,222,0.08);
+    }
+
+    .cms-editable-active:focus {
+        outline: 2px solid #019DDE;
+        background: rgba(1,157,222,0.14);
+    }
+</style>
 <!-- ================= HERO ================= -->
-<section class="relative overflow-hidden bg-white">
+<section id="aboutHero" class="relative overflow-hidden bg-white">
+
+    @if(canEditCms())
+        <div class="absolute top-6 right-6 z-[9999] flex gap-3">
+            <button
+                type="button"
+                id="enableAboutHeroEdit"
+                class="px-5 py-2.5 rounded-xl bg-pink-brand border border-white/20 text-white font-semibold shadow-lg hover:bg-white/20 transition">
+                Edit Hero
+            </button>
+
+            <button
+                type="button"
+                id="saveAboutHeroEdit"
+                class="hidden px-5 py-2.5 rounded-xl bg-cyan-brand text-white font-semibold shadow-2xl hover:scale-105 transition">
+                Save Changes
+            </button>
+
+            <button
+                type="button"
+                id="cancelAboutHeroEdit"
+                class="hidden px-5 py-2.5 rounded-xl bg-white border border-slate-200 text-slate-700 font-semibold shadow-lg hover:bg-slate-100 transition">
+                Cancel
+            </button>
+
+
+
+            <label
+                id="aboutHeroImageUploadLabel"
+                for="aboutHeroImageUpload"
+                class="hidden px-5 py-2.5 rounded-xl bg-white border border-slate-200 text-slate-700 font-semibold shadow-lg hover:bg-slate-100 transition cursor-pointer">
+                Change Image
+
+                <input
+                    type="file"
+                    id="aboutHeroImageUpload"
+                    accept="image/*"
+                    class="hidden">
+            </label>
+        </div>
+    @endif
+
     <div class="absolute inset-0">
         <div class="absolute inset-0 bg-[linear-gradient(135deg,#fff_0%,#f8fafc_35%,#eef6fb_100%)]"></div>
         <div class="absolute top-0 right-0 w-[42rem] h-[42rem] rounded-full blur-3xl opacity-30"
@@ -154,51 +224,97 @@
             <div class="lg:col-span-7">
                 <p class="inline-flex items-center gap-3 text-sm uppercase tracking-[0.28em] text-slate-500 mb-6 animate-on-scroll">
                     <span class="w-10 h-px bg-pink-brand"></span>
-                    About WePOWER
+
+                    <span
+                        contenteditable="false"
+                        data-section="about_hero"
+                        data-field="eyebrow"
+                        class="cms-inline-edit">
+                        {{ cms($cms, 'about_hero', 'eyebrow', 'About WePOWER') }}
+                    </span>
                 </p>
 
                 <h1 class="text-5xl md:text-6xl xl:text-7xl font-extrabold text-slate-900 leading-[1.02] mb-7 animate-on-scroll">
-                    Powering Inclusion
-                    <span class="block text-cyan-brand">Across South Asia</span>
+                    <span
+                        contenteditable="false"
+                        data-section="about_hero"
+                        data-field="title_line_1"
+                        class="cms-inline-edit">
+                        {{ cms($cms, 'about_hero', 'title_line_1', 'Powering Inclusion') }}
+                    </span>
+
+                    <span
+                        contenteditable="false"
+                        data-section="about_hero"
+                        data-field="title_line_2"
+                        class="cms-inline-edit block text-cyan-brand">
+                        {{ cms($cms, 'about_hero', 'title_line_2', 'Across South Asia') }}
+                    </span>
                 </h1>
 
-                <p class="text-lg sm:text-xl text-slate-600 leading-relaxed mb-8 animate-on-scroll" style="transition-delay: 0.12s;">
-                    WePOWER is a women's regional network connecting institutions, utilities, universities, and professional partners to create stronger pathways for women in the energy sector — from participation and progression to leadership and institutional change.
+                <p
+                    contenteditable="false"
+                    data-section="about_hero"
+                    data-field="description"
+                    class="cms-inline-edit text-lg sm:text-xl text-slate-600 leading-relaxed mb-8 animate-on-scroll"
+                    style="transition-delay: 0.12s;">
+                    {{ cms($cms, 'about_hero', 'description', "WePOWER is a women's regional network connecting institutions, utilities, universities, and professional partners to create stronger pathways for women in the energy sector — from participation and progression to leadership and institutional change.") }}
                 </p>
 
                 <div class="flex flex-wrap gap-4 animate-on-scroll" style="transition-delay: 0.2s;">
-                    <a href="#who-we-are"
+                    <a href="{{ cms($cms, 'about_hero', 'primary_button_link', '#who-we-are') }}"
                        class="px-7 py-4 bg-slate-900 hover:bg-slate-800 text-white rounded-2xl font-semibold shadow-lg transition">
-                        Learn About WePOWER
+                        <span
+                            contenteditable="false"
+                            data-section="about_hero"
+                            data-field="primary_button_text"
+                            class="cms-inline-edit">
+                            {{ cms($cms, 'about_hero', 'primary_button_text', 'Learn About WePOWER') }}
+                        </span>
                     </a>
 
-                    <a href="#our-framework"
+                    <a href="{{ cms($cms, 'about_hero', 'secondary_button_link', '#our-framework') }}"
                        class="px-7 py-4 border border-slate-300 text-slate-800 rounded-2xl font-semibold hover:border-slate-400 hover:bg-slate-50 transition">
-                        View Our Frameworks
+                        <span
+                            contenteditable="false"
+                            data-section="about_hero"
+                            data-field="secondary_button_text"
+                            class="cms-inline-edit">
+                            {{ cms($cms, 'about_hero', 'secondary_button_text', 'View Our Frameworks') }}
+                        </span>
                     </a>
                 </div>
 
                 <div class="grid sm:grid-cols-3 gap-4 mt-10 animate-on-scroll" style="transition-delay: 0.28s;">
-                    <div class="rounded-2xl bg-white border border-slate-200 px-5 py-4 shadow-sm">
-                        <p class="text-2xl font-bold text-pink-brand">2019</p>
-                        <p class="text-sm text-slate-500 mt-1">Network launched</p>
-                    </div>
-                    <div class="rounded-2xl bg-white border border-slate-200 px-5 py-4 shadow-sm">
-                        <p class="text-2xl font-bold text-cyan-brand">61</p>
-                        <p class="text-sm text-slate-500 mt-1">Regional partners</p>
-                    </div>
-                    <div class="rounded-2xl bg-white border border-slate-200 px-5 py-4 shadow-sm">
-                        <p class="text-2xl font-bold text-orange-brand">5 Pillars</p>
-                        <p class="text-sm text-slate-500 mt-1">Action framework</p>
-                    </div>
+                    @for($i = 1; $i <= 3; $i++)
+                        <div class="rounded-2xl bg-white border border-slate-200 px-5 py-4 shadow-sm">
+                            <p
+                                contenteditable="false"
+                                data-section="about_hero"
+                                data-field="stat_{{ $i }}_number"
+                                class="cms-inline-edit text-2xl font-bold {{ $i == 1 ? 'text-pink-brand' : ($i == 2 ? 'text-cyan-brand' : 'text-orange-brand') }}">
+                                {{ cms($cms, 'about_hero', "stat_{$i}_number") }}
+                            </p>
+
+                            <p
+                                contenteditable="false"
+                                data-section="about_hero"
+                                data-field="stat_{{ $i }}_label"
+                                class="cms-inline-edit text-sm text-slate-500 mt-1">
+                                {{ cms($cms, 'about_hero', "stat_{$i}_label") }}
+                            </p>
+                        </div>
+                    @endfor
                 </div>
             </div>
 
             <div class="lg:col-span-5 animate-on-scroll">
                 <div class="relative max-w-xl mx-auto lg:ml-auto">
                     <div class="relative rounded-[2rem] overflow-hidden shadow-2xl">
-                        <img src="{{ asset('images/bgg.jpeg') }}"
-                             alt="Women in the South Asia power sector"
+                        <img
+                             id="aboutHeroImage"
+                             src="{{ asset(cms($cms, 'about_hero', 'image', 'images/bgg.jpeg')) }}"
+                             alt="{{ cms($cms, 'about_hero', 'image_alt', 'Women in the South Asia power sector') }}"
                              class="w-full h-[480px] sm:h-[560px] object-cover">
                         <div class="absolute inset-0 bg-gradient-to-t from-slate-950/70 via-slate-900/10 to-transparent"></div>
                     </div>
@@ -206,16 +322,38 @@
                     <div class="hidden sm:block absolute -right-6 top-10 w-20 h-72 rounded-[1.75rem] bg-gradient-to-b from-pink-brand via-orange-brand to-cyan-brand shadow-xl"></div>
 
                     <div class="absolute -top-6 -left-6 sm:left-auto sm:-right-10 bg-white rounded-2xl shadow-xl border border-slate-200 px-5 py-4 w-56">
-                        <p class="text-xs uppercase tracking-[0.22em] text-slate-400 mb-2">Regional Vision</p>
-                        <p class="text-sm text-slate-700 leading-relaxed">
-                            Advancing women’s participation in technical and leadership roles.
+                        <p
+                            contenteditable="false"
+                            data-section="about_hero"
+                            data-field="small_card_1_title"
+                            class="cms-inline-edit text-xs uppercase tracking-[0.22em] text-slate-400 mb-2">
+                            {{ cms($cms, 'about_hero', 'small_card_1_title', 'Regional Vision') }}
+                        </p>
+
+                        <p
+                            contenteditable="false"
+                            data-section="about_hero"
+                            data-field="small_card_1_text"
+                            class="cms-inline-edit text-sm text-slate-700 leading-relaxed">
+                            {{ cms($cms, 'about_hero', 'small_card_1_text', 'Advancing women’s participation in technical and leadership roles.') }}
                         </p>
                     </div>
 
                     <div class="absolute bottom-6 -left-6 sm:-left-10 bg-slate-900 text-white rounded-2xl shadow-2xl px-6 py-5 w-64">
-                        <p class="text-xs uppercase tracking-[0.22em] text-white/50 mb-2">Why It Matters</p>
-                        <p class="text-sm leading-relaxed text-white/85">
-                            A stronger energy sector needs more inclusive institutions, opportunities, and career pathways.
+                        <p
+                            contenteditable="false"
+                            data-section="about_hero"
+                            data-field="small_card_2_title"
+                            class="cms-inline-edit text-xs uppercase tracking-[0.22em] text-white/50 mb-2">
+                            {{ cms($cms, 'about_hero', 'small_card_2_title', 'Why It Matters') }}
+                        </p>
+
+                        <p
+                            contenteditable="false"
+                            data-section="about_hero"
+                            data-field="small_card_2_text"
+                            class="cms-inline-edit text-sm leading-relaxed text-white/85">
+                            {{ cms($cms, 'about_hero', 'small_card_2_text', 'A stronger energy sector needs more inclusive institutions, opportunities, and career pathways.') }}
                         </p>
                     </div>
                 </div>
@@ -224,317 +362,145 @@
         </div>
     </div>
 </section>
+<!-- ================= ABOUT YUNUS CENTER AIT ================= -->
+<section id="about-yca" class="relative py-20 lg:py-28 bg-white overflow-hidden">
 
+    @if(canEditCms())
+        <div class="absolute top-6 right-6 z-[9999] flex gap-3">
+            <button type="button" id="enableYcaEdit"
+                class="px-5 py-2.5 rounded-xl bg-pink-brand text-white font-semibold shadow-lg hover:bg-pink-600 transition">
+                Edit Yunus Center
+            </button>
 
-<!-- ================= WHO WE ARE ================= -->
-<section id="who-we-are" class="py-20 lg:py-28 bg-white">
-    <div class="page-shell">
+            <button type="button" id="saveYcaEdit"
+                class="hidden px-5 py-2.5 rounded-xl bg-cyan-brand text-white font-semibold shadow-2xl hover:scale-105 transition">
+                Save Changes
+            </button>
 
-        <div class="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center mb-16">
+            <button type="button" id="cancelYcaEdit"
+                class="hidden px-5 py-2.5 rounded-xl bg-white border border-slate-200 text-slate-700 font-semibold shadow-lg hover:bg-slate-100 transition">
+                Cancel
+            </button>
 
-            <div class="animate-on-scroll">
-                <div class="rounded-3xl overflow-hidden shadow-xl">
-                    <img src="{{ asset('images/bg_group.jpeg') }}"
-                         alt="WePOWER network"
-                         class="w-full h-[420px] lg:h-[480px] object-cover">
-                    </div>
-                    </div>
-
-                    <div class="animate-on-scroll">
-                        <p class="text-sm uppercase tracking-[0.25em] text-cyan-brand mb-4">
-                            Who We Are
-                        </p>
-
-                        <h2 class="text-4xl sm:text-5xl lg:text-6xl font-bold text-slate-900 leading-tight mb-6">
-                            A Regional Network Advancing Women in the Power Sector
-                        </h2>
-
-                        <p class="text-lg text-slate-600 leading-relaxed mb-5">
-            WePOWER is the South Asia Women in Power Sector Professional Network, established in 2019 as a voluntary platform of utilities, universities, and professional associations. With 61 partners and growing, it works to increase women’s participation in energy-sector careers, especially in technical and leadership roles, through collaboration, research, and targeted initiatives supported by the World Bank’s South Asia Energy program.
-        </p>
-
-        <p class="text-lg text-slate-600 leading-relaxed">
-            The network operates through a data-driven approach, drawing on partner insights and regional assessments to address barriers to entry, retention, and advancement. Guided by a five-pillar framework spanning education, recruitment, professional development, retention, and policy reform, WePOWER supports coordinated action across countries, strengthening both regional collaboration and national-level impact.
-        </p>
-            </div>
+            <label id="ycaImageUploadLabel" for="ycaImageUpload"
+                class="hidden px-5 py-2.5 rounded-xl bg-white border border-slate-200 text-slate-700 font-semibold shadow-lg hover:bg-slate-100 transition cursor-pointer">
+                Change Image
+                <input type="file" id="ycaImageUpload" accept="image/*" class="hidden">
+            </label>
         </div>
+    @endif
 
-        
+    <div class="absolute inset-0 bg-[linear-gradient(135deg,#ffffff_0%,#f8fafc_42%,#eef9ff_100%)]"></div>
+    <div class="absolute -top-32 -right-32 w-[34rem] h-[34rem] rounded-full blur-3xl bg-cyan-brand/15"></div>
+    <div class="absolute -bottom-32 -left-32 w-[30rem] h-[30rem] rounded-full blur-3xl bg-pink-brand/10"></div>
 
-    </div>
-</section>
+    <div class="page-shell relative z-10">
 
-<!-- ================= WHY IT EXISTS ================= -->
-<section class="py-20 lg:py-28 bg-white">
-    <div class="page-shell">
-        <div class="grid lg:grid-cols-12 gap-16 lg:gap-20 items-start">
+        <div class="grid lg:grid-cols-12 gap-10 lg:gap-16 items-center">
 
-            <div class="lg:col-span-7">
-                <div class="mb-12 animate-on-scroll">
-                    <p class="text-sm uppercase tracking-[0.25em] text-pink-brand mb-4">
-                        Why It Exists
-                    </p>
-                    <h2 class="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight text-slate-900">
-                        Supporting Women Across the Full Energy Career Path
-                    </h2>
-                    <p class="mt-6 text-lg text-slate-600 leading-relaxed">
-                        WePOWER exists because improving women’s participation in the power sector requires more than one solution. It takes action across education, access to jobs, career development, and workplace systems.
-                    </p>
-                </div>
-
-                <div class="relative">
-                    <div class="absolute left-8 top-10 bottom-8 w-1 bg-gradient-to-b from-pink-200 via-orange-200 via-cyan-200 to-pink-200 hidden lg:block"></div>
-
-                    <div class="relative flex gap-8 mb-14 animate-on-scroll">
-                        <div class="flex-shrink-0">
-                            <div class="inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-pink-100 text-pink-600 text-xl font-bold z-10">01</div>
-                        </div>
-                        <div class="pt-2">
-                            <h3 class="text-3xl font-semibold text-slate-900 mb-4">Build the Stem Pipeline</h3>
-                            <p class="text-slate-600 text-lg leading-relaxed">
-                                Encourage girls and young women to see STEM and energy as realistic, valuable, and achievable career paths.
-                            </p>
-                        </div>
-                    </div>
-
-                    <div class="relative flex gap-8 mb-14 animate-on-scroll" style="transition-delay: 0.08s;">
-                        <div class="flex-shrink-0">
-                            <div class="inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-orange-100 text-orange-600 text-xl font-bold z-10">02</div>
-                        </div>
-                        <div class="pt-2">
-                            <h3 class="text-3xl font-semibold text-slate-900 mb-4">Open Job Access</h3>
-                            <p class="text-slate-600 text-lg leading-relaxed">
-                                Expand pathways into the sector through internships, recruitment opportunities, exposure, and employer engagement.
-                            </p>
-                        </div>
-                    </div>
-
-                    <div class="relative flex gap-8 mb-14 animate-on-scroll" style="transition-delay: 0.16s;">
-                        <div class="flex-shrink-0">
-                            <div class="inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-cyan-100 text-cyan-600 text-xl font-bold z-10">03</div>
-                        </div>
-                        <div class="pt-2">
-                            <h3 class="text-3xl font-semibold text-slate-900 mb-4">Support Career Growth</h3>
-                            <p class="text-slate-600 text-lg leading-relaxed">
-                                Strengthen mentorship, professional development, technical growth, and leadership opportunities for women in the sector.
-                            </p>
-                        </div>
-                    </div>
-
-                    <div class="relative flex gap-8 animate-on-scroll" style="transition-delay: 0.24s;">
-                        <div class="flex-shrink-0">
-                            <div class="inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-pink-100 text-pink-600 text-xl font-bold z-10">04</div>
-                        </div>
-                        <div class="pt-2">
-                            <h3 class="text-3xl font-semibold text-slate-900 mb-4">Shift Institutional Policies</h3>
-                            <p class="text-slate-600 text-lg leading-relaxed">
-                                Promote policies, workplace support, and long-term institutional change so women can enter, stay, advance, and lead.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
+            <!-- Image Block -->
             <div class="lg:col-span-5 animate-on-scroll">
-                <div class="lg:sticky lg:top-24">
-                    <div class="aspect-[4/5] lg:h-[680px] bg-slate-100 rounded-3xl overflow-hidden shadow-2xl">
-                        <img 
-                            src="{{ asset('images/bg_group.jpeg') }}"
-                            alt="Women progressing through the energy career path - WePOWER"
-                            class="w-full h-full object-cover"
-                        >
+                <div class="relative max-w-xl mx-auto lg:mx-0">
+
+                    <div class="absolute -top-6 -left-6 w-24 h-24 rounded-3xl bg-pink-brand/10"></div>
+                    <div class="absolute -bottom-6 -right-6 w-32 h-32 rounded-full bg-cyan-brand/10"></div>
+
+                    <div class="relative rounded-[2.2rem] overflow-hidden shadow-2xl border border-white bg-white p-3">
+                        <img
+                            id="ycaImage"
+                            src="{{ asset(cms($cms, 'about_yca', 'image', 'images/yca.jpg')) }}"
+                            alt="{{ cms($cms, 'about_yca', 'image_alt', 'Yunus Center AIT') }}"
+                            class="w-full h-[430px] lg:h-[560px] object-cover rounded-[1.7rem]">
+
+                        <div class="absolute inset-3 rounded-[1.7rem] bg-gradient-to-t from-slate-950/65 via-slate-900/10 to-transparent"></div>
+
+                        <div class="absolute left-8 right-8 bottom-8">
+                            <div class="rounded-3xl bg-white/90 backdrop-blur-xl border border-white/70 p-5 shadow-xl">
+                                <p
+                                    contenteditable="false"
+                                    data-section="about_yca"
+                                    data-field="card_title"
+                                    class="cms-inline-edit text-base font-bold text-slate-900">
+                                    {{ cms($cms, 'about_yca', 'card_title', 'Yunus Center AIT') }}
+                                </p>
+
+                                <p
+                                    contenteditable="false"
+                                    data-section="about_yca"
+                                    data-field="card_text"
+                                    class="cms-inline-edit mt-1 text-sm leading-relaxed text-slate-600">
+                                    {{ cms($cms, 'about_yca', 'card_text', 'Social business, innovation, and inclusive development.') }}
+                                </p>
+                            </div>
+                        </div>
                     </div>
-                    
-                    <p class="mt-8 text-center text-sm text-slate-500 tracking-widest">
-                        ONE CONTINUOUS PATH — FROM INSPIRATION TO LEADERSHIP
-                    </p>
                 </div>
             </div>
 
-        </div>
-    </div>
-</section>
+            <!-- Text Block -->
+            <div class="lg:col-span-7 animate-on-scroll">
 
-<!-- ================= FRAMEWORK ================= -->
-<section id="our-framework" class="relative py-20 lg:py-28 bg-slate-950 overflow-hidden">
-    <div class="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(1,157,222,0.12),transparent_25%),radial-gradient(circle_at_bottom_right,rgba(243,22,113,0.12),transparent_25%)]"></div>
-
-    <div class="relative z-10 page-shell">
-        <div class="text-center max-w-4xl mx-auto mb-16">
-            <p class="text-sm uppercase tracking-[0.25em] text-cyan-300 mb-4 animate-on-scroll">
-                Our Framework
-            </p>
-            <h2 class="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-5 animate-on-scroll">
-                The Five Pillars of WePOWER
-            </h2>
-            <p class="text-lg sm:text-xl text-white/70 leading-relaxed animate-on-scroll">
-                WePOWER’s work is organized around five connected pillars that move from entry and access to retention, leadership, and institutional change.
-            </p>
-        </div>
-
-        <div class="grid md:grid-cols-2 xl:grid-cols-5 gap-8">
-
-            <!-- CARD -->
-            <div class="relative glass-card rounded-3xl p-7 pt-10 card-hover animate-on-scroll text-white">
-                <div class="absolute -top-4 left-6 w-10 h-10 rounded-xl bg-pink-brand flex items-center justify-center font-bold">
-                    A
-                </div>
-                <h3 class="text-xl font-bold mb-3">STEM Outreach & Norms</h3>
-                <p class="text-white/75 text-sm">
-                    Inspiring girls’ interest in STEM and engineering pathways, and exposure to power-sector learning opportunities.
+                <p class="inline-flex items-center gap-3 text-sm uppercase tracking-[0.28em] text-slate-500 mb-6">
+                    <span class="w-10 h-px bg-pink-brand"></span>
+                    <span
+                        contenteditable="false"
+                        data-section="about_yca"
+                        data-field="eyebrow"
+                        class="cms-inline-edit">
+                        {{ cms($cms, 'about_yca', 'eyebrow', 'About Yunus Center') }}
+                    </span>
                 </p>
-            </div>
 
-            <div class="relative glass-card rounded-3xl p-7 pt-10 card-hover animate-on-scroll text-white">
-                <div class="absolute -top-4 left-6 w-10 h-10 rounded-xl bg-orange-brand flex items-center justify-center font-bold">
-                    B
-                </div>
-                <h3 class="text-xl font-bold mb-3">Recruitment and Internships</h3>
-                <p class="text-white/75 text-sm">
-                    Creating bridge between women, employers, internships, networking events, and job opportunities.
-                </p>
-            </div>
-
-            <div class="relative glass-card rounded-3xl p-7 pt-10 card-hover animate-on-scroll text-white">
-                <div class="absolute -top-4 left-6 w-10 h-10 rounded-xl bg-cyan-brand flex items-center justify-center font-bold">
-                    C
-                </div>
-                <h3 class="text-xl font-bold mb-3">Professional Development</h3>
-                <p class="text-white/75 text-sm">
-                    Supporting training, mentoring, technical learning, confidence building, and leadership progression.
-                </p>
-            </div>
-
-            <div class="relative glass-card rounded-3xl p-7 pt-10 card-hover animate-on-scroll text-white">
-                <div class="absolute -top-4 left-6 w-10 h-10 rounded-xl bg-pink-brand flex items-center justify-center font-bold">
-                    D
-                </div>
-                <h3 class="text-xl font-bold mb-3">Retention & Facilities</h3>
-                <p class="text-white/75 text-sm">
-                    Improving workplace conditions through family-friendly systems, facilities, reintegration support, and safer environments.
-                </p>
-            </div>
-
-            <div class="relative glass-card rounded-3xl p-7 pt-10 card-hover animate-on-scroll text-white">
-                <div class="absolute -top-4 left-6 w-10 h-10 rounded-xl bg-orange-brand flex items-center justify-center font-bold">
-                    E
-                </div>
-                <h3 class="text-xl font-bold mb-3">Policy & Networking</h3>
-                <p class="text-white/75 text-sm">
-                    Embedding gender-responsive policies, targets, governance, and sector-wide collaboration for lasting impact.
-                </p>
-            </div>
-
-        </div>
-    </div>
-</section>
-
-<!-- ================= HOW IT WORKS ================= -->
-<section class="py-20 lg:py-28 bg-white">
-    <div class="page-shell">
-        <div class="grid lg:grid-cols-2 gap-14 items-start">
-            <div>
-                <p class="text-sm uppercase tracking-[0.25em] text-orange-brand mb-4 animate-on-scroll">How It Works</p>
-                <h2 class="text-4xl sm:text-5xl lg:text-6xl font-bold text-slate-900 mb-6 animate-on-scroll">
-                    A Network Built on Partners, Evidence, and Action
+                <h2
+                    contenteditable="false"
+                    data-section="about_yca"
+                    data-field="title"
+                    class="cms-inline-edit text-4xl sm:text-5xl lg:text-6xl font-extrabold text-slate-900 leading-[1.08] mb-7">
+                    {{ cms($cms, 'about_yca', 'title', 'A Center for Social Business, Research, and Inclusive Impact') }}
                 </h2>
-                <p class="text-lg text-slate-600 leading-relaxed mb-6 animate-on-scroll" style="transition-delay: 0.1s;">
-                    WePOWER’s model is collaborative. It combines research, local engagement, peer learning, and structured partner activities to turn ideas into measurable action.
-                </p>
 
-                <div class="space-y-5">
-                    <div class="flex gap-4 animate-on-scroll" style="transition-delay: 0.14s;">
-                        <div class="w-12 h-12 rounded-2xl bg-pink-100 text-pink-600 flex items-center justify-center font-bold shrink-0">01</div>
-                        <div>
-                            <h3 class="text-xl font-bold text-slate-900 mb-1">Partners identify and implement actions</h3>
-                            <p class="text-slate-600 leading-relaxed">Utilities, institutions, and organizations carry out practical gender-focused activities aligned with the framework.</p>
-                        </div>
+                <div class="relative pl-6 border-l-4 border-cyan-brand/30 mb-8">
+                    <p
+                        contenteditable="false"
+                        data-section="about_yca"
+                        data-field="paragraph_1"
+                        class="cms-inline-edit text-lg sm:text-xl text-slate-600 leading-relaxed">
+                        {{ cms($cms, 'about_yca', 'paragraph_1', 'Yunus Center AIT (YCA) is a collaboration between Nobel Laureate Professor Muhammad Yunus and the Asian Institute of Technology. As the first Yunus Center established within an academic institution, YCA works with a vision to harness the power of social business to help create a poverty-free world.') }}
+                    </p>
+                </div>
+
+                <div class="grid sm:grid-cols-2 gap-5 mb-8">
+<div class="rounded-3xl bg-white border border-slate-200 p-6 shadow-sm text-justify">                        
+
+                        <p
+                            contenteditable="false"
+                            data-section="about_yca"
+                            data-field="paragraph_2"
+                            class="cms-inline-edit text-slate-600 leading-relaxed">
+                            {{ cms($cms, 'about_yca', 'paragraph_2', 'YCA follows an action-learning approach that supports the development and implementation of social business models informed by research, technology, and partnerships, with a strong focus on gender equality and inclusive impact.') }}
+                        </p>
                     </div>
 
-                    <div class="flex gap-4 animate-on-scroll" style="transition-delay: 0.2s;">
-                        <div class="w-12 h-12 rounded-2xl bg-cyan-100 text-cyan-700 flex items-center justify-center font-bold shrink-0">02</div>
-                        <div>
-                            <h3 class="text-xl font-bold text-slate-900 mb-1">Learning is shared across the region</h3>
-                            <p class="text-slate-600 leading-relaxed">Working groups, reports, and peer exchange help good practices spread beyond one institution or country.</p>
-                        </div>
-                    </div>
+<div class="rounded-3xl bg-white border border-slate-200 p-6 shadow-sm text-justify">                        
 
-                    <div class="flex gap-4 animate-on-scroll" style="transition-delay: 0.26s;">
-                        <div class="w-12 h-12 rounded-2xl bg-orange-100 text-orange-700 flex items-center justify-center font-bold shrink-0">03</div>
-                        <div>
-                            <h3 class="text-xl font-bold text-slate-900 mb-1">Data informs strategy and improvement</h3>
-                            <p class="text-slate-600 leading-relaxed">Assessment, metrics, and partner experience guide future priorities and strengthen long-term impact.</p>
-                        </div>
-                    </div>
-
-                    <div class="flex gap-4 animate-on-scroll" style="transition-delay: 0.32s;">
-                        <div class="w-12 h-12 rounded-2xl bg-pink-100 text-pink-600 flex items-center justify-center font-bold shrink-0">04</div>
-                        <div>
-                            <h3 class="text-xl font-bold text-slate-900 mb-1">National and regional systems reinforce each other</h3>
-                            <p class="text-slate-600 leading-relaxed">Country-level chapters and regional coordination work together so momentum is sustained over time.</p>
-                        </div>
+                        <p
+                            contenteditable="false"
+                            data-section="about_yca"
+                            data-field="paragraph_3"
+                            class="cms-inline-edit text-slate-600 leading-relaxed">
+                            {{ cms($cms, 'about_yca', 'paragraph_3', 'Drawing on the knowledge infrastructure and global research network of the Asian Institute of Technology, YCA connects with experts, institutions, and organizations across countries to promote practical, sustainable, and people-centered solutions.') }}
+                        </p>
                     </div>
                 </div>
+
+                
+
             </div>
 
-            <div class="animate-on-scroll flex items-center h-full">
-    <div class="w-full overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-2xl">
-        
-        <!-- top image -->
-        <div class="relative h-40 sm:h-48 overflow-hidden">
-            <img 
-                src="{{ asset('images/bgg.jpeg') }}" 
-                alt="Women in energy"
-                class="w-full h-full object-cover"
-            >
-            <div class="absolute inset-0.2 bg-gradient-to-t from-white via-white/30 to-transparent"></div>
-        </div>
-
-        <!-- content -->
-        <div class="p-8 sm:p-10 -mt-2 relative z-10">
-            <h3 class="text-2xl font-bold text-slate-900 mb-6">
-                What makes the approach different
-            </h3>
-
-            <div class="space-y-5">
-                <div class="pb-5 border-b border-slate-200">
-                    <p class="text-lg font-semibold text-slate-900">Regional, but locally grounded</p>
-                    <p class="text-slate-600 mt-1">
-                        It connects countries and institutions while staying focused on practical actions inside workplaces and systems.
-                    </p>
-                </div>
-
-                <div class="pb-5 border-b border-slate-200">
-                    <p class="text-lg font-semibold text-slate-900">Evidence-based</p>
-                    <p class="text-slate-600 mt-1">
-                        Research, interviews, surveys, metrics, and partner reporting shape how the network evolves.
-                    </p>
-                </div>
-
-                <div class="pb-5 border-b border-slate-200">
-                    <p class="text-lg font-semibold text-slate-900">Built for continuity</p>
-                    <p class="text-slate-600 mt-1">
-                        The emphasis is not just on awareness, but on systems, structures, chapters, and governance that can last.
-                    </p>
-                </div>
-
-                <div>
-                    <p class="text-lg font-semibold text-slate-900">Designed for scale</p>
-                    <p class="text-slate-600 mt-1">
-                        Lessons, tools, and programs can be adapted and expanded across partners and countries over time.
-                    </p>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-    </div>
-</div>
-            </div>
         </div>
     </div>
 </section>
+
 
 <section id="wepower-3d-earth" class="wepower-earth-section">
 <style>
@@ -1102,21 +1068,790 @@ observer.observe(document.getElementById("wepower-3d-earth"));
 })();
 </script>
 </section>
+<!-- ================= WHO WE ARE ================= -->
+<section id="who-we-are" class="relative py-20 lg:py-28 bg-slate-100/60">
+        @if(canEditCms())
+        <div class="absolute top-6 right-6 z-[9999] flex gap-3">
+            <button
+                type="button"
+                id="enableWhoEdit"
+                class="px-5 py-2.5 rounded-xl bg-pink-brand border border-white/20 text-white font-semibold shadow-lg hover:bg-white/20 transition">
+                Edit Who We Are
+            </button>
+
+            <button
+                type="button"
+                id="saveWhoEdit"
+                class="hidden px-5 py-2.5 rounded-xl bg-cyan-brand text-white font-semibold shadow-2xl hover:scale-105 transition">
+                Save Changes
+            </button>
+
+            <button
+                type="button"
+                id="cancelWhoEdit"
+                class="hidden px-5 py-2.5 rounded-xl bg-white border border-slate-200 text-slate-700 font-semibold shadow-lg hover:bg-slate-100 transition">
+                Cancel
+            </button>
+
+
+
+            <label
+                id="whoImageUploadLabel"
+                for="whoImageUpload"
+                class="hidden px-5 py-2.5 rounded-xl bg-white border border-slate-200 text-slate-700 font-semibold shadow-lg hover:bg-slate-100 transition cursor-pointer">
+                Change Image
+
+                <input
+                    type="file"
+                    id="whoImageUpload"
+                    accept="image/*"
+                    class="hidden">
+            </label>
+        </div>
+    @endif
+
+    <div class="page-shell">
+
+        <div class="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center mb-16">
+
+            <div class="animate-on-scroll">
+                <div class="rounded-3xl overflow-hidden shadow-xl">
+                    <img
+                        id="whoImage"
+                        src="{{ asset(cms($cms, 'who_we_are', 'image', 'images/bg_group.jpeg')) }}"
+                        alt="{{ cms($cms, 'who_we_are', 'image_alt', 'WePOWER network') }}"
+                        class="w-full h-[420px] lg:h-[480px] object-cover">
+                </div>
+            </div>
+
+            <div class="animate-on-scroll">
+                <p
+                    contenteditable="false"
+                    data-section="who_we_are"
+                    data-field="eyebrow"
+                    class="cms-inline-edit text-sm uppercase tracking-[0.25em] text-cyan-brand mb-4">
+                    {{ cms($cms, 'who_we_are', 'eyebrow', 'Who We Are') }}
+                </p>
+
+                <h2
+                    contenteditable="false"
+                    data-section="who_we_are"
+                    data-field="title"
+                    class="cms-inline-edit text-4xl sm:text-5xl lg:text-6xl font-bold text-slate-900 leading-tight mb-6">
+                    {{ cms($cms, 'who_we_are', 'title', 'A Regional Network Advancing Women in the Power Sector') }}
+                </h2>
+
+                <p
+                    contenteditable="false"
+                    data-section="who_we_are"
+                    data-field="paragraph_1"
+                    class="cms-inline-edit text-lg text-slate-600 leading-relaxed mb-5">
+                    {{ cms($cms, 'who_we_are', 'paragraph_1', 'WePOWER is the South Asia Women in Power Sector Professional Network, established in 2019 as a voluntary platform of utilities, universities, and professional associations. With 61 partners and growing, it works to increase women’s participation in energy-sector careers, especially in technical and leadership roles, through collaboration, research, and targeted initiatives supported by the World Bank’s South Asia Energy program.') }}
+                </p>
+
+                <p
+                    contenteditable="false"
+                    data-section="who_we_are"
+                    data-field="paragraph_2"
+                    class="cms-inline-edit text-lg text-slate-600 leading-relaxed">
+                    {{ cms($cms, 'who_we_are', 'paragraph_2', 'The network operates through a data-driven approach, drawing on partner insights and regional assessments to address barriers to entry, retention, and advancement. Guided by a five-pillar framework spanning education, recruitment, professional development, retention, and policy reform, WePOWER supports coordinated action across countries, strengthening both regional collaboration and national-level impact.') }}
+                </p>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<!-- ================= WHY IT EXISTS ================= -->
+<section id="why-exists" class="relative py-20 lg:py-28 bg-white">
+
+    @if(canEditCms())
+        <div class="absolute top-6 right-6 z-[9999] flex gap-3">
+            <button type="button" id="enableWhyExistsEdit"
+                class="px-5 py-2.5 rounded-xl bg-pink-brand border border-white/20 text-white font-semibold shadow-lg hover:bg-white/20 transition">
+                Edit Why It Exists
+            </button>
+
+            <button type="button" id="saveWhyExistsEdit"
+                class="hidden px-5 py-2.5 rounded-xl bg-cyan-brand text-white font-semibold shadow-2xl hover:scale-105 transition">
+                Save Changes
+            </button>
+
+            <button type="button" id="cancelWhyExistsEdit"
+                class="hidden px-5 py-2.5 rounded-xl bg-white border border-slate-200 text-slate-700 font-semibold shadow-lg hover:bg-slate-100 transition">
+                Cancel
+            </button>
+
+
+
+            <label id="whyExistsImageUploadLabel" for="whyExistsImageUpload"
+                class="hidden px-5 py-2.5 rounded-xl bg-white border border-slate-200 text-slate-700 font-semibold shadow-lg hover:bg-slate-100 transition cursor-pointer">
+                Change Image
+                <input type="file" id="whyExistsImageUpload" accept="image/*" class="hidden">
+            </label>
+        </div>
+    @endif
+
+    <div class="page-shell">
+        <div class="grid lg:grid-cols-12 gap-16 lg:gap-20 items-start">
+
+            <div class="lg:col-span-7">
+                <div class="mb-12 animate-on-scroll">
+                    <p contenteditable="false" data-section="why_exists" data-field="eyebrow"
+                       class="cms-inline-edit text-sm uppercase tracking-[0.25em] text-pink-brand mb-4">
+                        {{ cms($cms, 'why_exists', 'eyebrow', 'Why It Exists') }}
+                    </p>
+
+                    <h2 contenteditable="false" data-section="why_exists" data-field="title"
+                        class="cms-inline-edit text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight text-slate-900">
+                        {{ cms($cms, 'why_exists', 'title', 'Supporting Women Across the Full Energy Career Path') }}
+                    </h2>
+
+                    <p contenteditable="false" data-section="why_exists" data-field="description"
+                       class="cms-inline-edit mt-6 text-lg text-slate-600 leading-relaxed">
+                        {{ cms($cms, 'why_exists', 'description', 'WePOWER exists because improving women’s participation in the power sector requires more than one solution. It takes action across education, access to jobs, career development, and workplace systems.') }}
+                    </p>
+                </div>
+
+                <div class="relative">
+                    <div class="absolute left-8 top-10 bottom-8 w-1 bg-gradient-to-b from-pink-200 via-orange-200 via-cyan-200 to-pink-200 hidden lg:block"></div>
+
+                    @php
+                        $whyColors = [
+                            ['bg-pink-100', 'text-pink-600'],
+                            ['bg-orange-100', 'text-orange-600'],
+                            ['bg-cyan-100', 'text-cyan-600'],
+                            ['bg-pink-100', 'text-pink-600'],
+                        ];
+                    @endphp
+
+                    @for($i = 1; $i <= 4; $i++)
+                        <div class="relative flex gap-8 {{ $i < 4 ? 'mb-14' : '' }} animate-on-scroll"
+                             style="transition-delay: {{ ($i - 1) * 0.08 }}s;">
+                            <div class="flex-shrink-0">
+                                <div contenteditable="false"
+                                     data-section="why_exists"
+                                     data-field="item_{{ $i }}_number"
+                                     class="cms-inline-edit inline-flex h-14 w-14 items-center justify-center rounded-2xl {{ $whyColors[$i - 1][0] }} {{ $whyColors[$i - 1][1] }} text-xl font-bold z-10">
+                                    {{ cms($cms, 'why_exists', "item_{$i}_number", '0' . $i) }}
+                                </div>
+                            </div>
+
+                            <div class="pt-2">
+                                <h3 contenteditable="false"
+                                    data-section="why_exists"
+                                    data-field="item_{{ $i }}_title"
+                                    class="cms-inline-edit text-3xl font-semibold text-slate-900 mb-4">
+                                    {{ cms($cms, 'why_exists', "item_{$i}_title") }}
+                                </h3>
+
+                                <p contenteditable="false"
+                                   data-section="why_exists"
+                                   data-field="item_{{ $i }}_text"
+                                   class="cms-inline-edit text-slate-600 text-lg leading-relaxed">
+                                    {{ cms($cms, 'why_exists', "item_{$i}_text") }}
+                                </p>
+                            </div>
+                        </div>
+                    @endfor
+                </div>
+            </div>
+
+            <div class="lg:col-span-5 animate-on-scroll">
+                <div class="lg:sticky lg:top-24">
+                    <div class="aspect-[4/5] lg:h-[680px] bg-slate-100 rounded-3xl overflow-hidden shadow-2xl">
+                        <img
+                            id="whyExistsImage"
+                            src="{{ asset(cms($cms, 'why_exists', 'image', 'images/bg_group.jpeg')) }}"
+                            alt="{{ cms($cms, 'why_exists', 'image_alt', 'Women progressing through the energy career path - WePOWER') }}"
+                            class="w-full h-full object-cover">
+                    </div>
+
+                    <p contenteditable="false"
+                       data-section="why_exists"
+                       data-field="image_caption"
+                       class="cms-inline-edit mt-8 text-center text-sm text-slate-500 tracking-widest">
+                        {{ cms($cms, 'why_exists', 'image_caption', 'ONE CONTINUOUS PATH — FROM INSPIRATION TO LEADERSHIP') }}
+                    </p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- ================= FRAMEWORK ================= -->
+<section id="our-framework" class="relative py-20 lg:py-28 bg-slate-950 overflow-hidden">
+
+    @if(canEditCms())
+        <div class="absolute top-6 right-6 z-[9999] flex gap-3">
+            <button
+                type="button"
+                id="enableFrameworkEdit"
+                class="px-5 py-2.5 rounded-xl bg-pink-brand border border-white/20 text-white font-semibold shadow-lg hover:bg-white/20 transition">
+                Edit Framework
+            </button>
+
+            <button
+                type="button"
+                id="saveFrameworkEdit"
+                class="hidden px-5 py-2.5 rounded-xl bg-cyan-brand text-white font-semibold shadow-2xl hover:scale-105 transition">
+                Save Changes
+            </button>
+
+            <button
+                type="button"
+                id="cancelFrameworkEdit"
+                class="hidden px-5 py-2.5 rounded-xl bg-white border border-slate-200 text-slate-700 font-semibold shadow-lg hover:bg-slate-100 transition">
+                Cancel
+            </button>
+
+
+        </div>
+    @endif
+
+    <div class="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(1,157,222,0.12),transparent_25%),radial-gradient(circle_at_bottom_right,rgba(243,22,113,0.12),transparent_25%)]"></div>
+
+    <div class="relative z-10 page-shell">
+        <div class="text-center max-w-4xl mx-auto mb-16">
+            <p
+                contenteditable="false"
+                data-section="framework"
+                data-field="eyebrow"
+                class="cms-inline-edit text-sm uppercase tracking-[0.25em] text-cyan-300 mb-4 animate-on-scroll">
+                {{ cms($cms, 'framework', 'eyebrow', 'Our Framework') }}
+            </p>
+
+            <h2
+                contenteditable="false"
+                data-section="framework"
+                data-field="title"
+                class="cms-inline-edit text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-5 animate-on-scroll">
+                {{ cms($cms, 'framework', 'title', 'The Five Pillars of WePOWER') }}
+            </h2>
+
+            <p
+                contenteditable="false"
+                data-section="framework"
+                data-field="description"
+                class="cms-inline-edit text-lg sm:text-xl text-white/70 leading-relaxed animate-on-scroll">
+                {{ cms($cms, 'framework', 'description', 'WePOWER’s work is organized around five connected pillars that move from entry and access to retention, leadership, and institutional change.') }}
+            </p>
+        </div>
+
+        <div class="grid md:grid-cols-2 xl:grid-cols-5 gap-8">
+
+            @php
+                $pillarColors = [
+                    'bg-pink-brand',
+                    'bg-orange-brand',
+                    'bg-cyan-brand',
+                    'bg-pink-brand',
+                    'bg-orange-brand',
+                ];
+            @endphp
+
+            @for($i = 1; $i <= 5; $i++)
+                <div class="relative glass-card rounded-3xl p-7 pt-10 card-hover animate-on-scroll text-white"
+                     style="transition-delay: {{ ($i - 1) * 0.08 }}s;">
+
+                    <div
+                        contenteditable="false"
+                        data-section="framework"
+                        data-field="pillar_{{ $i }}_letter"
+                        class="cms-inline-edit absolute -top-4 left-6 w-10 h-10 rounded-xl {{ $pillarColors[$i - 1] }} flex items-center justify-center font-bold">
+                        {{ cms($cms, 'framework', "pillar_{$i}_letter") }}
+                    </div>
+
+                    <h3
+                        contenteditable="false"
+                        data-section="framework"
+                        data-field="pillar_{{ $i }}_title"
+                        class="cms-inline-edit text-xl font-bold mb-3">
+                        {{ cms($cms, 'framework', "pillar_{$i}_title") }}
+                    </h3>
+
+                    <p
+                        contenteditable="false"
+                        data-section="framework"
+                        data-field="pillar_{{ $i }}_text"
+                        class="cms-inline-edit text-white/75 text-sm">
+                        {{ cms($cms, 'framework', "pillar_{$i}_text") }}
+                    </p>
+                </div>
+            @endfor
+
+        </div>
+    </div>
+</section>
+<!-- ================= HOW IT WORKS ================= -->
+<section id="how-it-works" class="relative py-20 lg:py-28 bg-white">
+
+    @if(canEditCms())
+        <div class="absolute top-6 right-6 z-[9999] flex gap-3">
+            <button
+                type="button"
+                id="enableHowEdit"
+                class="px-5 py-2.5 rounded-xl bg-pink-brand border border-white/20 text-white font-semibold shadow-lg hover:bg-white/20 transition">
+                Edit How It Works
+            </button>
+
+            <button
+                type="button"
+                id="saveHowEdit"
+                class="hidden px-5 py-2.5 rounded-xl bg-cyan-brand text-white font-semibold shadow-2xl hover:scale-105 transition">
+                Save Changes
+            </button>
+
+            <button
+                type="button"
+                id="cancelHowEdit"
+                class="hidden px-5 py-2.5 rounded-xl bg-white border border-slate-200 text-slate-700 font-semibold shadow-lg hover:bg-slate-100 transition">
+                Cancel
+            </button>
+
+
+
+            <label
+                id="howImageUploadLabel"
+                for="howImageUpload"
+                class="hidden px-5 py-2.5 rounded-xl bg-white border border-slate-200 text-slate-700 font-semibold shadow-lg hover:bg-slate-100 transition cursor-pointer">
+                Change Image
+
+                <input
+                    type="file"
+                    id="howImageUpload"
+                    accept="image/*"
+                    class="hidden">
+            </label>
+        </div>
+    @endif
+
+    <div class="page-shell">
+        <div class="grid lg:grid-cols-2 gap-14 items-start">
+
+            <div>
+                <p
+                    contenteditable="false"
+                    data-section="how_it_works"
+                    data-field="eyebrow"
+                    class="cms-inline-edit text-sm uppercase tracking-[0.25em] text-orange-brand mb-4 animate-on-scroll">
+                    {{ cms($cms, 'how_it_works', 'eyebrow', 'How It Works') }}
+                </p>
+
+                <h2
+                    contenteditable="false"
+                    data-section="how_it_works"
+                    data-field="title"
+                    class="cms-inline-edit text-4xl sm:text-5xl lg:text-6xl font-bold text-slate-900 mb-6 animate-on-scroll">
+                    {{ cms($cms, 'how_it_works', 'title', 'A Network Built on Partners, Evidence, and Action') }}
+                </h2>
+
+                <p
+                    contenteditable="false"
+                    data-section="how_it_works"
+                    data-field="description"
+                    class="cms-inline-edit text-lg text-slate-600 leading-relaxed mb-6 animate-on-scroll"
+                    style="transition-delay: 0.1s;">
+                    {{ cms($cms, 'how_it_works', 'description', 'WePOWER’s model is collaborative. It combines research, local engagement, peer learning, and structured partner activities to turn ideas into measurable action.') }}
+                </p>
+
+                <div class="space-y-5">
+
+                    @php
+                        $howStepColors = [
+                            ['bg-pink-100', 'text-pink-600'],
+                            ['bg-cyan-100', 'text-cyan-700'],
+                            ['bg-orange-100', 'text-orange-700'],
+                            ['bg-pink-100', 'text-pink-600'],
+                        ];
+                    @endphp
+
+                    @for($i = 1; $i <= 4; $i++)
+                        <div class="flex gap-4 animate-on-scroll"
+                             style="transition-delay: {{ 0.08 + ($i * 0.06) }}s;">
+
+                            <div
+                                contenteditable="false"
+                                data-section="how_it_works"
+                                data-field="step_{{ $i }}_number"
+                                class="cms-inline-edit w-12 h-12 rounded-2xl {{ $howStepColors[$i - 1][0] }} {{ $howStepColors[$i - 1][1] }} flex items-center justify-center font-bold shrink-0">
+                                {{ cms($cms, 'how_it_works', "step_{$i}_number", '0' . $i) }}
+                            </div>
+
+                            <div>
+                                <h3
+                                    contenteditable="false"
+                                    data-section="how_it_works"
+                                    data-field="step_{{ $i }}_title"
+                                    class="cms-inline-edit text-xl font-bold text-slate-900 mb-1">
+                                    {{ cms($cms, 'how_it_works', "step_{$i}_title") }}
+                                </h3>
+
+                                <p
+                                    contenteditable="false"
+                                    data-section="how_it_works"
+                                    data-field="step_{{ $i }}_text"
+                                    class="cms-inline-edit text-slate-600 leading-relaxed">
+                                    {{ cms($cms, 'how_it_works', "step_{$i}_text") }}
+                                </p>
+                            </div>
+                        </div>
+                    @endfor
+
+                </div>
+            </div>
+
+            <div class="animate-on-scroll flex items-center h-full">
+                <div class="w-full overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-2xl">
+
+                    <!-- top image -->
+                    <div class="relative h-40 sm:h-48 overflow-hidden">
+                        <img
+                            id="howImage"
+                            src="{{ asset(cms($cms, 'how_it_works', 'image', 'images/bgg.jpeg')) }}"
+                            alt="{{ cms($cms, 'how_it_works', 'image_alt', 'Women in energy') }}"
+                            class="w-full h-full object-cover">
+
+                        <div class="absolute inset-0.2 bg-gradient-to-t from-white via-white/30 to-transparent"></div>
+                    </div>
+
+                    <!-- content -->
+                    <div class="p-8 sm:p-10 -mt-2 relative z-10">
+                        <h3
+                            contenteditable="false"
+                            data-section="how_it_works"
+                            data-field="card_title"
+                            class="cms-inline-edit text-2xl font-bold text-slate-900 mb-6">
+                            {{ cms($cms, 'how_it_works', 'card_title', 'What makes the approach different') }}
+                        </h3>
+
+                        <div class="space-y-5">
+                            @for($i = 1; $i <= 4; $i++)
+                                <div class="{{ $i < 4 ? 'pb-5 border-b border-slate-200' : '' }}">
+                                    <p
+                                        contenteditable="false"
+                                        data-section="how_it_works"
+                                        data-field="feature_{{ $i }}_title"
+                                        class="cms-inline-edit text-lg font-semibold text-slate-900">
+                                        {{ cms($cms, 'how_it_works', "feature_{$i}_title") }}
+                                    </p>
+
+                                    <p
+                                        contenteditable="false"
+                                        data-section="how_it_works"
+                                        data-field="feature_{{ $i }}_text"
+                                        class="cms-inline-edit text-slate-600 mt-1">
+                                        {{ cms($cms, 'how_it_works', "feature_{$i}_text") }}
+                                    </p>
+                                </div>
+                            @endfor
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+
 
 <script>
-    document.addEventListener('DOMContentLoaded', function () {
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach((entry) => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                }
-            });
-        }, { threshold: 0.12 });
+/*
+|--------------------------------------------------------------------------
+| Inline CMS editor with Cancel + delayed media save
+|--------------------------------------------------------------------------
+| Text changes are saved only when Save Changes is clicked.
+| Image changes are previewed first and uploaded only when Save Changes is clicked.
+| Cancel restores original text and original image without saving anything.
+*/
 
-        document.querySelectorAll('.animate-on-scroll').forEach((el) => {
-            observer.observe(el);
+function setupInlineCmsSection(config) {
+    const fields = document.querySelectorAll(config.selector);
+    const enableBtn = document.getElementById(config.enableBtnId);
+    const saveBtn = document.getElementById(config.saveBtnId);
+    const cancelBtn = document.getElementById(config.cancelBtnId);
+
+    const imageLabel = config.image ? document.getElementById(config.image.labelId) : null;
+    const imageInput = config.image ? document.getElementById(config.image.inputId) : null;
+    const imageEl = config.image ? document.getElementById(config.image.imageId) : null;
+
+    if (!enableBtn || !saveBtn || !cancelBtn) return;
+
+    let originalValues = {};
+    let originalImageSrc = null;
+    let selectedImageFile = null;
+    let previewUrl = null;
+
+    function setEditing(isEditing) {
+        fields.forEach((el) => {
+            el.setAttribute('contenteditable', isEditing ? 'true' : 'false');
+            el.classList.toggle('cms-editable-active', isEditing);
         });
+
+        if (imageLabel) {
+            imageLabel.classList.toggle('hidden', !isEditing);
+        }
+
+        enableBtn.classList.toggle('hidden', isEditing);
+        saveBtn.classList.toggle('hidden', !isEditing);
+        cancelBtn.classList.toggle('hidden', !isEditing);
+    }
+
+    function clearPreviewUrl() {
+        if (previewUrl) {
+            URL.revokeObjectURL(previewUrl);
+            previewUrl = null;
+        }
+    }
+
+    function resetSelectedImage() {
+        selectedImageFile = null;
+        clearPreviewUrl();
+
+        if (imageInput) {
+            imageInput.value = '';
+        }
+    }
+
+    fields.forEach((el) => {
+        el.setAttribute('contenteditable', 'false');
     });
+
+    enableBtn.addEventListener('click', () => {
+        originalValues = {};
+
+        fields.forEach((el) => {
+            const key = `${el.dataset.section}.${el.dataset.field}`;
+            originalValues[key] = el.innerText;
+        });
+
+        originalImageSrc = imageEl ? imageEl.src : null;
+        resetSelectedImage();
+        setEditing(true);
+    });
+
+    cancelBtn.addEventListener('click', () => {
+        fields.forEach((el) => {
+            const key = `${el.dataset.section}.${el.dataset.field}`;
+            if (Object.prototype.hasOwnProperty.call(originalValues, key)) {
+                el.innerText = originalValues[key];
+            }
+        });
+
+        if (imageEl && originalImageSrc) {
+            imageEl.src = originalImageSrc;
+        }
+
+        resetSelectedImage();
+        saveBtn.innerText = 'Save Changes';
+        setEditing(false);
+    });
+
+    if (imageInput && imageEl) {
+        imageInput.addEventListener('change', () => {
+            const file = imageInput.files[0];
+            if (!file) return;
+
+            selectedImageFile = file;
+            clearPreviewUrl();
+
+            previewUrl = URL.createObjectURL(file);
+            imageEl.src = previewUrl;
+        });
+    }
+
+    saveBtn.addEventListener('click', async () => {
+        saveBtn.innerText = 'Saving...';
+
+        for (const el of fields) {
+            const response = await fetch("{{ route('cms.inline.update') }}", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Accept": "application/json",
+                    "X-CSRF-TOKEN": "{{ csrf_token() }}"
+                },
+                body: JSON.stringify({
+                    page_id: "{{ $page->id }}",
+                    section: el.dataset.section,
+                    field: el.dataset.field,
+                    value: el.innerText.trim()
+                })
+            });
+
+            if (!response.ok) {
+                let error = {};
+                try {
+                    error = await response.json();
+                } catch (e) {}
+
+                console.log(error);
+                saveBtn.innerText = error.message ?? 'Save Failed';
+                return;
+            }
+        }
+
+        if (config.image && selectedImageFile) {
+            const formData = new FormData();
+
+            formData.append('page_id', "{{ $page->id }}");
+            formData.append('section', config.image.section);
+            formData.append('field', config.image.field);
+            formData.append('image', selectedImageFile);
+
+            const imageResponse = await fetch("{{ route('cms.inline.image.update') }}", {
+                method: "POST",
+                headers: {
+                    "X-CSRF-TOKEN": "{{ csrf_token() }}"
+                },
+                body: formData
+            });
+
+            const imageData = await imageResponse.json();
+
+            if (imageResponse.ok && imageData.success) {
+                clearPreviewUrl();
+                imageEl.src = imageData.path;
+                originalImageSrc = imageData.path;
+                selectedImageFile = null;
+
+                if (imageInput) {
+                    imageInput.value = '';
+                }
+            } else {
+                alert(imageData.message ?? 'Image upload failed');
+                saveBtn.innerText = 'Save Failed';
+                return;
+            }
+        }
+
+        fields.forEach((el) => {
+            el.setAttribute('contenteditable', 'false');
+            el.classList.remove('cms-editable-active');
+        });
+
+        saveBtn.innerText = 'Saved ✓';
+
+        setTimeout(() => {
+            saveBtn.innerText = 'Save Changes';
+            setEditing(false);
+        }, 1200);
+    });
+}
+
+setupInlineCmsSection({
+    selector: '#aboutHero .cms-inline-edit',
+    enableBtnId: 'enableAboutHeroEdit',
+    saveBtnId: 'saveAboutHeroEdit',
+    cancelBtnId: 'cancelAboutHeroEdit',
+    image: {
+        labelId: 'aboutHeroImageUploadLabel',
+        inputId: 'aboutHeroImageUpload',
+        imageId: 'aboutHeroImage',
+        section: 'about_hero',
+        field: 'image'
+    }
+});
+
+setupInlineCmsSection({
+    selector: '#who-we-are .cms-inline-edit',
+    enableBtnId: 'enableWhoEdit',
+    saveBtnId: 'saveWhoEdit',
+    cancelBtnId: 'cancelWhoEdit',
+    image: {
+        labelId: 'whoImageUploadLabel',
+        inputId: 'whoImageUpload',
+        imageId: 'whoImage',
+        section: 'who_we_are',
+        field: 'image'
+    }
+});
+
+setupInlineCmsSection({
+    selector: '#why-exists .cms-inline-edit',
+    enableBtnId: 'enableWhyExistsEdit',
+    saveBtnId: 'saveWhyExistsEdit',
+    cancelBtnId: 'cancelWhyExistsEdit',
+    image: {
+        labelId: 'whyExistsImageUploadLabel',
+        inputId: 'whyExistsImageUpload',
+        imageId: 'whyExistsImage',
+        section: 'why_exists',
+        field: 'image'
+    }
+});
+
+setupInlineCmsSection({
+    selector: '#our-framework .cms-inline-edit',
+    enableBtnId: 'enableFrameworkEdit',
+    saveBtnId: 'saveFrameworkEdit',
+    cancelBtnId: 'cancelFrameworkEdit'
+});
+
+setupInlineCmsSection({
+    selector: '#how-it-works .cms-inline-edit',
+    enableBtnId: 'enableHowEdit',
+    saveBtnId: 'saveHowEdit',
+    cancelBtnId: 'cancelHowEdit',
+    image: {
+        labelId: 'howImageUploadLabel',
+        inputId: 'howImageUpload',
+        imageId: 'howImage',
+        section: 'how_it_works',
+        field: 'image'
+    }
+});
+setupInlineCmsSection({
+    selector: '#about-yca .cms-inline-edit',
+    enableBtnId: 'enableYcaEdit',
+    saveBtnId: 'saveYcaEdit',
+    cancelBtnId: 'cancelYcaEdit',
+    image: {
+        labelId: 'ycaImageUploadLabel',
+        inputId: 'ycaImageUpload',
+        imageId: 'ycaImage',
+        section: 'about_yca',
+        field: 'image'
+    }
+});
+
+/*
+|--------------------------------------------------------------------------
+| Smooth scroll
+|--------------------------------------------------------------------------
+*/
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function(e) {
+        const target = document.querySelector(this.getAttribute('href'));
+
+        if (target) {
+            e.preventDefault();
+            target.scrollIntoView({ behavior: 'smooth' });
+        }
+    });
+});
+
+/*
+|--------------------------------------------------------------------------
+| Scroll animation observer
+|--------------------------------------------------------------------------
+*/
+document.addEventListener('DOMContentLoaded', function () {
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+            }
+        });
+    }, { threshold: 0.12 });
+
+    document.querySelectorAll('.animate-on-scroll').forEach((el) => {
+        observer.observe(el);
+    });
+});
 </script>
 
 @endsection

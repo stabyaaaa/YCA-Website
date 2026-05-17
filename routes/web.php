@@ -10,6 +10,8 @@ use App\Http\Controllers\PageController;
 use App\Http\Controllers\CMSController;
 use App\Http\Controllers\Auth\GoogleController;
 use App\Http\Controllers\Auth\EmailVerificationNotificationController;
+use App\Http\Controllers\HomeController;
+
 
 
 
@@ -48,24 +50,24 @@ Route::middleware(['auth', 'verified', 'role:admin,super_admin'])
 |--------------------------------------------------------------------------
 */
 
-Route::get('/email/verify', function () {
-    return view('auth.verify-email');
-})->middleware('auth')->name('verification.notice');
+// Route::get('/email/verify', function () {
+//     return view('auth.verify-email');
+// })->middleware('auth')->name('verification.notice');
 
-Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
-    $request->fulfill();
+// Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
+//     $request->fulfill();
 
-    $request->user()->update([
-        'status' => 'active',
-    ]);
+//     $request->user()->update([
+//         'status' => 'active',
+//     ]);
 
-    return redirect()->route('home')
-        ->with('success', 'Your email has been verified successfully.');
-})->middleware(['auth', 'signed'])->name('verification.verify');
+//     return redirect()->route('home')
+//         ->with('success', 'Your email has been verified successfully.');
+// })->middleware(['auth', 'signed'])->name('verification.verify');
 
-Route::post('/email/verification-notification', [EmailVerificationNotificationController::class, 'store'])
-    ->middleware(['auth', 'throttle:6,1'])
-    ->name('verification.send');
+// Route::post('/email/verification-notification', [EmailVerificationNotificationController::class, 'store'])
+//     ->middleware(['auth', 'throttle:6,1'])
+//     ->name('verification.send');
 
 
 /*
@@ -96,13 +98,11 @@ Route::post('/auth/google/register', [GoogleController::class, 'registerWithGoog
 
 Route::middleware('redirect.unverified')->group(function () {
 
-    Route::get('/', function () {
-        return view('welcome');
-    })->name('home');
+    Route::get('/', [HomeController::class, 'index'])
+        ->name('home');
 
-    Route::get('/about', function () {
-        return view('about');
-    })->name('about');
+
+    Route::get('/about', [HomeController::class, 'about'])->name('about');
 
     Route::get('/news', function () {
         return view('news');
@@ -153,10 +153,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
 });
 
-
 /*
 |--------------------------------------------------------------------------
-| Admin + Super Admin Routes
+| Admin + Super Admin Routes + CMS Controller
 |--------------------------------------------------------------------------
 */
 
@@ -174,8 +173,17 @@ Route::middleware(['auth', 'verified', 'role:admin,super_admin'])->group(functio
     Route::get('/admin/pages/{page}/edit', [CMSController::class, 'edit'])
         ->name('cms.pages.edit');
 
-    Route::post('/admin/pages/{page}/update', [CMSController::class, 'update'])
+    Route::put('/admin/pages/{page}/update', [CMSController::class, 'update'])
         ->name('cms.pages.update');
+
+    Route::post('/admin/cms/inline-update', [CMSController::class, 'inlineUpdate'])
+        ->name('cms.inline.update');
+
+    Route::post('/admin/cms/inline-image-update', [CMSController::class, 'inlineImageUpdate'])
+    ->name('cms.inline.image.update');
+
+    Route::post('/admin/cms/inline/file-update', [CmsController::class, 'inlineFileUpdate'])
+    ->name('cms.inline.file.update');
 
 });
 

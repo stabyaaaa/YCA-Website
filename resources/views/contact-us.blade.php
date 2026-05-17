@@ -312,7 +312,7 @@
             </div>
 
             <h1 class="mt-7 text-5xl md:text-6xl lg:text-7xl font-light text-[var(--charcoal-deep)] leading-[0.95] tracking-tight reveal-smooth">
-                Let’s Start a Thoughtful Conversation
+                Let’s Start a Conversation
             </h1>
 
             <p class="mt-8 text-lg md:text-xl text-[var(--gray-warm)] leading-relaxed max-w-3xl mx-auto reveal-smooth" style="transition-delay: 0.18s;">
@@ -470,8 +470,7 @@
                     <p class="mt-4 text-[1.02rem] md:text-lg text-[var(--gray-warm)] leading-relaxed">
 
 
-                        Located within the Asian Institute of Technology campus in Pathum Thani, the Yunus Center serves as a space for collaboration, research, and dialogue. We welcome visitors, partners, and researchers interested in engaging with our work.
-                    </p>
+Located within the Asian Institute of Technology campus in Pathum Thani, the Yunus Center AIT (YCA) is a collaboration between Nobel Laureate Professor Muhammad Yunus and the Asian Institute of Technology, serving as a space for collaboration, research, and dialogue. We welcome visitors, partners, and researchers interested in engaging with our work.                    </p>
                 </div>
 
                 <div class="map-shell">

@@ -10,6 +10,11 @@ class Field extends Model
         'section_id',
         'field_key',
         'field_type',
-        'field_value'
+        'field_value',
     ];
+
+    public function section()
+    {
+        return $this->belongsTo(Section::class);
+    }
 }

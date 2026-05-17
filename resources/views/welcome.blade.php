@@ -756,7 +756,7 @@
 
 
 <!-- CHALLENGES - HORIZONTAL SCROLL CAROUSEL -->
-<section id="challenges" class="py-20 lg:py-24 bg-slate-50 text-slate-900 overflow-hidden">
+<section id="challenges" class=" relative py-20 lg:py-24 bg-slate-50 text-slate-900 overflow-hidden">
 
     @if(canEditCms())
         <div class="absolute top-6 right-6 z-[9999] flex gap-3">

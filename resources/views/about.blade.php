@@ -849,7 +849,7 @@ function animatePill(i) {
 
 /* ── PROJECTION ────────────────────────────────────────── */
 const projection = d3.geoNaturalEarth1()
-    .scale(155)
+    .scale(220)
     .translate([W / 2, H / 2 + 20]);
 
 const geoPath = d3.geoPath().projection(projection);

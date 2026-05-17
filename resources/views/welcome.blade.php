@@ -755,111 +755,104 @@
 </div>
 
 
-
-<!-- CHALLENGES -->
-<section id="challenges" class="py-20 lg:py-28 bg-slate-100 text-slate-900 overflow-hidden relative">
+<!-- CHALLENGES - HORIZONTAL SCROLL CAROUSEL -->
+<section id="challenges" class="py-20 lg:py-24 bg-slate-50 text-slate-900 overflow-hidden">
 
     @if(canEditCms())
         <div class="absolute top-6 right-6 z-[9999] flex gap-3">
-            <button
-                type="button"
-                id="enableChallengesEdit"
-                class="px-5 py-2.5 rounded-xl bg-pink-brand border border-white/20 text-white font-semibold shadow-lg hover:bg-white/20 transition">
+            <button type="button" id="enableChallengesEdit"
+                class="px-5 py-2.5 rounded-2xl bg-pink-600 text-white font-semibold shadow hover:bg-pink-700 transition">
                 Edit Challenges
             </button>
-
-            <button
-                type="button"
-                id="saveChallengesEdit"
-                class="hidden px-5 py-2.5 rounded-xl bg-cyan-brand text-white font-semibold shadow-2xl hover:scale-105 transition">
+            <button type="button" id="saveChallengesEdit"
+                class="hidden px-5 py-2.5 rounded-2xl bg-emerald-600 text-white font-semibold shadow hover:bg-emerald-700 transition">
                 Save Changes
             </button>
-
-            <button
-                type="button"
-                id="cancelChallengesEdit"
-                class="hidden px-5 py-2.5 rounded-xl bg-white border border-slate-200 text-slate-700 font-semibold shadow-lg hover:bg-slate-100 transition">
+            <button type="button" id="cancelChallengesEdit"
+                class="hidden px-5 py-2.5 rounded-2xl bg-slate-200 text-slate-700 font-semibold hover:bg-slate-300 transition">
                 Cancel
             </button>
         </div>
     @endif
 
-    <div class="max-w-screen-2xl mx-auto px-5 sm:px-8 lg:px-12">
+    <div class="max-w-screen-2xl mx-auto px-6 lg:px-12">
 
-        <div class="text-center max-w-4xl mx-auto mb-14">
-
-            <p
+        <div class="text-center mb-12">
+            <p 
                 contenteditable="false"
                 data-section="challenges"
                 data-field="eyebrow"
-                class="cms-inline-edit text-sm uppercase tracking-[0.25em] text-pink-brand mb-4 animate-on-scroll"
-            >
+                class="cms-inline-edit uppercase tracking-widest text-pink-600 text-sm font-medium mb-3">
                 {{ cms($cms, 'challenges', 'eyebrow') }}
             </p>
-
-            <h2
+            
+            <h2 
                 contenteditable="false"
                 data-section="challenges"
                 data-field="title"
-                class="cms-inline-edit text-4xl sm:text-5xl lg:text-6xl font-bold mb-5 animate-on-scroll text-orange-brand"
-            >
+                class="cms-inline-edit text-4xl lg:text-5xl font-semibold text-slate-900">
                 {{ cms($cms, 'challenges', 'title') }}
             </h2>
-
-            <p
+            
+            <p 
                 contenteditable="false"
                 data-section="challenges"
                 data-field="description"
-                class="cms-inline-edit text-lg sm:text-xl text-slate-600 leading-relaxed animate-on-scroll"
-            >
+                class="cms-inline-edit mt-4 text-lg text-slate-600 max-w-xl mx-auto">
                 {{ cms($cms, 'challenges', 'description') }}
             </p>
-
         </div>
 
-        <div class="grid md:grid-cols-2 xl:grid-cols-4 gap-6">
-
-            @for($i = 1; $i <= 4; $i++)
-
-                <div
-                    class="bg-white rounded-2xl p-8 shadow-2xl card-hover border border-slate-200 animate-on-scroll"
-                    style="transition-delay: {{ ($i - 1) * 0.1 }}s;"
-                >
-
-                    <div
-                        contenteditable="false"
-                        data-section="challenges"
-                        data-field="card_{{ $i }}_icon"
-                        class="cms-inline-edit text-5xl mb-5"
+        <!-- Horizontal Scrollable Cards -->
+        <div class="relative">
+            <div id="challenges-slider" 
+                 class="flex gap-6 overflow-x-auto pb-8 snap-x snap-mandatory scrollbar-hide scroll-smooth">
+                
+                @for($i = 1; $i <= 4; $i++)
+                    <div 
+                        class="flex-shrink-0 w-[280px] md:w-[320px] snap-center transition-all duration-500 group"
+                        style="scroll-margin: 0 20px;"
                     >
-                        {{ cms($cms, 'challenges', "card_{$i}_icon") }}
+                        <div class="bg-white rounded-3xl p-8 shadow-sm border border-slate-100 hover:shadow-xl h-full flex flex-col transition-all group-hover:scale-105">
+                            
+                            <!-- Icon -->
+                            <div 
+                                contenteditable="false"
+                                data-section="challenges"
+                                data-field="card_{{ $i }}_icon"
+                                class="cms-inline-edit text-6xl mb-6 transition-transform group-hover:rotate-12">
+                                {{ cms($cms, 'challenges', "card_{$i}_icon") }}
+                            </div>
+
+                            <!-- Title -->
+                            <h3 
+                                contenteditable="false"
+                                data-section="challenges"
+                                data-field="card_{{ $i }}_title"
+                                class="cms-inline-edit text-2xl font-semibold mb-4 text-slate-900">
+                                {{ cms($cms, 'challenges', "card_{$i}_title") }}
+                            </h3>
+
+                            <!-- Description -->
+                            <p 
+                                contenteditable="false"
+                                data-section="challenges"
+                                data-field="card_{{ $i }}_text"
+                                class="cms-inline-edit text-slate-600 leading-relaxed flex-1">
+                                {{ cms($cms, 'challenges', "card_{$i}_text") }}
+                            </p>
+
+                        </div>
                     </div>
+                @endfor
 
-                    <h3
-                        contenteditable="false"
-                        data-section="challenges"
-                        data-field="card_{{ $i }}_title"
-                        class="cms-inline-edit text-2xl font-bold mb-3 text-pink-brand"
-                    >
-                        {{ cms($cms, 'challenges', "card_{$i}_title") }}
-                    </h3>
-
-                    <p
-                        contenteditable="false"
-                        data-section="challenges"
-                        data-field="card_{{ $i }}_text"
-                        class="cms-inline-edit text-slate-600 leading-relaxed"
-                    >
-                        {{ cms($cms, 'challenges', "card_{$i}_text") }}
-                    </p>
-
-                </div>
-
-            @endfor
+            </div>
 
         </div>
+
     </div>
 </section>
+
 <!-- ================= INSTITUTIONAL RESPONSE / SPLIT CONNECTED ================= -->
 <section id="institutional" class="relative py-24 lg:py-32 bg-slate-50">
 

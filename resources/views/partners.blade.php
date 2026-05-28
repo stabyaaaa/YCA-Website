@@ -99,7 +99,7 @@
             <div class="max-w-3xl mx-auto text-center mb-12 lg:mb-14">
 
                 <p class="text-[11px] sm:text-xs uppercase tracking-[0.32em] text-[var(--pink)] font-semibold mb-4">
-                    Our Network Hello check
+                    Our Network
                 </p>
 
                 <h1 class="text-3xl sm:text-4xl lg:text-[44px] font-semibold tracking-tight leading-[1.2] text-slate-900">

@@ -1,84 +1,74 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="min-h-screen bg-gray-50 py-12 px-4">
+<div class="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 via-white to-indigo-50 px-4">
 
-    <div class="max-w-4xl mx-auto">
+    <div class="w-full max-w-md">
 
-        <!-- Page Card -->
-        <div class="bg-white rounded-2xl shadow-lg overflow-hidden">
+        <!-- Card -->
+        <div class="bg-white/80 backdrop-blur-xl border border-gray-200 shadow-2xl rounded-2xl p-8">
 
-            <div class="grid md:grid-cols-2">
-
-                <!-- Left Side (Info Panel) -->
-                <div class="bg-blue-600 text-white p-10 flex flex-col justify-center">
-                    <h2 class="text-3xl font-bold mb-4">
-                        Forgot Password?
-                    </h2>
-
-                    <p class="text-blue-100 leading-relaxed">
-                        Don’t worry. Enter your email and we’ll send you a secure link
-                        to reset your password.
-                    </p>
-
-                    <div class="mt-6 text-sm text-blue-200">
-                        Make sure you use the email registered in your account.
-                    </div>
-                </div>
-
-                <!-- Right Side (Form) -->
-                <div class="p-10">
-
-                    <h3 class="text-xl font-semibold text-gray-800 mb-6">
-                        Reset Password
-                    </h3>
-
-                    <!-- Status Message -->
-                    @if (session('status'))
-                        <div class="mb-4 p-3 rounded bg-green-100 text-green-700 text-sm">
-                            {{ session('status') }}
-                        </div>
-                    @endif
-
-                    <form method="POST" action="{{ route('password.email') }}">
-                        @csrf
-
-                        <!-- Email -->
-                        <div class="mb-4">
-                            <label class="block text-sm font-medium text-gray-700 mb-1">
-                                Email Address
-                            </label>
-
-                            <input type="email"
-                                   name="email"
-                                   value="{{ old('email') }}"
-                                   required
-                                   class="w-full rounded-lg border border-gray-300 px-4 py-3 focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
-
-                            @error('email')
-                                <p class="text-red-500 text-sm mt-2">{{ $message }}</p>
-                            @enderror
-                        </div>
-
-                        <!-- Submit -->
-                        <button type="submit"
-                                class="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-lg font-semibold transition">
-                            Send Reset Link
-                        </button>
-                    </form>
-
-                    <!-- Back -->
-                    <div class="mt-6 text-center">
-                        <a href="{{ url('/') }}"
-                           class="text-blue-600 hover:underline text-sm">
-                            ← Back to Home
-                        </a>
-                    </div>
-
-                </div>
-
+            <!-- Header -->
+            <div class="text-center mb-6">
+                <h1 class="text-2xl font-bold text-gray-800">
+                    Forgot Password?
+                </h1>
+                <p class="text-sm text-gray-500 mt-2">
+                    Enter your email and we’ll send you a reset link
+                </p>
             </div>
+
+            <!-- Status -->
+            @if (session('status'))
+                <div class="mb-4 p-3 rounded-lg bg-green-50 text-green-700 text-sm border border-green-200">
+                    {{ session('status') }}
+                </div>
+            @endif
+
+            <!-- Form -->
+            <form method="POST" action="{{ route('password.email') }}" class="space-y-5">
+                @csrf
+
+                <!-- Email -->
+                <div>
+                    <label class="text-sm font-medium text-gray-700">Email Address</label>
+
+                    <input type="email"
+                           name="email"
+                           value="{{ old('email') }}"
+                           required
+                           placeholder="you@example.com"
+                           class="mt-2 w-full px-4 py-3 rounded-xl border border-gray-300
+                                  focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200
+                                  outline-none transition bg-white">
+
+                    @error('email')
+                        <p class="text-red-500 text-sm mt-2">{{ $message }}</p>
+                    @enderror
+                </div>
+
+                <!-- Button -->
+                <button type="submit"
+                        class="w-full py-3 rounded-xl bg-gradient-to-r from-indigo-600 to-blue-600
+                               text-white font-semibold shadow-lg hover:opacity-90 transition">
+                    Send Reset Link
+                </button>
+            </form>
+
+            <!-- Back -->
+            <div class="text-center mt-6">
+                <a href="{{ url('/') }}"
+                   class="text-sm text-gray-500 hover:text-indigo-600 transition">
+                    ← Back to Home
+                </a>
+            </div>
+
         </div>
+
+        <!-- Footer text -->
+        <p class="text-center text-xs text-gray-400 mt-6">
+            Secure password recovery powered by WePower
+        </p>
 
     </div>
 

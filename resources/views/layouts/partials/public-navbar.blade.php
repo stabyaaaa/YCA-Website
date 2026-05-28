@@ -58,7 +58,7 @@
 
                 <a href="/resources" 
                 class="nav-link {{ request()->is('resources') ? 'active' : '' }}">
-                Resources
+                Resourcessss
                 </a>
 
                 <a href="/contact" 
@@ -74,68 +74,81 @@
                     @php $user = auth()->user(); @endphp
 
                     <!-- ADMIN DROPDOWN -->
-                    @if($user->role === 'admin' || $user->role === 'super_admin')
-                        <div x-data="{ open:false }" class="relative">
-                            <button 
-                                @click="open=!open"
-                                class="flex items-center gap-2 px-5 py-2 rounded-xl bg-gradient-to-r from-indigo-600 to-blue-600 text-white font-medium shadow-md hover:shadow-xl hover:scale-[1.05] transition"
-                            >
-                                <span>
-                                    {{ $user->role === 'super_admin' ? 'Dashboard' : 'Admin' }}
-                                </span>
+                    <!-- ADMIN DROPDOWN -->
+@if($user->role === 'admin' || $user->role === 'super_admin')
+<div x-data="{ open:false }" class="relative">
 
-                                @if($user->role === 'super_admin' && $pendingCount > 0)
-                                    <span class="bg-red-500 text-white text-xs px-2 py-0.5 rounded-full animate-pulse">
-                                        {{ $pendingCount }}
-                                    </span>
-                                @endif
+    <button 
+        @click="open=!open"
+        class="flex items-center gap-2 px-5 py-2 rounded-xl bg-gradient-to-r from-indigo-600 to-blue-600 text-white font-medium shadow-md hover:shadow-xl hover:scale-[1.05] transition"
+    >
+        <span>
+            {{ $user->role === 'super_admin' ? 'Dashboard' : 'Admin' }}
+        </span>
 
-                                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24">
-                                    <path stroke="currentColor" stroke-width="2" d="M19 9l-7 7-7-7"/>
-                                </svg>
-                            </button>
+        @if($user->role === 'super_admin' && $pendingCount > 0)
+            <span class="bg-red-500 text-white text-xs px-2 py-0.5 rounded-full animate-pulse">
+                {{ $pendingCount }}
+            </span>
+        @endif
 
-                            <!-- DROPDOWN -->
-                            <div 
-                                x-show="open"
-                                @click.outside="open=false"
-                                x-transition
-                                class="absolute right-0 mt-3 w-64 bg-white/95 backdrop-blur-xl border border-gray-200 rounded-2xl shadow-2xl overflow-hidden"
-                            >
-                                <a href="{{ route('users.index') }}" class="dropdown-item">
-                                    Manage Users
-                                </a>
-                                
-                                @if($user->role === 'admin')
-                                    <a href="{{ route('admin.my.requests') }}" class="dropdown-item">
-                                        My Requests
-                                    </a>
-                                @endif
+        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24">
+            <path stroke="currentColor" stroke-width="2" d="M19 9l-7 7-7-7"/>
+        </svg>
+    </button>
 
-                                @if($user->role === 'super_admin')
-                                    <a href="{{ route('admin.requests.index') }}" class="dropdown-item flex justify-between">
-                                        Pending Requests
+    <!-- DROPDOWN -->
+    <div 
+        x-show="open"
+        @click.outside="open=false"
+        x-transition
+        class="absolute right-0 mt-3 w-64 bg-white/95 backdrop-blur-xl border border-gray-200 rounded-2xl shadow-2xl overflow-hidden"
+    >
+        <a href="{{ route('users.index') }}" class="dropdown-item">
+            Manage Userssssss
+        </a>
 
-                                        @if($pendingCount > 0)
-                                            <span class="badge-red">
-                                                {{ $pendingCount }}
-                                            </span>
-                                        @endif
-                                    </a>
-                                @endif
-                                @if($user->role === 'admin' || $user->role === 'super_admin')
-                                <a href="{{ route('admin.contact-messages.index') }}" class="dropdown-item">
-                                    Contact Messages
-                                        @if($unreadMessageCount > 0)
-                                        <span class="badge-red">
-                                            {{ $unreadMessageCount }}
-                                        </span>
-                                    @endif
-                                </a>
-                                @endif
-                            </div>
-                        </div>
-                    @endif
+        @if($user->role === 'admin')
+            <a href="{{ route('admin.my.requests') }}" class="dropdown-item">
+                My Requests
+            </a>
+        @endif
+
+        @if($user->role === 'super_admin')
+            <a href="{{ route('admin.requests.index') }}" class="dropdown-item flex justify-between">
+                Pending Requests
+
+                @if($pendingCount > 0)
+                    <span class="badge-red">
+                        {{ $pendingCount }}
+                    </span>
+                @endif
+            </a>
+        @endif
+
+        <a href="{{ route('admin.contact-messages.index') }}" class="dropdown-item">
+            Contact Messages
+
+            @if($unreadMessageCount > 0)
+                <span class="badge-red">
+                    {{ $unreadMessageCount }}
+                </span>
+            @endif
+        </a>
+
+        <div class="border-t my-1"></div>
+
+        <a href="{{ url('/admin/event/dashboard') }}" class="dropdown-item">
+            Event Dashboard
+        </a>
+
+        <a href="{{ url('/admin/event/attendees') }}" class="dropdown-item">
+            Attendees List
+        </a>
+
+    </div>
+</div>
+@endif
 
                     <!-- USER + LOGOUT -->
                     <div class="hidden md:flex items-center gap-4">

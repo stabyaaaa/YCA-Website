@@ -674,8 +674,8 @@
 <div class="earth-wrap">
     <!-- LEFT PANEL -->
     <div>
-        <p class="earth-kicker">Global Network</p>
-        <h2 class="earth-title">From HQ to Regional Impact</h2>
+        <p class="earth-kicker">Global Network **Dummy Content**</p>
+        <h2 class="earth-title">From Headquarter to Regional Impact</h2>
         <p class="earth-desc">
             WePOWER connects World Bank headquarters in Washington DC through AIT Yunus Center as regional secretariat in Thailand, reaching seven partner countries across South Asia.
         </p>

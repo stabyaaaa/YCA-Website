@@ -18,26 +18,49 @@ class AppServiceProvider extends ServiceProvider
 
     public function boot(): void
     {
+        /*
+        |--------------------------------------------
+        | Force HTTPS (Production only)
+        |--------------------------------------------
+        */
         if (app()->environment('production')) {
             URL::forceScheme('https');
         }
 
+        /*
+        |--------------------------------------------
+        | Global View Data
+        |--------------------------------------------
+        */
         View::composer('*', function ($view) {
+
             $pendingCount = 0;
             $unreadMessageCount = 0;
 
             if (Auth::check()) {
+
                 $user = Auth::user();
 
                 if ($user->role === 'super_admin') {
-                    $pendingCount = AdminRequest::where('status', 'pending')->count();
+
+                    $pendingCount = AdminRequest::where(
+                        'status',
+                        'pending'
+                    )->count();
                 }
 
-                if (in_array($user->role, ['admin', 'super_admin'])) {
-                    $unreadMessageCount = ContactMessage::whereIn('status', [
-                        'unread',
-                        'pending',
-                    ])->count();
+                if (in_array($user->role, [
+                    'admin',
+                    'super_admin'
+                ])) {
+
+                    $unreadMessageCount = ContactMessage::whereIn(
+                        'status',
+                        [
+                            'unread',
+                            'pending',
+                        ]
+                    )->count();
                 }
             }
 

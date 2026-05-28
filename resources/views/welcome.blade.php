@@ -93,6 +93,12 @@
         h1 { font-size: 2.8rem; line-height: 1.15; }
         h2 { font-size: 2.4rem; }
     }
+    @media print {
+    img {
+        display: block !important;
+        max-width: 100% !important;
+    }
+}
 }
     .cms-inline-edit {
         transition: all 0.25s ease;
@@ -852,172 +858,220 @@
 
     </div>
 </section>
-
 <!-- ================= INSTITUTIONAL RESPONSE / SPLIT CONNECTED ================= -->
-<section id="institutional" class="relative py-24 lg:py-32 bg-slate-50">
+<section id="institutional"
+    class="relative py-24 lg:py-32 overflow-hidden bg-slate-900 text-white">
+
+    <!-- ================= BACKGROUND ================= -->
+    <div class="absolute inset-0 bg-gradient-to-br from-slate-800 via-slate-900 to-slate-800"></div>
+
+    <!-- glow effects -->
+    <div class="absolute top-[-10%] left-[-10%] w-[500px] h-[500px] bg-cyan-400/20 blur-[140px] rounded-full"></div>
+    <div class="absolute bottom-[-10%] right-[-10%] w-[500px] h-[500px] bg-indigo-400/20 blur-[140px] rounded-full"></div>
+
+    <!-- subtle grid -->
+    <div class="absolute inset-0 opacity-[0.05] bg-[radial-gradient(#ffffff_1px,transparent_1px)] [background-size:26px_26px]"></div>
 
     @if(canEditCms())
         <div class="absolute top-6 right-6 z-[9999] flex gap-3">
-            <button
-                type="button"
-                id="enableInstitutionalEdit"
-                class="px-5 py-2.5 rounded-xl bg-pink-brand border border-white/20 text-white font-semibold shadow-lg hover:bg-white/20 transition">
+            <button type="button" id="enableInstitutionalEdit"
+                class="px-5 py-2.5 rounded-xl bg-white/10 backdrop-blur border border-white/20 text-white font-semibold hover:bg-white/20 transition">
                 Edit Institutional
             </button>
 
-            <button
-                type="button"
-                id="saveInstitutionalEdit"
-                class="hidden px-5 py-2.5 rounded-xl bg-cyan-brand text-white font-semibold shadow-2xl hover:scale-105 transition">
+            <button type="button" id="saveInstitutionalEdit"
+                class="hidden px-5 py-2.5 rounded-xl bg-cyan-400 text-slate-900 font-semibold hover:scale-105 transition">
                 Save Changes
             </button>
 
-            <button
-                type="button"
-                id="cancelInstitutionalEdit"
-                class="hidden px-5 py-2.5 rounded-xl bg-white border border-slate-200 text-slate-700 font-semibold shadow-lg hover:bg-slate-100 transition">
+            <button type="button" id="cancelInstitutionalEdit"
+                class="hidden px-5 py-2.5 rounded-xl bg-white/10 border border-white/20 text-white font-semibold hover:bg-white/20 transition">
                 Cancel
             </button>
 
-            <label
-                id="institutionalImageUploadLabel"
+            <label id="institutionalImageUploadLabel"
                 for="institutionalImageUpload"
-                class="hidden px-5 py-2.5 rounded-xl bg-white border border-slate-200 text-slate-700 font-semibold shadow-lg hover:bg-slate-100 transition cursor-pointer">
+                class="hidden px-5 py-2.5 rounded-xl bg-white/10 border border-white/20 text-white font-semibold hover:bg-white/20 transition cursor-pointer backdrop-blur">
                 Change Image
 
-                <input
-                    type="file"
-                    id="institutionalImageUpload"
-                    accept="image/*"
-                    class="hidden">
+                <input type="file" id="institutionalImageUpload" accept="image/*" class="hidden">
             </label>
         </div>
     @endif
 
-    <div class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
+    <!-- ================= 70% WIDTH CONTAINER ================= -->
+    <div class="relative max-w-[70%] mx-auto px-6 sm:px-8 lg:px-12">
 
+        <!-- HEADER -->
         <div class="max-w-3xl mb-16">
-            <p contenteditable="false" data-section="institutional" data-field="eyebrow"
-               class="cms-inline-edit text-sm uppercase tracking-[0.25em] text-cyan-brand mb-4 animate-on-scroll">
+
+            <p contenteditable="false"
+                data-section="institutional"
+                data-field="eyebrow"
+                class="cms-inline-edit text-sm uppercase tracking-[0.25em] text-cyan-300 mb-4 animate-on-scroll">
                 {{ cms($cms, 'institutional', 'eyebrow', 'What’s Changing') }}
             </p>
 
-            <h2 contenteditable="false" data-section="institutional" data-field="title"
-                class="cms-inline-edit text-4xl sm:text-5xl lg:text-6xl font-bold text-slate-900 mb-6 animate-on-scroll">
+            <h2 contenteditable="false"
+                data-section="institutional"
+                data-field="title"
+                class="cms-inline-edit text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6 animate-on-scroll">
                 {{ cms($cms, 'institutional', 'title', 'Institutional Responses and Emerging Good Practices') }}
             </h2>
 
-            <p contenteditable="false" data-section="institutional" data-field="description"
-               class="cms-inline-edit text-lg sm:text-xl text-slate-600 leading-relaxed animate-on-scroll">
+            <p contenteditable="false"
+                data-section="institutional"
+                data-field="description"
+                class="cms-inline-edit text-lg sm:text-xl text-white/70 leading-relaxed animate-on-scroll">
                 {{ cms($cms, 'institutional', 'description', 'Utilities across the region are beginning to respond with targeted hiring, family-friendly policies, mentorship, training, and stronger workplace systems.') }}
             </p>
+
         </div>
 
-        <div class="grid lg:grid-cols-2 items-stretch rounded-[2rem] overflow-hidden shadow-2xl animate-on-scroll">
+        <!-- ================= MAIN CARD ================= -->
+        <div class="grid lg:grid-cols-2 items-stretch rounded-[2rem] overflow-hidden shadow-2xl animate-on-scroll bg-white/5 backdrop-blur border border-white/10">
 
+            <!-- IMAGE -->
             <div class="relative">
-                <img
-                    id="institutionalImage"
+
+                <img id="institutionalImage"
                     src="{{ asset(cms($cms, 'institutional', 'image', 'images/bg_group.jpeg')) }}"
                     alt="{{ cms($cms, 'institutional', 'image_alt', 'Energy sector workforce') }}"
-                    class="w-full h-full object-cover min-h-[420px] lg:min-h-[560px]"
-                >
-                <div class="absolute inset-0 bg-gradient-to-t from-slate-950/60 via-transparent to-transparent"></div>
+                    class="w-full h-full object-cover min-h-[420px] lg:min-h-[560px]">
+
+                <div class="absolute inset-0 bg-gradient-to-t from-slate-900/70 via-transparent to-transparent"></div>
+
             </div>
 
-            <div class="bg-white p-8 sm:p-10 lg:p-12 flex flex-col justify-center space-y-12">
+            <!-- CONTENT -->
+            <div class="p-8 sm:p-10 lg:p-12 flex flex-col justify-center space-y-12">
 
+                <!-- ================= POLICIES ================= -->
                 <div>
-                    <p contenteditable="false" data-section="institutional" data-field="policy_title"
-                       class="cms-inline-edit text-sm uppercase tracking-[0.2em] text-pink-brand mb-6">
+                    <p contenteditable="false"
+                        data-section="institutional"
+                        data-field="policy_title"
+                        class="cms-inline-edit text-sm uppercase tracking-[0.2em] text-cyan-300 mb-6">
                         {{ cms($cms, 'institutional', 'policy_title', 'Policies') }}
                     </p>
 
                     <div class="grid grid-cols-1 sm:grid-cols-3 gap-8 text-center">
+
                         @php
                             $policyColors = [
-                                'border-pink-brand text-pink-brand',
-                                'border-orange-brand text-orange-brand',
-                                'border-cyan-brand text-cyan-brand',
+                                'border-white/40 text-white',
+                                'border-cyan-300/70 text-cyan-200',
+                                'border-indigo-300/70 text-indigo-200',
                             ];
                         @endphp
 
                         @for($i = 1; $i <= 3; $i++)
                             <div class="flex flex-col items-center">
+
                                 <div contenteditable="false"
-                                     data-section="institutional"
-                                     data-field="policy_{{ $i }}_number"
-                                     class="cms-inline-edit w-28 h-28 rounded-full border-[6px] {{ $policyColors[$i - 1] }} flex items-center justify-center text-2xl font-bold">
+                                    data-section="institutional"
+                                    data-field="policy_{{ $i }}_number"
+                                    class="cms-inline-edit w-28 h-28 rounded-full border-[6px] {{ $policyColors[$i - 1] }} flex items-center justify-center text-2xl font-bold bg-white/5 backdrop-blur-md shadow-lg">
                                     {{ cms($cms, 'institutional', "policy_{$i}_number") }}
                                 </div>
 
                                 <p contenteditable="false"
-                                   data-section="institutional"
-                                   data-field="policy_{{ $i }}_label"
-                                   class="cms-inline-edit mt-3 text-sm text-slate-600 leading-tight">
+                                    data-section="institutional"
+                                    data-field="policy_{{ $i }}_label"
+                                    class="cms-inline-edit mt-3 text-sm text-white/70 leading-tight">
                                     {{ cms($cms, 'institutional', "policy_{$i}_label") }}
                                 </p>
+
                             </div>
                         @endfor
                     </div>
                 </div>
-<!-- ================= RETENTION SUPPORT ================= -->
-<div class="border-t border-slate-200 pt-8">
-    <p contenteditable="false" data-section="institutional" data-field="retention_title"
-       class="cms-inline-edit text-sm uppercase tracking-[0.2em] text-orange-brand mb-6">
-        {{ cms($cms, 'institutional', 'retention_title', 'Retention Support') }}
-    </p>
 
-    <div class="space-y-6">
-        @for($i = 1; $i <= 2; $i++)
-            <div>
-                <div class="flex justify-between text-sm mb-2">
-                    <span contenteditable="false" data-section="institutional" data-field="retention_{{ $i }}_label"
-                          class="cms-inline-edit text-slate-600">
-                        {{ cms($cms, 'institutional', "retention_{$i}_label") }}
-                    </span>
+                <!-- ================= RETENTION ================= -->
+                <div class="border-t border-white/10 pt-8">
 
-                    <span contenteditable="false" data-section="institutional" data-field="retention_{{ $i }}_number"
-                          class="cms-inline-edit font-semibold {{ $i == 1 ? 'text-orange-brand' : 'text-pink-brand' }}">
-                        {{ cms($cms, 'institutional', "retention_{$i}_number") }}
-                    </span>
+                    <p contenteditable="false"
+                        data-section="institutional"
+                        data-field="retention_title"
+                        class="cms-inline-edit text-sm uppercase tracking-[0.2em] text-orange-200 mb-6">
+                        {{ cms($cms, 'institutional', 'retention_title', 'Retention Support') }}
+                    </p>
+
+                    <div class="space-y-6">
+
+                        @for($i = 1; $i <= 2; $i++)
+                            <div>
+
+                                <div class="flex justify-between text-sm mb-2">
+
+                                    <span contenteditable="false"
+                                        data-section="institutional"
+                                        data-field="retention_{{ $i }}_label"
+                                        class="cms-inline-edit text-white/70">
+                                        {{ cms($cms, 'institutional', "retention_{$i}_label") }}
+                                    </span>
+
+                                    <span contenteditable="false"
+                                        data-section="institutional"
+                                        data-field="retention_{{ $i }}_number"
+                                        class="cms-inline-edit font-semibold {{ $i == 1 ? 'text-cyan-200' : 'text-indigo-200' }}">
+                                        {{ cms($cms, 'institutional', "retention_{$i}_number") }}
+                                    </span>
+
+                                </div>
+
+                                <div class="w-full h-2 bg-white/10 rounded-full overflow-hidden">
+
+                                    <div class="h-full {{ $i == 1 ? 'bg-cyan-400' : 'bg-indigo-400' }} rounded-full"
+                                        style="width: {{ cms($cms, 'institutional', "retention_{$i}_number") }}">
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        @endfor
+
+                    </div>
                 </div>
 
-                <div class="w-full h-2 bg-slate-100 rounded-full overflow-hidden">
-                    <div class="h-full {{ $i == 1 ? 'bg-orange-brand' : 'bg-pink-brand' }} rounded-full"
-                         style="width: {{ cms($cms, 'institutional', "retention_{$i}_number") }}"></div>
+                <!-- ================= GROWTH ================= -->
+                <div class="border-t border-white/10 pt-8">
+
+                    <p contenteditable="false"
+                        data-section="institutional"
+                        data-field="growth_title"
+                        class="cms-inline-edit text-sm uppercase tracking-[0.2em] text-cyan-300 mb-6">
+                        {{ cms($cms, 'institutional', 'growth_title', 'Growth & Safety') }}
+                    </p>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+
+                        @for($i = 1; $i <= 2; $i++)
+                            <div class="p-6 rounded-xl bg-white/5 border border-white/10 backdrop-blur">
+
+                                <p contenteditable="false"
+                                    data-section="institutional"
+                                    data-field="growth_{{ $i }}_number"
+                                    class="cms-inline-edit text-3xl font-bold {{ $i == 1 ? 'text-cyan-200' : 'text-indigo-200' }} mb-2">
+                                    {{ cms($cms, 'institutional', "growth_{$i}_number") }}
+                                </p>
+
+                                <p contenteditable="false"
+                                    data-section="institutional"
+                                    data-field="growth_{{ $i }}_label"
+                                    class="cms-inline-edit text-sm text-white/70">
+                                    {{ cms($cms, 'institutional', "growth_{$i}_label") }}
+                                </p>
+
+                            </div>
+                        @endfor
+
+                    </div>
                 </div>
+
             </div>
-        @endfor
-    </div>
-</div>
+        </div>
 
-
-<!-- ================= GROWTH & SAFETY ================= -->
-<div class="border-t border-slate-200 pt-8">
-    <p contenteditable="false" data-section="institutional" data-field="growth_title"
-       class="cms-inline-edit text-sm uppercase tracking-[0.2em] text-cyan-brand mb-6">
-        {{ cms($cms, 'institutional', 'growth_title', 'Growth & Safety') }}
-    </p>
-
-    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
-        @for($i = 1; $i <= 2; $i++)
-            <div class="p-6 rounded-xl {{ $i == 1 ? 'bg-cyan-50 border-cyan-100' : 'bg-orange-50 border-orange-100' }} border">
-                <p contenteditable="false" data-section="institutional" data-field="growth_{{ $i }}_number"
-                   class="cms-inline-edit text-3xl font-bold {{ $i == 1 ? 'text-cyan-brand' : 'text-orange-brand' }} mb-2">
-                    {{ cms($cms, 'institutional', "growth_{$i}_number") }}
-                </p>
-
-                <p contenteditable="false" data-section="institutional" data-field="growth_{{ $i }}_label"
-                   class="cms-inline-edit text-sm text-slate-600">
-                    {{ cms($cms, 'institutional', "growth_{$i}_label") }}
-                </p>
-            </div>
-        @endfor
-    </div>
-</div>
-
-           
     </div>
 </section>
 

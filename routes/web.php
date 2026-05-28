@@ -237,6 +237,7 @@ Route::middleware(['auth', 'verified', 'role:super_admin'])->group(function () {
 */
 
 require __DIR__.'/auth.php';
+require base_path('routes/event.php');
 
 
 /*

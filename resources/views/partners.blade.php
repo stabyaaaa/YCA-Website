@@ -447,7 +447,7 @@
 
         4  => [
             'name' => 'IEEE Women in Engineering (WIE)',
-            'category' => 'P',
+            'category' => 'Association',
             'country' => 'India',
             'website' => 'https://wie.ieee.org/'
         ],

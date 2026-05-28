@@ -213,7 +213,7 @@
                         </button>
 
                         <button onclick="openAuthModal('register')" class="btn-primary w-full">
-                            Create Account
+                            Create Account Hello
                         </button>
                     </div>
                 @endguest

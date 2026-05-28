@@ -1,52 +1,86 @@
-<x-guest-layout>
-    <div class="max-w-md mx-auto bg-white p-8 rounded-xl shadow-md">
+@extends('layouts.app')
 
-        <!-- Header -->
-        <h2 class="text-2xl font-bold text-center text-gray-800 mb-6">
-            Forgot Your Password?
-        </h2>
+@section('content')
+<div class="min-h-screen bg-gray-50 py-12 px-4">
 
-        <div class="mb-6 text-sm text-gray-600 text-center leading-relaxed">
-            No problem. Just let us know your email address and we will email you 
-            a password reset link that will allow you to choose a new one.
-        </div>
+    <div class="max-w-4xl mx-auto">
 
-        <!-- Status Message -->
-        <x-auth-session-status class="mb-4" :status="session('status')" />
+        <!-- Page Card -->
+        <div class="bg-white rounded-2xl shadow-lg overflow-hidden">
 
-        <form method="POST" action="{{ route('password.email') }}">
-            @csrf
+            <div class="grid md:grid-cols-2">
 
-            <!-- Email -->
-            <div>
-                <label class="block text-sm font-medium text-gray-700">
-                    Email Address <span class="text-red-500">*</span>
-                </label>
-                <input type="email" 
-                       name="email" 
-                       value="{{ old('email') }}" 
-                       required
-                       class="mt-1 w-full rounded-md border border-gray-300 shadow-sm 
-                       focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
-                @error('email')
-                    <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
-                @enderror
+                <!-- Left Side (Info Panel) -->
+                <div class="bg-blue-600 text-white p-10 flex flex-col justify-center">
+                    <h2 class="text-3xl font-bold mb-4">
+                        Forgot Password?
+                    </h2>
+
+                    <p class="text-blue-100 leading-relaxed">
+                        Don’t worry. Enter your email and we’ll send you a secure link
+                        to reset your password.
+                    </p>
+
+                    <div class="mt-6 text-sm text-blue-200">
+                        Make sure you use the email registered in your account.
+                    </div>
+                </div>
+
+                <!-- Right Side (Form) -->
+                <div class="p-10">
+
+                    <h3 class="text-xl font-semibold text-gray-800 mb-6">
+                        Reset Password
+                    </h3>
+
+                    <!-- Status Message -->
+                    @if (session('status'))
+                        <div class="mb-4 p-3 rounded bg-green-100 text-green-700 text-sm">
+                            {{ session('status') }}
+                        </div>
+                    @endif
+
+                    <form method="POST" action="{{ route('password.email') }}">
+                        @csrf
+
+                        <!-- Email -->
+                        <div class="mb-4">
+                            <label class="block text-sm font-medium text-gray-700 mb-1">
+                                Email Address
+                            </label>
+
+                            <input type="email"
+                                   name="email"
+                                   value="{{ old('email') }}"
+                                   required
+                                   class="w-full rounded-lg border border-gray-300 px-4 py-3 focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+
+                            @error('email')
+                                <p class="text-red-500 text-sm mt-2">{{ $message }}</p>
+                            @enderror
+                        </div>
+
+                        <!-- Submit -->
+                        <button type="submit"
+                                class="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-lg font-semibold transition">
+                            Send Reset Link
+                        </button>
+                    </form>
+
+                    <!-- Back -->
+                    <div class="mt-6 text-center">
+                        <a href="{{ url('/') }}"
+                           class="text-blue-600 hover:underline text-sm">
+                            ← Back to Home
+                        </a>
+                    </div>
+
+                </div>
+
             </div>
-
-            <!-- Submit Button -->
-            <button type="submit"
-                    class="w-full mt-6 bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-lg font-semibold transition">
-                Send Password Reset Link
-            </button>
-        </form>
-
-        <!-- Back to Login -->
-        <div class="text-center mt-8">
-            <a href="{{ url('/') }}" 
-               class="text-blue-600 hover:text-blue-700 hover:underline text-sm">
-                ← Back to Home
-            </a>
         </div>
 
     </div>
-</x-guest-layout>
+
+</div>
+@endsection

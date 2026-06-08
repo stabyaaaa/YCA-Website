@@ -58,7 +58,7 @@
 
                 <a href="/resources" 
                 class="nav-link {{ request()->is('resources') ? 'active' : '' }}">
-                Resourcessss
+                Resources
                 </a>
 
                 <a href="/contact" 

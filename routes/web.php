@@ -227,7 +227,19 @@ Route::middleware(['auth', 'verified', 'role:super_admin'])->group(function () {
 
 });
 
+Route::middleware(['auth'])
+    ->prefix('admin/event')
+    ->group(function () {
 
+        Route::get('/dashboard', [EventDashboardController::class, 'index']);
+
+        Route::get('/attendees', [EventAttendeeController::class, 'index']);
+
+        Route::get('/scanner', [EventScannerController::class, 'index']);
+
+        Route::get('/print/{id}', [EventPrintController::class, 'printBadge']);
+
+    });
 /*
 |--------------------------------------------------------------------------
 | Auth Routes

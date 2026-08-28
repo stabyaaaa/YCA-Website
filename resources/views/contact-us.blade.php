@@ -528,7 +528,7 @@ Located within the Asian Institute of Technology campus in Pathum Thani, the Yun
                             <div>
                                 <h4 class="text-base font-semibold text-[var(--charcoal-deep)]">Response Time</h4>
                                 <p class="mt-1 text-sm text-[var(--gray-warm)] leading-relaxed">
-                                    Messagess are typically reviewed and answered within a few working days.
+                                    Messagesssssss are typically reviewed and answered within a few working days.
                                 </p>
                             </div>
                         </div>

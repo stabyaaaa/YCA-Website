@@ -167,6 +167,8 @@
         background: rgba(1,157,222,0.14);
     }
 </style>
+
+<!-- ================= HERO ================= -->
 <!-- ================= HERO ================= -->
 <section id="aboutHero" class="relative overflow-hidden bg-white">
 
@@ -339,23 +341,27 @@
                         </p>
                     </div>
 
-                    <div class="absolute bottom-6 -left-6 sm:-left-10 bg-slate-900 text-white rounded-2xl shadow-2xl px-6 py-5 w-64">
-                        <p
-                            contenteditable="false"
-                            data-section="about_hero"
-                            data-field="small_card_2_title"
-                            class="cms-inline-edit text-xs uppercase tracking-[0.22em] text-white/50 mb-2">
-                            {{ cms($cms, 'about_hero', 'small_card_2_title', 'Why It Matters') }}
-                        </p>
+                    <!-- Environment & Social Plan card — replaces "Why It Matters", same size/position, no CMS -->
+                    <a href="/documents/environment-social-plan.pdf"
+                       target="_blank"
+                       class="group absolute bottom-6 -left-6 sm:-left-10 bg-slate-900 text-white rounded-2xl shadow-2xl px-6 py-5 w-64 block hover:bg-slate-800 transition">
+                        <span class="flex items-center gap-2 mb-2">
+                            <svg class="w-4 h-4 text-cyan-brand flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m-7 5h8a2 2 0 002-2V7.5L14.5 3H6a2 2 0 00-2 2v14a2 2 0 002 2z" />
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M14 3v4.5H18.5" />
+                            </svg>
+                            <span class="text-xs uppercase tracking-[0.22em] text-white/50">
+                                Environment &amp; Social Plan
+                            </span>
+                        </span>
 
-                        <p
-                            contenteditable="false"
-                            data-section="about_hero"
-                            data-field="small_card_2_text"
-                            class="cms-inline-edit text-sm leading-relaxed text-white/85">
-                            {{ cms($cms, 'about_hero', 'small_card_2_text', 'A stronger energy sector needs more inclusive institutions, opportunities, and career pathways.') }}
-                        </p>
-                    </div>
+                        <span class="text-sm leading-relaxed text-white/85 flex items-center justify-between gap-2">
+                            <span>View our LOREM IPSUM (PDF)</span>
+                            <svg class="w-4 h-4 text-white/60 group-hover:text-cyan-brand group-hover:translate-x-0.5 transition flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                            </svg>
+                        </span>
+                    </a>
                 </div>
             </div>
 
@@ -363,6 +369,89 @@
     </div>
 </section>
 
+<style>
+.document-feature {
+  max-width: 620px;
+  display: flex;
+  align-items: stretch;
+  gap: 16px;
+  padding: 14px;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  background: #fff;
+}
+
+.document-thumb {
+  width: 105px;
+  min-width: 105px;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.document-thumb img {
+  width: 100%;
+  height: 100%;
+  min-height: 110px;
+  object-fit: cover;
+  display: block;
+}
+
+.document-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.document-label {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .08em;
+  color: #667085;
+}
+
+.document-info h3 {
+  margin: 4px 0 5px;
+  font-size: 17px;
+  line-height: 1.2;
+}
+
+.document-info p {
+  margin: 0 0 8px;
+  font-size: 12px;
+  line-height: 1.45;
+  color: #667085;
+  max-width: 420px;
+}
+
+.document-info a {
+  font-size: 12px;
+  font-weight: 600;
+  color: #111827;
+  text-decoration: none;
+}
+
+.document-info a:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 520px) {
+  .document-feature {
+    max-width: 100%;
+  }
+
+  .document-thumb {
+    width: 85px;
+    min-width: 85px;
+  }
+
+  .document-info p {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+}
+</style>
 <!-- ================= WHO WE ARE ================= -->
 <section id="who-we-are" class="relative py-20 lg:py-28 bg-white">
 

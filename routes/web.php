@@ -98,7 +98,7 @@ Route::middleware(['auth', 'verified', 'role:admin,super_admin'])
 //         'status' => 'active',
 //     ]);
 
-//     return redirect()->route('home')
+//     return redirect()->route('home') 
 //         ->with('success', 'Your email has been verified successfully.');
 // })->middleware(['auth', 'signed'])->name('verification.verify');
 
@@ -192,7 +192,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
 /*
 |--------------------------------------------------------------------------
-| Admin + Super Admin Routes + CMS Controller
+| Admin + Super Admin Routes + CMS Controll
+er
 |--------------------------------------------------------------------------
 */
 

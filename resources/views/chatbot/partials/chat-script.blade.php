@@ -1,282 +1,517 @@
-@php
-    $scriptInitials = '?';
+{{-- =========================================================
+    WEPOWER AI CHATBOT SCRIPT
+    File: resources/views/chatbot/partials/chat-script.blade.php
+========================================================== --}}
 
-    if ($otherUser) {
-        $scriptInitials = collect(explode(' ', $otherUser->name))
-            ->map(fn ($part) => strtoupper(substr($part, 0, 1)))
-            ->take(2)
-            ->implode('');
-    }
-@endphp
 <script>
-let conversationId = @json($conversation?->id ?? '');
-const authUserId = @json(auth()->id());
+document.addEventListener('DOMContentLoaded', function () {
 
-let activeChatUser = {
-    name: @json($otherUser?->name ?? ''),
-    initials: @json($scriptInitials)
-};
+    const trigger = document.getElementById('aiChatTrigger');
+    const popup = document.getElementById('aiChatPopup');
+    const closeButton = document.getElementById('aiChatClose');
 
-let latestInterval = null;
-let lastRenderedHash = '';
+    const form = document.getElementById('aiChatForm');
+    const input = document.getElementById('aiChatInput');
+    const sendButton = document.getElementById('aiChatSend');
+    const messages = document.getElementById('aiChatMessages');
 
-function getCsrfToken() {
-    return document.querySelector('input[name="_token"]')?.value ||
-        document.querySelector('meta[name="csrf-token"]')?.getAttribute('content');
-}
+    const suggestions = document.querySelectorAll('.ai-chat-suggestion');
 
-function escapeHtml(value) {
-    const div = document.createElement('div');
-    div.innerText = value ?? '';
-    return div.innerHTML;
-}
 
-function ensureChatPanel() {
-    let chatPanel = document.getElementById('chatPanel');
-
-    if (chatPanel && document.getElementById('messageForm')) {
+    // ---------------------------------------------------------
+    // Safety check
+    // ---------------------------------------------------------
+    if (!trigger || !popup) {
         return;
     }
 
-    const oldPanel = document.getElementById('chatPanel');
 
-    const html = `
-        <main id="chatPanel" class="bg-white overflow-hidden flex flex-col h-full">
-            <div class="shrink-0 p-4 lg:p-5 border-b border-slate-200 flex items-center justify-between bg-white">
-                <div class="flex items-center gap-4 min-w-0">
-                    <a href="{{ route('messages.index') }}"
-                       class="lg:hidden w-10 h-10 rounded-2xl bg-slate-100 border border-slate-200 flex items-center justify-center text-slate-600 hover:text-pink-600">
-                        ←
-                    </a>
+    // ---------------------------------------------------------
+    // Open chat
+    // ---------------------------------------------------------
+    trigger.addEventListener('click', function () {
 
-                    <div class="relative shrink-0">
-                        <div id="chatInitials" class="w-12 h-12 rounded-2xl bg-gradient-to-br from-pink-500 to-orange-400 text-white flex items-center justify-center font-extrabold">
-                            ?
-                        </div>
-                        <span class="absolute -bottom-1 -right-1 w-4 h-4 rounded-full bg-green-500 border-2 border-white"></span>
-                    </div>
+        popup.classList.toggle('hidden');
 
-                    <div class="min-w-0">
-                        <h2 id="chatUserName" class="font-bold text-lg truncate text-slate-950">Chat</h2>
-                        <p class="text-xs text-green-600">● Active now</p>
-                    </div>
-                </div>
+        if (!popup.classList.contains('hidden')) {
+            setTimeout(function () {
+                input?.focus();
+            }, 100);
+        }
 
-                <a href="{{ route('messages.index') }}"
-                   class="hidden lg:inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-slate-100 border border-slate-200 text-sm text-slate-600 hover:text-pink-600 hover:bg-white transition">
-                    Back
-                </a>
-            </div>
-
-            <div id="messagesBox" class="flex-1 overflow-y-auto p-4 lg:p-6 space-y-5 bg-slate-50"></div>
-
-            <form id="messageForm" class="shrink-0 p-4 lg:p-5 border-t border-slate-200 bg-white">
-                @csrf
-
-                <div class="flex items-end gap-3">
-                    <input
-                        type="text"
-                        id="messageInput"
-                        class="flex-1 rounded-2xl bg-slate-100 border border-slate-200 px-5 py-4 text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-pink-500/40 focus:bg-white"
-                        placeholder="Write a message..."
-                        autocomplete="off"
-                    >
-
-                    <button
-                        type="submit"
-                        class="w-14 h-14 rounded-2xl bg-gradient-to-br from-pink-600 to-orange-500 hover:scale-105 active:scale-95 transition shadow-lg shadow-pink-100 flex items-center justify-center">
-                        <svg class="w-6 h-6 text-white translate-x-[1px]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                  d="M5 12h14M13 5l7 7-7 7"/>
-                        </svg>
-                    </button>
-                </div>
-            </form>
-        </main>
-    `;
-
-    oldPanel.outerHTML = html;
-    bindMessageForm();
-}
-
-function scrollToBottom() {
-    const messagesBox = document.getElementById('messagesBox');
-    if (messagesBox) {
-        messagesBox.scrollTop = messagesBox.scrollHeight;
-    }
-}
-
-function renderMessages(messages) {
-    const messagesBox = document.getElementById('messagesBox');
-    if (!messagesBox) return;
-
-    const currentHash = JSON.stringify(messages.map(m => [m.id, m.message]));
-    if (currentHash === lastRenderedHash) return;
-    lastRenderedHash = currentHash;
-
-    messagesBox.innerHTML = `
-        <div class="text-center mb-8">
-            <div id="chatIntroInitials" class="w-16 h-16 rounded-3xl bg-gradient-to-br from-pink-500 to-orange-400 text-white mx-auto mb-3 flex items-center justify-center font-extrabold">
-                ${escapeHtml(activeChatUser.initials)}
-            </div>
-            <p id="chatIntroName" class="font-semibold text-slate-900">${escapeHtml(activeChatUser.name)}</p>
-            <p class="text-sm text-slate-500">This is the beginning of your conversation.</p>
-        </div>
-    `;
-
-    messages.forEach(msg => {
-        const isMine = String(msg.sender_id) === String(authUserId);
-
-        const wrapper = document.createElement('div');
-        wrapper.className = `flex ${isMine ? 'justify-end' : 'justify-start'} message-row`;
-
-        wrapper.innerHTML = `
-            <div class="max-w-[82%] lg:max-w-[65%]">
-                <div class="px-4 py-3 rounded-3xl shadow-sm ${
-                    isMine
-                        ? 'bg-gradient-to-br from-pink-600 to-pink-500 text-white rounded-br-md'
-                        : 'bg-white border border-slate-200 text-slate-800 rounded-bl-md'
-                }">
-                    <p class="text-sm leading-relaxed">${msg.message}</p>
-                </div>
-
-                <p class="text-[11px] text-slate-400 mt-1 ${isMine ? 'text-right pr-2' : 'pl-2'}">
-                    ${msg.time}
-                </p>
-            </div>
-        `;
-
-        messagesBox.appendChild(wrapper);
     });
 
-    scrollToBottom();
-}
 
-function loadMessages() {
-    if (!conversationId) return;
+    // ---------------------------------------------------------
+    // Close chat
+    // ---------------------------------------------------------
+    closeButton?.addEventListener('click', function () {
 
-    fetch(`/messages/${conversationId}/latest`)
-        .then(response => response.json())
-        .then(data => renderMessages(data))
-        .catch(() => {});
-}
+        popup.classList.add('hidden');
 
-function bindMessageForm() {
-    const messageForm = document.getElementById('messageForm');
-    const messageInput = document.getElementById('messageInput');
+    });
 
-    if (!messageForm || !messageInput) return;
 
-    messageForm.addEventListener('submit', function(e) {
-        e.preventDefault();
+    // ---------------------------------------------------------
+    // Suggested questions
+    // ---------------------------------------------------------
+    suggestions.forEach(function (button) {
 
-        const message = messageInput.value.trim();
-        if (!message || !conversationId) return;
+        button.addEventListener('click', function () {
 
-        messageInput.disabled = true;
+            const message = button.dataset.message;
 
-        fetch(`/messages/${conversationId}/send`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-CSRF-TOKEN': getCsrfToken(),
-                'Accept': 'application/json',
-            },
-            body: JSON.stringify({ message })
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                messageInput.value = '';
-                loadMessages();
+            if (!message || !input) {
+                return;
             }
-        })
-        .finally(() => {
-            messageInput.disabled = false;
-            messageInput.focus();
+
+            input.value = message;
+
+            autoResizeTextarea();
+
+            input.focus();
+
         });
+
     });
-}
 
-document.querySelectorAll('.open-chat-btn').forEach(button => {
-    button.addEventListener('click', function () {
-        const userId = this.dataset.userId;
 
-        fetch(`/messages/start-ajax/${userId}`, {
-            method: 'POST',
-            headers: {
-                'X-CSRF-TOKEN': getCsrfToken(),
-                'Accept': 'application/json',
-            }
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (!data.success) return;
+    // ---------------------------------------------------------
+    // Auto resize textarea
+    // ---------------------------------------------------------
+    input?.addEventListener('input', function () {
 
-            ensureChatPanel();
+        autoResizeTextarea();
 
-            conversationId = data.conversation_id;
-            activeChatUser = {
-                name: data.user.name,
-                initials: data.user.initials,
-            };
+    });
 
-            document.getElementById('chatUserName').innerText = data.user.name;
-            document.getElementById('chatInitials').innerText = data.user.initials;
 
-            document.querySelectorAll('.open-chat-btn').forEach(btn => {
-                btn.classList.remove('bg-pink-50', 'border-pink-200', 'shadow-md', 'shadow-pink-100');
-                btn.classList.add('bg-white', 'border-slate-200');
+    function autoResizeTextarea() {
+
+        if (!input) {
+            return;
+        }
+
+        input.style.height = 'auto';
+
+        input.style.height = Math.min(
+            input.scrollHeight,
+            112
+        ) + 'px';
+
+    }
+
+
+    // ---------------------------------------------------------
+    // Enter sends message
+    // Shift + Enter adds new line
+    // ---------------------------------------------------------
+    input?.addEventListener('keydown', function (event) {
+
+        if (
+            event.key === 'Enter' &&
+            !event.shiftKey
+        ) {
+
+            event.preventDefault();
+
+            form?.requestSubmit();
+
+        }
+
+    });
+
+
+    // ---------------------------------------------------------
+    // Submit message
+    // ---------------------------------------------------------
+    form?.addEventListener('submit', async function (event) {
+
+        event.preventDefault();
+
+        if (!input) {
+            return;
+        }
+
+
+        const message = input.value.trim();
+
+
+        if (!message) {
+            return;
+        }
+
+
+        // Add user's message to the UI
+        appendUserMessage(message);
+
+
+        // Clear input
+        input.value = '';
+
+        autoResizeTextarea();
+
+
+        // Disable while waiting
+        input.disabled = true;
+
+        if (sendButton) {
+            sendButton.disabled = true;
+        }
+
+
+        // Remove suggestions after first message
+        const suggestionContainer =
+            document.getElementById('aiChatSuggestions');
+
+        suggestionContainer?.remove();
+
+
+        // Loading message
+        const loadingMessage =
+            appendLoadingMessage();
+
+
+        try {
+
+            const csrfToken = document
+                .querySelector('meta[name="csrf-token"]')
+                ?.getAttribute('content');
+
+
+            const response = await fetch('/chatbot/message', {
+
+                method: 'POST',
+
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json',
+                    'X-CSRF-TOKEN': csrfToken
+                },
+
+                body: JSON.stringify({
+                    message: message
+                })
+
             });
 
-            this.classList.remove('bg-white', 'border-slate-200');
-            this.classList.add('bg-pink-50', 'border-pink-200', 'shadow-md', 'shadow-pink-100');
 
-            lastRenderedHash = '';
-            renderMessages(data.messages);
+            let data = {};
 
-            history.pushState({}, '', data.show_url);
+            try {
 
-            if (latestInterval) clearInterval(latestInterval);
-            latestInterval = setInterval(loadMessages, 3000);
-        });
+                data = await response.json();
+
+            } catch (jsonError) {
+
+                throw new Error(
+                    'Invalid response from server.'
+                );
+
+            }
+
+
+            loadingMessage?.remove();
+
+
+            if (!response.ok) {
+
+                throw new Error(
+                    data.message ||
+                    'Unable to process your message.'
+                );
+
+            }
+
+
+            appendAssistantMessage(
+                data.message ||
+                'I received your message.'
+            );
+
+
+        } catch (error) {
+
+            loadingMessage?.remove();
+
+
+            console.error(
+                'WePOWER AI error:',
+                error
+            );
+
+
+            appendAssistantMessage(
+                'Sorry, I could not process your request right now. Please try again.'
+            );
+
+        } finally {
+
+            input.disabled = false;
+
+            if (sendButton) {
+                sendButton.disabled = false;
+            }
+
+            input.focus();
+
+        }
+
     });
+
+
+    // ---------------------------------------------------------
+    // User message
+    // ---------------------------------------------------------
+    function appendUserMessage(message) {
+
+        if (!messages) {
+            return;
+        }
+
+
+        const row = document.createElement('div');
+
+        row.className =
+            'flex justify-end';
+
+
+        const wrapper = document.createElement('div');
+
+        wrapper.className =
+            'max-w-[82%]';
+
+
+        const bubble = document.createElement('div');
+
+        bubble.className =
+            'rounded-2xl ' +
+            'rounded-br-md ' +
+            'bg-gradient-to-br ' +
+            'from-pink-600 ' +
+            'to-purple-600 ' +
+            'px-4 py-3 ' +
+            'text-sm ' +
+            'leading-6 ' +
+            'text-white ' +
+            'shadow-sm';
+
+
+        bubble.textContent = message;
+
+
+        const time = document.createElement('div');
+
+        time.className =
+            'mt-1 px-1 ' +
+            'text-right ' +
+            'text-[10px] ' +
+            'text-gray-400';
+
+
+        time.textContent = getCurrentTime();
+
+
+        wrapper.appendChild(bubble);
+
+        wrapper.appendChild(time);
+
+        row.appendChild(wrapper);
+
+        messages.appendChild(row);
+
+
+        scrollToBottom();
+
+    }
+
+
+    // ---------------------------------------------------------
+    // Assistant message
+    // ---------------------------------------------------------
+    function appendAssistantMessage(message) {
+
+        if (!messages) {
+            return;
+        }
+
+
+        const row = document.createElement('div');
+
+        row.className =
+            'flex items-end gap-2';
+
+
+        const avatar = document.createElement('div');
+
+        avatar.className =
+            'flex h-8 w-8 ' +
+            'shrink-0 ' +
+            'items-center justify-center ' +
+            'rounded-xl ' +
+            'bg-gradient-to-br ' +
+            'from-pink-500 ' +
+            'to-purple-600 ' +
+            'text-sm text-white shadow';
+
+
+        avatar.textContent = '🤖';
+
+
+        const wrapper = document.createElement('div');
+
+        wrapper.className =
+            'max-w-[82%]';
+
+
+        const bubble = document.createElement('div');
+
+        bubble.className =
+            'rounded-2xl ' +
+            'rounded-bl-md ' +
+            'border border-gray-200 ' +
+            'bg-white ' +
+            'px-4 py-3 ' +
+            'text-sm ' +
+            'leading-6 ' +
+            'text-gray-700 ' +
+            'shadow-sm';
+
+
+        bubble.textContent = message;
+
+
+        const time = document.createElement('div');
+
+        time.className =
+            'mt-1 px-1 ' +
+            'text-[10px] ' +
+            'text-gray-400';
+
+
+        time.textContent = getCurrentTime();
+
+
+        wrapper.appendChild(bubble);
+
+        wrapper.appendChild(time);
+
+        row.appendChild(avatar);
+
+        row.appendChild(wrapper);
+
+        messages.appendChild(row);
+
+
+        scrollToBottom();
+
+    }
+
+
+    // ---------------------------------------------------------
+    // Thinking message
+    // ---------------------------------------------------------
+    function appendLoadingMessage() {
+
+        if (!messages) {
+            return null;
+        }
+
+
+        const row = document.createElement('div');
+
+        row.className =
+            'flex items-end gap-2';
+
+
+        const avatar = document.createElement('div');
+
+        avatar.className =
+            'flex h-8 w-8 ' +
+            'shrink-0 ' +
+            'items-center justify-center ' +
+            'rounded-xl ' +
+            'bg-gradient-to-br ' +
+            'from-pink-500 ' +
+            'to-purple-600 ' +
+            'text-sm text-white shadow';
+
+
+        avatar.textContent = '🤖';
+
+
+        const bubble = document.createElement('div');
+
+        bubble.className =
+            'rounded-2xl ' +
+            'rounded-bl-md ' +
+            'border border-gray-200 ' +
+            'bg-white ' +
+            'px-4 py-3 ' +
+            'text-sm ' +
+            'text-gray-500 ' +
+            'shadow-sm';
+
+
+        const dots = document.createElement('div');
+
+        dots.className =
+            'flex items-center gap-1';
+
+
+        dots.innerHTML = `
+            <span class="h-1.5 w-1.5 rounded-full bg-gray-400 animate-bounce"></span>
+            <span class="h-1.5 w-1.5 rounded-full bg-gray-400 animate-bounce [animation-delay:150ms]"></span>
+            <span class="h-1.5 w-1.5 rounded-full bg-gray-400 animate-bounce [animation-delay:300ms]"></span>
+        `;
+
+
+        bubble.appendChild(dots);
+
+        row.appendChild(avatar);
+
+        row.appendChild(bubble);
+
+        messages.appendChild(row);
+
+
+        scrollToBottom();
+
+
+        return row;
+
+    }
+
+
+    // ---------------------------------------------------------
+    // Scroll
+    // ---------------------------------------------------------
+    function scrollToBottom() {
+
+        if (!messages) {
+            return;
+        }
+
+        messages.scrollTop =
+            messages.scrollHeight;
+
+    }
+
+
+    // ---------------------------------------------------------
+    // Current time
+    // ---------------------------------------------------------
+    function getCurrentTime() {
+
+        return new Date().toLocaleTimeString(
+            [],
+            {
+                hour: '2-digit',
+                minute: '2-digit'
+            }
+        );
+
+    }
+
 });
-
-const tabs = document.querySelectorAll('.tab-btn');
-const panels = document.querySelectorAll('.people-panel');
-const searchInput = document.getElementById('peopleSearch');
-
-tabs.forEach(tab => {
-    tab.addEventListener('click', () => {
-        tabs.forEach(btn => {
-            btn.className = 'tab-btn rounded-xl px-4 py-3 text-sm font-bold text-slate-500 hover:text-slate-900';
-        });
-
-        tab.className = 'tab-btn rounded-xl px-4 py-3 text-sm font-bold bg-white text-pink-600 shadow-sm';
-
-        panels.forEach(panel => panel.classList.add('hidden'));
-        document.getElementById(tab.dataset.tab + 'Panel').classList.remove('hidden');
-
-        filterPeople();
-    });
-});
-
-function filterPeople() {
-    const term = searchInput?.value.toLowerCase() || '';
-
-    document.querySelectorAll('.people-panel:not(.hidden) .person-card').forEach(card => {
-        const name = card.querySelector('.person-name')?.innerText.toLowerCase() || '';
-        card.style.display = name.includes(term) ? '' : 'none';
-    });
-}
-
-searchInput?.addEventListener('input', filterPeople);
-
-bindMessageForm();
-scrollToBottom();
-
-if (conversationId) {
-    latestInterval = setInterval(loadMessages, 3000);
-}
 </script>

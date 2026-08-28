@@ -13,8 +13,17 @@ use App\Http\Controllers\Auth\EmailVerificationNotificationController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MessageController;
 use App\Http\Controllers\ContactMessageController;
+use App\Http\Controllers\ChatbotController;
 
+// ======================================================
+// AI CHATBOT ROUTES - only verfied users can use this feature
+// ======================================================
+//
 
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::post('/chatbot/message', [ChatbotController::class, 'message'])
+        ->name('chatbot.message');
+});
 // ======================================================
 // USER-TO-USER CHAT ROUTES
 // ======================================================

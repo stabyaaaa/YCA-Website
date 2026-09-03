@@ -12,21 +12,23 @@ class ChatbotController extends Controller
         Request $request,
         ChatbotService $chatbot
     ): JsonResponse {
+
         $validated = $request->validate([
             'message' => [
                 'required',
                 'string',
-                'max:2000',
+                'max:200',
             ],
         ]);
 
         try {
-            $reply = $chatbot->send(
+
+            $answer = $chatbot->send(
                 $validated['message']
             );
 
             return response()->json([
-                'message' => $reply,
+                'message' => $answer,
             ]);
 
         } catch (\Throwable $e) {
@@ -34,7 +36,7 @@ class ChatbotController extends Controller
             report($e);
 
             return response()->json([
-                'message' => 'Unable to process your request right now.',
+                'message' => 'Unable to process the request.',
             ], 500);
         }
     }

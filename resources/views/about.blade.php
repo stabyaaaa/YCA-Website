@@ -501,7 +501,7 @@
     </div>
 </section>
 
-
+<!-- 
 <section id="wepower-3d-earth" class="wepower-earth-section">
 <style>
 .wepower-earth-section {
@@ -1067,7 +1067,7 @@ observer.observe(document.getElementById("wepower-3d-earth"));
 
 })();
 </script>
-</section>
+</section> -->
 <!-- ================= WHO WE ARE ================= -->
 <section id="who-we-are" class="relative py-20 lg:py-28 bg-slate-100/60">
         @if(canEditCms())

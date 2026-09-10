@@ -18,7 +18,17 @@ use App\Http\Controllers\HomeController;
 
 use App\Http\Controllers\ContactMessageController;
 
+/*
+|--------------------------------------------------------------------------
+| Announcements
+|--------------------------------------------------------------------------
+*/
 
+Route::get('/announcements', [PageController::class, 'announcements'])
+    ->name('announcements');
+
+Route::get('/announcements/ieee-global-virtual-career-fair-2026', [PageController::class, 'ieeeCareerFair'])
+    ->name('announcements.ieee-career-fair');
 
 /*
 |--------------------------------------------------------------------------
@@ -104,6 +114,20 @@ Route::middleware('redirect.unverified')->group(function () {
 
     Route::get('/about', [HomeController::class, 'about'])->name('about');
 
+
+     /*
+    |--------------------------------------------------------------------------
+    | Announcements
+    |--------------------------------------------------------------------------
+    */
+
+    Route::get('/announcements', [PageController::class, 'announcements'])
+        ->name('announcements');
+
+    Route::get('/announcements/ieee-global-virtual-career-fair-2026', [PageController::class, 'ieeeCareerFair'])
+        ->name('announcements.ieee-career-fair');
+
+        
     Route::get('/news', function () {
         return view('news');
     })->name('news');
@@ -182,7 +206,7 @@ Route::middleware(['auth', 'verified', 'role:admin,super_admin'])->group(functio
     Route::post('/admin/cms/inline-image-update', [CMSController::class, 'inlineImageUpdate'])
     ->name('cms.inline.image.update');
 
-    Route::post('/admin/cms/inline/file-update', [CmsController::class, 'inlineFileUpdate'])
+    Route::post('/admin/cms/inline/file-update', [CMSController::class, 'inlineFileUpdate'])
     ->name('cms.inline.file.update');
 
 });

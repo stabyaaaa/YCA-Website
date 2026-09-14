@@ -586,17 +586,17 @@
         ],
 
         50 => [
-            'name' => 'Power Grid Corporation of India (POWERGRID)',
+            'name' => 'Power Grid Corporation of India',
             'category' => 'Public Utility',
             'country' => 'India',
             'website' => 'https://www.powergrid.in'
         ],
 
         11 => [
-            'name' => 'Power Grid Bangladesh (PLC)',
+            'name' => 'Power Grid Bangladesh PLC  (POWERGRID)',
             'category' => 'Public Utility',
             'country' => 'Bangladesh',
-            'website' => '#'
+            'website' => 'https://erp.powergrid.gov.bd/'
         ],
 
         28 => [

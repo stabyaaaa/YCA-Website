@@ -25,7 +25,7 @@
             </h2>
 
             <p class="text-slate-600 text-base sm:text-lg leading-relaxed max-w-2xl">
-                Explore featured WePOWER knowledge products, inspiring role model stories, and practical inclusion resources
+                Explore featured WePOWER knowledge products, inspiring role model stories,, and practical inclusion resources
                 through a clean editorial-style resource section.
             </p>
         </div>

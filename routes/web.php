@@ -27,6 +27,11 @@ use App\Http\Controllers\ContactMessageController;
 Route::get('/announcements', [PageController::class, 'announcements'])
     ->name('announcements');
 
+
+Route::get('/announcements/returning-mothers-day', function () {
+    return view('announcements.returning-mothers-day');
+})->name('announcements.returning-mothers-day');
+
 Route::get('/announcements/ieee-global-virtual-career-fair-2026', [PageController::class, 'ieeeCareerFair'])
     ->name('announcements.ieee-career-fair');
 

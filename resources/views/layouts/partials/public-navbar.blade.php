@@ -41,11 +41,8 @@
                 </a>
 
 
-                <!-- ================= ABOUT DROPDOWN ================= -->
-                <div 
-                    x-data="{ open:false }" 
-                    class="relative"
-                >
+                <!-- ABOUT DROPDOWN -->
+                <div x-data="{ open:false }" class="relative">
 
                     <button
                         @click="open = !open"
@@ -289,14 +286,13 @@
         >
             <div class="px-6 py-8 space-y-5">
 
-
                 <!-- HOME -->
                 <a href="{{ url('/') }}" class="mobile-link">
                     Home
                 </a>
 
 
-                <!-- ================= MOBILE ABOUT DROPDOWN ================= -->
+                <!-- MOBILE ABOUT DROPDOWN -->
                 <div x-data="{ aboutOpen:false }">
 
                     <button

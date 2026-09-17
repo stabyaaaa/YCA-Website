@@ -49,6 +49,35 @@
         padding-right: 1.5rem;
         width: 100%;
     }
+    .environment-plan-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 1rem 1.75rem;
+
+    border: 1px solid #019dde;
+    border-radius: 1rem;
+
+    color: #019dde;
+    background: #ffffff;
+
+    font-weight: 600;
+    text-decoration: none;
+
+    transition: all 0.25s ease;
+}
+
+.environment-plan-btn:hover {
+    background: #019dde;
+    color: #ffffff;
+    border-color: #019dde;
+
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 10px 25px rgba(1, 157, 222, 0.18);
+}
 
     @media (min-width: 640px) {
         .page-shell {
@@ -262,28 +291,37 @@
                 </p>
 
                 <div class="flex flex-wrap gap-4 animate-on-scroll" style="transition-delay: 0.2s;">
-                    <a href="{{ cms($cms, 'about_hero', 'primary_button_link', '#who-we-are') }}"
-                       class="px-7 py-4 bg-slate-900 hover:bg-slate-800 text-white rounded-2xl font-semibold shadow-lg transition">
-                        <span
-                            contenteditable="false"
-                            data-section="about_hero"
-                            data-field="primary_button_text"
-                            class="cms-inline-edit">
-                            {{ cms($cms, 'about_hero', 'primary_button_text', 'Learn About WePOWER') }}
-                        </span>
-                    </a>
 
-                    <a href="{{ cms($cms, 'about_hero', 'secondary_button_link', '#our-framework') }}"
-                       class="px-7 py-4 border border-slate-300 text-slate-800 rounded-2xl font-semibold hover:border-slate-400 hover:bg-slate-50 transition">
-                        <span
-                            contenteditable="false"
-                            data-section="about_hero"
-                            data-field="secondary_button_text"
-                            class="cms-inline-edit">
-                            {{ cms($cms, 'about_hero', 'secondary_button_text', 'View Our Frameworks') }}
-                        </span>
-                    </a>
-                </div>
+    <a href="{{ cms($cms, 'about_hero', 'primary_button_link', '#who-we-are') }}"
+       class="px-7 py-4 bg-slate-900 hover:bg-slate-800 text-white rounded-2xl font-semibold shadow-lg transition">
+        <span
+            contenteditable="false"
+            data-section="about_hero"
+            data-field="primary_button_text"
+            class="cms-inline-edit">
+            {{ cms($cms, 'about_hero', 'primary_button_text', 'Learn About WePOWER') }}
+        </span>
+    </a>
+
+    <a href="{{ cms($cms, 'about_hero', 'secondary_button_link', '#our-framework') }}"
+       class="px-7 py-4 border border-slate-300 text-slate-800 rounded-2xl font-semibold hover:border-slate-400 hover:bg-slate-50 transition">
+        <span
+            contenteditable="false"
+            data-section="about_hero"
+            data-field="secondary_button_text"
+            class="cms-inline-edit">
+            {{ cms($cms, 'about_hero', 'secondary_button_text', 'View Our Frameworks') }}
+        </span>
+    </a>
+
+    <a href="{{ asset('files/plan.pdf') }}"
+       target="_blank"
+       rel="noopener noreferrer"
+       class="environment-plan-btn">
+        Environment & Social Commitment Plan →
+    </a>
+
+</div>
 
                 <div class="grid sm:grid-cols-3 gap-4 mt-10 animate-on-scroll" style="transition-delay: 0.28s;">
                     @for($i = 1; $i <= 3; $i++)
@@ -408,7 +446,7 @@
                     <div class="relative rounded-[2.2rem] overflow-hidden shadow-2xl border border-white bg-white p-3">
                         <img
                             id="ycaImage"
-                            src="{{ asset(cms($cms, 'about_yca', 'image', 'images/yca.jpg')) }}"
+                            src="{{ asset(cms($cms, 'about_yca', 'image', 'images/prof_yunus.jpg')) }}"
                             alt="{{ cms($cms, 'about_yca', 'image_alt', 'Yunus Center AIT') }}"
                             class="w-full h-[430px] lg:h-[560px] object-cover rounded-[1.7rem]">
 
@@ -534,6 +572,7 @@
                 class="hidden px-5 py-2.5 rounded-xl bg-white border border-slate-200 text-slate-700 font-semibold shadow-lg hover:bg-slate-100 transition cursor-pointer">
                 Change Image
 
+            
                 <input
                     type="file"
                     id="whoImageUpload"
@@ -592,6 +631,111 @@
             </div>
         </div>
 
+    </div>
+</section>
+
+<!-- ================= FRAMEWORK ================= -->
+<section id="our-framework" class="relative py-20 lg:py-28 bg-slate-950 overflow-hidden">
+
+    @if(canEditCms())
+        <div class="absolute top-6 right-6 z-[9999] flex gap-3">
+            <button
+                type="button"
+                id="enableFrameworkEdit"
+                class="px-5 py-2.5 rounded-xl bg-pink-brand border border-white/20 text-white font-semibold shadow-lg hover:bg-white/20 transition">
+                Edit Framework
+            </button>
+
+            <button
+                type="button"
+                id="saveFrameworkEdit"
+                class="hidden px-5 py-2.5 rounded-xl bg-cyan-brand text-white font-semibold shadow-2xl hover:scale-105 transition">
+                Save Changes
+            </button>
+
+            <button
+                type="button"
+                id="cancelFrameworkEdit"
+                class="hidden px-5 py-2.5 rounded-xl bg-white border border-slate-200 text-slate-700 font-semibold shadow-lg hover:bg-slate-100 transition">
+                Cancel
+            </button>
+
+
+        </div>
+    @endif
+
+    <div class="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(1,157,222,0.12),transparent_25%),radial-gradient(circle_at_bottom_right,rgba(243,22,113,0.12),transparent_25%)]"></div>
+
+    <div class="relative z-10 page-shell">
+        <div class="text-center max-w-4xl mx-auto mb-16">
+            <p
+                contenteditable="false"
+                data-section="framework"
+                data-field="eyebrow"
+                class="cms-inline-edit text-sm uppercase tracking-[0.25em] text-cyan-300 mb-4 animate-on-scroll">
+                {{ cms($cms, 'framework', 'eyebrow', 'Our Framework') }}
+            </p>
+
+            <h2
+                contenteditable="false"
+                data-section="framework"
+                data-field="title"
+                class="cms-inline-edit text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-5 animate-on-scroll">
+                {{ cms($cms, 'framework', 'title', 'The Five Pillars of WePOWER') }}
+            </h2>
+
+            <p
+                contenteditable="false"
+                data-section="framework"
+                data-field="description"
+                class="cms-inline-edit text-lg sm:text-xl text-white/70 leading-relaxed animate-on-scroll">
+                {{ cms($cms, 'framework', 'description', 'WePOWER’s work is organized around five connected pillars that move from entry and access to retention, leadership, and institutional change.') }}
+            </p>
+        </div>
+
+        <div class="grid md:grid-cols-2 xl:grid-cols-5 gap-8">
+
+            @php
+                $pillarColors = [
+                    'bg-pink-brand',
+                    'bg-orange-brand',
+                    'bg-cyan-brand',
+                    'bg-pink-brand',
+                    'bg-orange-brand',
+                ];
+            @endphp
+
+            @for($i = 1; $i <= 5; $i++)
+                <div class="relative glass-card rounded-3xl p-7 pt-10 card-hover animate-on-scroll text-white"
+                     style="transition-delay: {{ ($i - 1) * 0.08 }}s;">
+
+                    <div
+                        contenteditable="false"
+                        data-section="framework"
+                        data-field="pillar_{{ $i }}_letter"
+                        class="cms-inline-edit absolute -top-4 left-6 w-10 h-10 rounded-xl {{ $pillarColors[$i - 1] }} flex items-center justify-center font-bold">
+                        {{ cms($cms, 'framework', "pillar_{$i}_letter") }}
+                    </div>
+
+                    <h3
+                        contenteditable="false"
+                        data-section="framework"
+                        data-field="pillar_{{ $i }}_title"
+                        class="cms-inline-edit text-xl font-bold mb-3">
+                        {{ cms($cms, 'framework', "pillar_{$i}_title") }}
+                    </h3>
+
+                    <p
+                        contenteditable="false"
+                        data-section="framework"
+                        data-field="pillar_{{ $i }}_text"
+                        class="cms-inline-edit text-white/75 text-sm">
+                        {{ cms($cms, 'framework', "pillar_{$i}_text") }}
+                    </p>
+                </div>
+            @endfor
+
+        </div>
     </div>
 </section>
 
@@ -708,111 +852,6 @@
                     </p>
                 </div>
             </div>
-
-        </div>
-    </div>
-</section>
-
-<!-- ================= FRAMEWORK ================= -->
-<section id="our-framework" class="relative py-20 lg:py-28 bg-slate-950 overflow-hidden">
-
-    @if(canEditCms())
-        <div class="absolute top-6 right-6 z-[9999] flex gap-3">
-            <button
-                type="button"
-                id="enableFrameworkEdit"
-                class="px-5 py-2.5 rounded-xl bg-pink-brand border border-white/20 text-white font-semibold shadow-lg hover:bg-white/20 transition">
-                Edit Framework
-            </button>
-
-            <button
-                type="button"
-                id="saveFrameworkEdit"
-                class="hidden px-5 py-2.5 rounded-xl bg-cyan-brand text-white font-semibold shadow-2xl hover:scale-105 transition">
-                Save Changes
-            </button>
-
-            <button
-                type="button"
-                id="cancelFrameworkEdit"
-                class="hidden px-5 py-2.5 rounded-xl bg-white border border-slate-200 text-slate-700 font-semibold shadow-lg hover:bg-slate-100 transition">
-                Cancel
-            </button>
-
-
-        </div>
-    @endif
-
-    <div class="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(1,157,222,0.12),transparent_25%),radial-gradient(circle_at_bottom_right,rgba(243,22,113,0.12),transparent_25%)]"></div>
-
-    <div class="relative z-10 page-shell">
-        <div class="text-center max-w-4xl mx-auto mb-16">
-            <p
-                contenteditable="false"
-                data-section="framework"
-                data-field="eyebrow"
-                class="cms-inline-edit text-sm uppercase tracking-[0.25em] text-cyan-300 mb-4 animate-on-scroll">
-                {{ cms($cms, 'framework', 'eyebrow', 'Our Framework') }}
-            </p>
-
-            <h2
-                contenteditable="false"
-                data-section="framework"
-                data-field="title"
-                class="cms-inline-edit text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-5 animate-on-scroll">
-                {{ cms($cms, 'framework', 'title', 'The Five Pillars of WePOWER') }}
-            </h2>
-
-            <p
-                contenteditable="false"
-                data-section="framework"
-                data-field="description"
-                class="cms-inline-edit text-lg sm:text-xl text-white/70 leading-relaxed animate-on-scroll">
-                {{ cms($cms, 'framework', 'description', 'WePOWER’s work is organized around five connected pillars that move from entry and access to retention, leadership, and institutional change.') }}
-            </p>
-        </div>
-
-        <div class="grid md:grid-cols-2 xl:grid-cols-5 gap-8">
-
-            @php
-                $pillarColors = [
-                    'bg-pink-brand',
-                    'bg-orange-brand',
-                    'bg-cyan-brand',
-                    'bg-pink-brand',
-                    'bg-orange-brand',
-                ];
-            @endphp
-
-            @for($i = 1; $i <= 5; $i++)
-                <div class="relative glass-card rounded-3xl p-7 pt-10 card-hover animate-on-scroll text-white"
-                     style="transition-delay: {{ ($i - 1) * 0.08 }}s;">
-
-                    <div
-                        contenteditable="false"
-                        data-section="framework"
-                        data-field="pillar_{{ $i }}_letter"
-                        class="cms-inline-edit absolute -top-4 left-6 w-10 h-10 rounded-xl {{ $pillarColors[$i - 1] }} flex items-center justify-center font-bold">
-                        {{ cms($cms, 'framework', "pillar_{$i}_letter") }}
-                    </div>
-
-                    <h3
-                        contenteditable="false"
-                        data-section="framework"
-                        data-field="pillar_{{ $i }}_title"
-                        class="cms-inline-edit text-xl font-bold mb-3">
-                        {{ cms($cms, 'framework', "pillar_{$i}_title") }}
-                    </h3>
-
-                    <p
-                        contenteditable="false"
-                        data-section="framework"
-                        data-field="pillar_{{ $i }}_text"
-                        class="cms-inline-edit text-white/75 text-sm">
-                        {{ cms($cms, 'framework', "pillar_{$i}_text") }}
-                    </p>
-                </div>
-            @endfor
 
         </div>
     </div>

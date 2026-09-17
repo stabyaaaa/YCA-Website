@@ -25,190 +25,211 @@
             </h2>
 
             <p class="text-slate-600 text-base sm:text-lg leading-relaxed max-w-2xl">
-                Explore featured WePOWER knowledge products, inspiring role model stories,, and practical inclusion resources
+                Explore featured WePOWER knowledge products, inspiring role model stories, and practical inclusion resources
                 through a clean editorial-style resource section.
             </p>
         </div>
 <!-- =========================================================
-     FEATURED DOCUMENTS
+     FEATURED DOCUMENTS — REPORTS & GUIDES
 ========================================================== -->
 <div class="mb-14 lg:mb-16">
 
-    <div class="mb-6">
-        <p class="text-[11px] sm:text-xs uppercase tracking-[0.28em] text-cyan-700 font-semibold mb-2">
-            Featured Documents
-        </p>
+    <!-- Section heading -->
+    <div class="flex items-start gap-4 sm:gap-5 mb-7">
+        <div class="hidden sm:flex flex-shrink-0 w-14 h-14 rounded-2xl bg-cyan-50 border border-cyan-100
+                    text-cyan-700 items-center justify-center">
+            <svg xmlns="http://www.w3.org/2000/svg"
+                 class="w-7 h-7"
+                 fill="none"
+                 viewBox="0 0 24 24"
+                 stroke="currentColor"
+                 stroke-width="1.8">
+                <path stroke-linecap="round" stroke-linejoin="round"
+                      d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5A3.375 3.375 0 0010.125 2.25H8.25m0 12.75h7.5m-7.5 3h7.5M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.625a9 9 0 00-9-9z"/>
+            </svg>
+        </div>
 
-        <h3 class="text-2xl sm:text-3xl font-bold text-slate-900 mb-3">
-            WePOWER Publications & Guides
-        </h3>
+        <div>
+            <p class="text-[11px] sm:text-xs uppercase tracking-[0.28em] text-cyan-700 font-semibold mb-2">
+                Featured Documents
+            </p>
 
-        <p class="text-slate-600 leading-relaxed max-w-3xl">
-            Access key WePOWER publications and practical guidance materials supporting
-            gender equality, institutional capacity, and women's participation in the
-            energy and power sector.
-        </p>
+            <h3 class="text-2xl sm:text-3xl font-bold text-slate-900 leading-tight mb-2">
+                WePOWER Reports & Guides
+            </h3>
+
+            <p class="text-sm sm:text-base text-slate-600 leading-relaxed max-w-3xl">
+                Access key WePOWER publications and practical guidance materials supporting
+                gender equality, institutional capacity, and women's participation in the
+                energy and power sector.
+            </p>
+        </div>
     </div>
 
+    <!-- Document cards -->
+    <div class="grid lg:grid-cols-2 gap-6">
 
-    <div class="grid md:grid-cols-2 gap-5">
+        <!-- =====================================================
+             DOCUMENT 1 — PROGRESS REPORT 2022
+             Replace the image path below with your A4 cover image.
+             Recommended portrait ratio: 1 : 1.414
+        ====================================================== -->
+        <article class="group relative overflow-hidden rounded-[1.7rem] border border-slate-200/80
+                        bg-white shadow-[0_18px_55px_rgba(15,23,42,0.07)]
+                        hover:-translate-y-1 hover:shadow-[0_26px_70px_rgba(15,23,42,0.12)]
+                        transition-all duration-300">
 
-        <!-- DOCUMENT 1 -->
-        <div class="group rounded-[1.5rem] border border-slate-200 bg-white
-                    p-6 sm:p-7 shadow-[0_12px_40px_rgba(15,23,42,0.06)]
-                    hover:shadow-[0_18px_50px_rgba(15,23,42,0.10)]
-                    transition duration-300">
+            <div class="absolute inset-0 pointer-events-none
+                        bg-gradient-to-br from-cyan-50/70 via-white to-sky-50/60"></div>
 
-            <div class="flex items-start gap-5">
+            <div class="relative p-5 sm:p-6">
+                <div class="flex flex-col sm:flex-row gap-6">
 
-                <!-- PDF ICON -->
-                <div class="flex-shrink-0 w-12 h-12 rounded-xl bg-cyan-50
-                            text-cyan-700 flex items-center justify-center">
+                    <!-- A4 FEATURED COVER -->
+                    <div class="flex-shrink-0 mx-auto sm:mx-0">
+                        <div class="relative w-[170px] sm:w-[180px] aspect-[1/1.414]
+                                    rounded-xl overflow-hidden bg-slate-100 border border-slate-200
+                                    shadow-[0_14px_35px_rgba(15,23,42,0.16)]
+                                    transition duration-500 group-hover:-translate-y-1">
 
-                    <svg xmlns="http://www.w3.org/2000/svg"
-                         class="w-6 h-6"
-                         fill="none"
-                         viewBox="0 0 24 24"
-                         stroke="currentColor"
-                         stroke-width="1.8">
+                            <!-- Replace this with your real Progress Report cover -->
+                            <img src="{{ asset('images/resources/progress-report-2022-cover.png') }}"
+                                 alt="WePOWER Progress Report 2022 cover"
+                                 class="absolute inset-0 w-full h-full object-cover">
 
-                        <path stroke-linecap="round"
-                              stroke-linejoin="round"
-                              d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125
-                                 1.125 0 0113.5 7.125v-1.5A3.375 3.375 0 0010.125
-                                 2.25H8.25m0 12.75h7.5m-7.5 3h7.5M10.5
-                                 2.25H5.625c-.621 0-1.125.504-1.125
-                                 1.125v17.25c0 .621.504 1.125
-                                 1.125 1.125h12.75c.621 0
-                                 1.125-.504 1.125-1.125V11.625a9
-                                 9 0 00-9-9z" />
-                    </svg>
+                            <div class="absolute inset-x-0 bottom-0 h-16
+                                        bg-gradient-to-t from-slate-950/20 to-transparent"></div>
+                        </div>
+                    </div>
 
-                </div>
+                    <!-- CONTENT -->
+                    <div class="flex-1 flex flex-col min-w-0 py-1">
+                        <div>
+                            <span class="inline-flex items-center rounded-full bg-cyan-100
+                                         px-3 py-1 text-[10px] font-bold uppercase tracking-[0.18em]
+                                         text-cyan-800">
+                                Report
+                            </span>
 
+                            <h4 class="mt-4 text-xl sm:text-2xl font-bold text-slate-900 leading-tight">
+                                WePOWER Progress Report 2022
+                            </h4>
 
-                <div class="flex-1">
+                            <p class="mt-4 text-sm sm:text-[15px] text-slate-600 leading-7">
+                                A World Bank publication providing insights, findings, and
+                                recommendations related to WePOWER's work in strengthening
+                                women's participation and opportunities in the energy sector.
+                            </p>
+                        </div>
 
-                    <span class="text-[10px] uppercase tracking-[0.22em]
-                                 text-cyan-700 font-semibold">
-                        WePOWER Publication
-                    </span>
+                        <div class="mt-auto pt-6">
+                            <a href="{{ asset('storage/resources/progressreport2022.pdf') }}"
+                               download
+                               class="inline-flex items-center justify-center gap-2.5 rounded-full
+                                      bg-cyan-700 text-white px-5 py-3 text-sm font-semibold
+                                      shadow-sm hover:bg-cyan-800 hover:shadow-md transition">
 
-                    <h4 class="text-lg sm:text-xl font-bold text-slate-900 mt-2 mb-3 leading-snug">
-                        WePOWER Publication
-                    </h4>
+                                <svg xmlns="http://www.w3.org/2000/svg"
+                                     class="w-4 h-4"
+                                     fill="none"
+                                     viewBox="0 0 24 24"
+                                     stroke="currentColor"
+                                     stroke-width="2">
+                                    <path stroke-linecap="round"
+                                          stroke-linejoin="round"
+                                          d="M12 4.5v11.25m0 0l-4.5-4.5m4.5 4.5l4.5-4.5M4.5 19.5h15"/>
+                                </svg>
 
-                    <p class="text-sm text-slate-600 leading-relaxed mb-5">
-                        A World Bank publication providing insights, findings, and
-                        recommendations related to WePOWER's work in strengthening
-                        women's participation and opportunities in the energy sector.
-                    </p>
-
-                    <a href="{{ asset('storage/resources/progressreport2022.pdf') }}"
-                       download
-                       class="inline-flex items-center gap-2 rounded-full
-                              bg-slate-900 text-white px-5 py-2.5
-                              text-sm font-semibold hover:bg-cyan-700
-                              transition">
-
-                        <svg xmlns="http://www.w3.org/2000/svg"
-                             class="w-4 h-4"
-                             fill="none"
-                             viewBox="0 0 24 24"
-                             stroke="currentColor"
-                             stroke-width="2">
-
-                            <path stroke-linecap="round"
-                                  stroke-linejoin="round"
-                                  d="M12 4.5v15m0 0l-6-6m6 6l6-6" />
-                        </svg>
-
-                        Download PDF
-                    </a>
-
-                </div>
-            </div>
-        </div>
-
-
-        <!-- DOCUMENT 2 -->
-        <div class="group rounded-[1.5rem] border border-slate-200 bg-white
-                    p-6 sm:p-7 shadow-[0_12px_40px_rgba(15,23,42,0.06)]
-                    hover:shadow-[0_18px_50px_rgba(15,23,42,0.10)]
-                    transition duration-300">
-
-            <div class="flex items-start gap-5">
-
-                <!-- PDF ICON -->
-                <div class="flex-shrink-0 w-12 h-12 rounded-xl bg-cyan-50
-                            text-cyan-700 flex items-center justify-center">
-
-                    <svg xmlns="http://www.w3.org/2000/svg"
-                         class="w-6 h-6"
-                         fill="none"
-                         viewBox="0 0 24 24"
-                         stroke="currentColor"
-                         stroke-width="1.8">
-
-                        <path stroke-linecap="round"
-                              stroke-linejoin="round"
-                              d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125
-                                 1.125 0 0113.5 7.125v-1.5A3.375 3.375 0 0010.125
-                                 2.25H8.25m0 12.75h7.5m-7.5 3h7.5M10.5
-                                 2.25H5.625c-.621 0-1.125.504-1.125
-                                 1.125v17.25c0 .621.504 1.125
-                                 1.125 1.125h12.75c.621 0
-                                 1.125-.504 1.125-1.125V11.625a9
-                                 9 0 00-9-9z" />
-                    </svg>
-
-                </div>
-
-
-                <div class="flex-1">
-
-                    <span class="text-[10px] uppercase tracking-[0.22em]
-                                 text-cyan-700 font-semibold">
-                        User Guide
-                    </span>
-
-                    <h4 class="text-lg sm:text-xl font-bold text-slate-900 mt-2 mb-3 leading-snug">
-                        WePOWER User Guide
-                    </h4>
-
-                    <p class="text-sm text-slate-600 leading-relaxed mb-5">
-                        A practical guide for navigating and using WePOWER resources,
-                        tools, and information available through the WePOWER platform.
-                    </p>
-
-                    <a href="{{ asset('storage/resources/user_guide.pdf') }}"
-                       download
-                       class="inline-flex items-center gap-2 rounded-full
-                              bg-slate-900 text-white px-5 py-2.5
-                              text-sm font-semibold hover:bg-cyan-700
-                              transition">
-
-                        <svg xmlns="http://www.w3.org/2000/svg"
-                             class="w-4 h-4"
-                             fill="none"
-                             viewBox="0 0 24 24"
-                             stroke="currentColor"
-                             stroke-width="2">
-
-                            <path stroke-linecap="round"
-                                  stroke-linejoin="round"
-                                  d="M12 4.5v15m0 0l-6-6m6 6l6-6" />
-                        </svg>
-
-                        Download PDF
-                    </a>
-
+                                Download PDF
+                            </a>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
+        </article>
+
+
+        <!-- =====================================================
+             DOCUMENT 2 — USER GUIDE
+             Replace the image path below with your A4 cover image.
+             Recommended portrait ratio: 1 : 1.414
+        ====================================================== -->
+        <article class="group relative overflow-hidden rounded-[1.7rem] border border-slate-200/80
+                        bg-white shadow-[0_18px_55px_rgba(15,23,42,0.07)]
+                        hover:-translate-y-1 hover:shadow-[0_26px_70px_rgba(15,23,42,0.12)]
+                        transition-all duration-300">
+
+            <div class="absolute inset-0 pointer-events-none
+                        bg-gradient-to-br from-emerald-50/45 via-white to-cyan-50/60"></div>
+
+            <div class="relative p-5 sm:p-6">
+                <div class="flex flex-col sm:flex-row gap-6">
+
+                    <!-- A4 FEATURED COVER -->
+                    <div class="flex-shrink-0 mx-auto sm:mx-0">
+                        <div class="relative w-[170px] sm:w-[180px] aspect-[1/1.414]
+                                    rounded-xl overflow-hidden bg-slate-100 border border-slate-200
+                                    shadow-[0_14px_35px_rgba(15,23,42,0.16)]
+                                    transition duration-500 group-hover:-translate-y-1">
+
+                            <!-- Replace this with your real User Guide cover -->
+                            <img src="{{ asset('images/resources/user-guide-cover.png') }}"
+                                 alt="WePOWER User Guide cover"
+                                 class="absolute inset-0 w-full h-full object-cover">
+
+                            <div class="absolute inset-x-0 bottom-0 h-16
+                                        bg-gradient-to-t from-slate-950/20 to-transparent"></div>
+                        </div>
+                    </div>
+
+                    <!-- CONTENT -->
+                    <div class="flex-1 flex flex-col min-w-0 py-1">
+                        <div>
+                            <span class="inline-flex items-center rounded-full bg-emerald-100
+                                         px-3 py-1 text-[10px] font-bold uppercase tracking-[0.18em]
+                                         text-emerald-800">
+                                Guide
+                            </span>
+
+                            <h4 class="mt-4 text-xl sm:text-2xl font-bold text-slate-900 leading-tight">
+                                WePOWER User Guide
+                            </h4>
+
+                            <p class="mt-4 text-sm sm:text-[15px] text-slate-600 leading-7">
+                                A practical guide for navigating and using WePOWER resources,
+                                tools, and information available through the WePOWER platform.
+                            </p>
+                        </div>
+
+                        <div class="mt-auto pt-6">
+                            <a href="{{ asset('storage/resources/user_guide.pdf') }}"
+                               download
+                               class="inline-flex items-center justify-center gap-2.5 rounded-full
+                                      bg-cyan-700 text-white px-5 py-3 text-sm font-semibold
+                                      shadow-sm hover:bg-cyan-800 hover:shadow-md transition">
+
+                                <svg xmlns="http://www.w3.org/2000/svg"
+                                     class="w-4 h-4"
+                                     fill="none"
+                                     viewBox="0 0 24 24"
+                                     stroke="currentColor"
+                                     stroke-width="2">
+                                    <path stroke-linecap="round"
+                                          stroke-linejoin="round"
+                                          d="M12 4.5v11.25m0 0l-4.5-4.5m4.5 4.5l4.5-4.5M4.5 19.5h15"/>
+                                </svg>
+
+                                Download PDF
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </article>
 
     </div>
 </div>
+
         <!-- resource cards -->
         <div class="grid md:grid-cols-2 xl:grid-cols-3 gap-6 lg:gap-7">
 

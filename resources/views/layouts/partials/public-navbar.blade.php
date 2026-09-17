@@ -27,48 +27,129 @@
                 >
             </a>
 
+
             <!-- ================= DESKTOP NAV ================= -->
             <nav 
                 class="hidden lg:flex items-center space-x-10 font-medium text-gray-700 transition-all duration-500"
                 :class="{ 'space-x-7 text-sm': scrolled }"
             >
+
+                <!-- HOME -->
                 <a href="{{ url('/') }}" 
-                class="nav-link {{ request()->is('/') ? 'active' : '' }}">
-                Home
-                </a>
-               
-
-                <a href="{{ route('about') }}" 
-                class="nav-link {{ request()->is('about') ? 'active' : '' }}">
-                About
+                   class="nav-link {{ request()->is('/') ? 'active' : '' }}">
+                    Home
                 </a>
 
-                <a href="https://www.yunuscenterait.org/" class="nav-link" target="_blank" rel="noopener noreferrer">
+
+                <!-- ================= ABOUT DROPDOWN ================= -->
+                <div 
+                    x-data="{ open:false }" 
+                    class="relative"
+                >
+
+                    <button
+                        @click="open = !open"
+                        @click.outside="open = false"
+                        class="nav-link flex items-center gap-1
+                        {{ request()->routeIs('about') || request()->routeIs('news') || request()->routeIs('partners') || request()->routeIs('resources') ? 'active' : '' }}"
+                    >
+                        <span>About</span>
+
+                        <svg 
+                            class="w-4 h-4 transition-transform duration-300"
+                            :class="{ 'rotate-180': open }"
+                            fill="none" 
+                            viewBox="0 0 24 24"
+                        >
+                            <path 
+                                stroke="currentColor" 
+                                stroke-width="2" 
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                d="M19 9l-7 7-7-7"
+                            />
+                        </svg>
+                    </button>
+
+
+                    <!-- ABOUT DROPDOWN MENU -->
+                    <div 
+                        x-show="open"
+                        x-transition
+                        style="display:none;"
+                        class="absolute left-1/2 -translate-x-1/2 top-full mt-5
+                               w-56 bg-white/95 backdrop-blur-xl
+                               border border-gray-200
+                               rounded-2xl shadow-2xl
+                               overflow-hidden z-50"
+                    >
+
+                        <a 
+                            href="{{ route('about') }}"
+                            class="dropdown-item
+                            {{ request()->routeIs('about') ? 'text-indigo-600 bg-indigo-50' : '' }}"
+                        >
+                            About
+                        </a>
+
+                        <a 
+                            href="{{ route('news') }}"
+                            class="dropdown-item
+                            {{ request()->routeIs('news') ? 'text-indigo-600 bg-indigo-50' : '' }}"
+                        >
+                            News
+                        </a>
+
+                        <a 
+                            href="{{ route('partners') }}"
+                            class="dropdown-item
+                            {{ request()->routeIs('partners') ? 'text-indigo-600 bg-indigo-50' : '' }}"
+                        >
+                            Our Partners
+                        </a>
+
+                        <a 
+                            href="{{ route('resources') }}"
+                            class="dropdown-item
+                            {{ request()->routeIs('resources') ? 'text-indigo-600 bg-indigo-50' : '' }}"
+                        >
+                            Resources
+                        </a>
+
+                    </div>
+                </div>
+
+
+                <!-- YUNUS CENTER AIT -->
+                <a 
+                    href="https://www.yunuscenterait.org/" 
+                    class="nav-link" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                >
                     Yunus Center AIT
                 </a>
-                <a href="{{ route('news') }}" 
-                class="nav-link {{ request()->routeIs('news') ? 'active' : '' }}">
-                News
-                </a>
-                <a href="{{ route('announcements') }}" 
-                class="nav-link {{ request()->routeIs('announcements*') ? 'active' : '' }}">
+
+
+                <!-- ANNOUNCEMENTS -->
+                <a 
+                    href="{{ route('announcements') }}" 
+                    class="nav-link {{ request()->routeIs('announcements*') ? 'active' : '' }}"
+                >
                     Announcements
                 </a>
-                <a href="{{ route('partners') }}" 
-                class="nav-link {{ request()->is('partners') ? 'active' : '' }}">
-                Our Partners
+
+
+                <!-- CONTACT -->
+                <a 
+                    href="{{ route('contact') }}"
+                    class="nav-link {{ request()->routeIs('contact') ? 'active' : '' }}"
+                >
+                    Contact
                 </a>
 
-                <a href="/resources" 
-                class="nav-link {{ request()->is('resources') ? 'active' : '' }}">
-                Resources
-                </a>
-
-                <a href="/contact" 
-                class="nav-link {{ request()->is('contact') ? 'active' : '' }}">
-                Contact
-                </a>
             </nav>
+
 
             <!-- ================= RIGHT SIDE ================= -->
             <div class="flex items-center gap-4">
@@ -126,19 +207,22 @@
                                         @endif
                                     </a>
                                 @endif
+
                                 @if($user->role === 'admin' || $user->role === 'super_admin')
-                                <a href="{{ route('admin.contact-messages.index') }}" class="dropdown-item">
-                                    Contact Messages
+                                    <a href="{{ route('admin.contact-messages.index') }}" class="dropdown-item">
+                                        Contact Messages
+
                                         @if($unreadMessageCount > 0)
-                                        <span class="badge-red">
-                                            {{ $unreadMessageCount }}
-                                        </span>
-                                    @endif
-                                </a>
+                                            <span class="badge-red">
+                                                {{ $unreadMessageCount }}
+                                            </span>
+                                        @endif
+                                    </a>
                                 @endif
                             </div>
                         </div>
                     @endif
+
 
                     <!-- USER + LOGOUT -->
                     <div class="hidden md:flex items-center gap-4">
@@ -178,6 +262,7 @@
 
                 @endauth
 
+
                 <!-- ================= MOBILE BUTTON ================= -->
                 <button 
                     @click="mobileOpen=!mobileOpen"
@@ -195,6 +280,7 @@
             </div>
         </div>
 
+
         <!-- ================= MOBILE MENU ================= -->
         <div 
             x-show="mobileOpen"
@@ -202,15 +288,112 @@
             class="lg:hidden bg-white/95 backdrop-blur-xl border-t border-gray-200 shadow-xl"
         >
             <div class="px-6 py-8 space-y-5">
-                <a href="{{ url('/') }}" class="mobile-link">Home</a>
-                <a href="{{ route('about') }}" class="mobile-link">About</a>
-                <a href="{{ route('news') }}" class="mobile-link">News</a>
-                <a href="{{ route('resources') }}" class="mobile-link">Resources</a>
-                <a href="{{ route('partners') }}" class="mobile-link">Our Partners</a>
-                <a href="{{ route('contact') }}" class="mobile-link">Contact Us</a>
+
+
+                <!-- HOME -->
+                <a href="{{ url('/') }}" class="mobile-link">
+                    Home
+                </a>
+
+
+                <!-- ================= MOBILE ABOUT DROPDOWN ================= -->
+                <div x-data="{ aboutOpen:false }">
+
+                    <button
+                        @click="aboutOpen = !aboutOpen"
+                        class="mobile-link w-full flex items-center justify-between text-left"
+                    >
+                        <span>About</span>
+
+                        <svg 
+                            class="w-4 h-4 transition-transform duration-300"
+                            :class="{ 'rotate-180': aboutOpen }"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                        >
+                            <path 
+                                stroke="currentColor"
+                                stroke-width="2"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                d="M19 9l-7 7-7-7"
+                            />
+                        </svg>
+                    </button>
+
+
+                    <!-- MOBILE ABOUT SUBMENU -->
+                    <div 
+                        x-show="aboutOpen"
+                        x-transition
+                        style="display:none;"
+                        class="mt-4 ml-4 pl-4 border-l-2 border-indigo-100 space-y-4"
+                    >
+
+                        <a 
+                            href="{{ route('about') }}" 
+                            class="mobile-link text-sm"
+                        >
+                            About
+                        </a>
+
+                        <a 
+                            href="{{ route('news') }}" 
+                            class="mobile-link text-sm"
+                        >
+                            News
+                        </a>
+
+                        <a 
+                            href="{{ route('partners') }}" 
+                            class="mobile-link text-sm"
+                        >
+                            Our Partners
+                        </a>
+
+                        <a 
+                            href="{{ route('resources') }}" 
+                            class="mobile-link text-sm"
+                        >
+                            Resources
+                        </a>
+
+                    </div>
+                </div>
+
+
+                <!-- YUNUS CENTER AIT -->
+                <a 
+                    href="https://www.yunuscenterait.org/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="mobile-link"
+                >
+                    Yunus Center AIT
+                </a>
+
+
+                <!-- ANNOUNCEMENTS -->
+                <a 
+                    href="{{ route('announcements') }}" 
+                    class="mobile-link"
+                >
+                    Announcements
+                </a>
+
+
+                <!-- CONTACT -->
+                <a 
+                    href="{{ route('contact') }}" 
+                    class="mobile-link"
+                >
+                    Contact
+                </a>
+
 
                 @guest
                     <div class="pt-6 border-t flex flex-col gap-4">
+
                         <button onclick="openAuthModal('login')" class="btn-outline w-full">
                             Sign In
                         </button>
@@ -218,12 +401,16 @@
                         <button onclick="openAuthModal('register')" class="btn-primary w-full">
                             Create Account
                         </button>
+
                     </div>
                 @endguest
+
             </div>
         </div>
+
     </div>
 </header>
+
 
 <!-- ================= NAVBAR STYLES ================= -->
 <style>
@@ -236,6 +423,7 @@
 .nav-link.active::after {
     width: 70%;
 }
+
 .logo-glow {
     animation: logoGlow 6s infinite linear;
 }
@@ -353,4 +541,5 @@
     padding: 2px 6px;
     border-radius: 999px;
 }
+
 </style>

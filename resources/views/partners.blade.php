@@ -552,7 +552,7 @@
 
         26 => [
             'name' => 'Pakhtunkhwa Energy Development Authority',
-            'category' => 'P',
+            'category' => 'Public Utility',
             'country' => 'Pakistan',
             'website' => '#'
         ],

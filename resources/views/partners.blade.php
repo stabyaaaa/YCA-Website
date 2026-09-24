@@ -565,9 +565,9 @@
         ],
 
         54 => [
-            'name' => 'Partner 54',
+            'name' => 'Central Electricity Authority',
             'category' => 'Public Utility',
-            'country' => 'Unknown',
+            'country' => 'India',
             'website' => '#'
         ],
 

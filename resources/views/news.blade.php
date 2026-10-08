@@ -204,7 +204,7 @@
                          data-date="5 February 2026"
                          data-body="
                             <div class='space-y-10'>
-                                <img src='https://picsum.photos/id/1015/1200/650' alt='Secretariat Launch Event' class='w-full rounded-3xl shadow-2xl'>
+                                <img src='{{ asset('images/news/placeholders/worldbank.jpg') }}' alt='Secretariat Launch Event' class='w-full rounded-3xl shadow-2xl'>
                                 <h2 class='text-3xl font-bold text-slate-900'>WePOWER Permanent Regional Secretariat Launched at Yunus Center at AIT</h2>
                                 <p class='text-slate-700 leading-relaxed'>5 February 2026</p>
                                 <p class='text-slate-700 leading-relaxed'>The WePOWER Interim Secretariat marked a historic milestone with the soft launch of the WePOWER Regional Secretariat (WRS) at the Asian Institute of Technology (AIT) in Bangkok on 5 February 2026. The event signifies the transition of the Secretariat from Washington, D.C. to its permanent regional home at AIT’s Yunus Center, reflecting WePOWER’s evolution from a World Bank anchored initiative to a regionally embedded, partner-driven network.</p>
@@ -217,11 +217,11 @@
                                 <p class='text-slate-700 leading-relaxed'>Mr. Gunjan Gautam, Senior Energy Specialist at the World Bank, noted that anchoring the Secretariat at AIT represents a new chapter in ensuring WePOWER’s sustainability and regional ownership. Housing the Secretariat within a leading academic institution enhances the network’s ability to support utilities, governments, and academic partners in creating workplaces where women can thrive and lead.</p>
                                 <p class='text-slate-700 leading-relaxed'>A dedicated transition session outlined immediate priorities, planned support for National Chapters, and opportunities for collaboration and co-creation. In closing, Dr. Faiz Shah, Executive Director of the Yunus Center at AIT, reaffirmed AIT’s commitment to ensuring that the region’s energy transition is not only technologically resilient, but also socially inclusive and equitable.</p>
                                 <p class='text-slate-700 leading-relaxed'>The establishment of the permanent Regional Secretariat at AIT represents more than an institutional shift—it reflects a shared regional commitment to building energy systems that fully harness the talent, expertise, and leadership of women.</p>
-                                <img src='https://picsum.photos/id/64/1200/650' alt='AIT Yunus Center Event' class='w-full rounded-3xl shadow-2xl'>
+                                <img src='{{ asset('images/news/placeholders/softlaunch.jpg') }}' alt='AIT Yunus Center Event' class='w-full rounded-3xl shadow-2xl'>
                             </div>
                          ">
                     <div class="h-52 overflow-hidden">
-                        <img src="{{ asset('images/news/placeholders/news-4.jpeg') }}" alt="Permanent Regional Secretariat" class="w-full h-full object-cover group-hover:scale-[1.03] transition duration-500">
+                        <img src="{{ asset('images/news/placeholders/softlaunch.jpg') }}" alt="Permanent Regional Secretariat" class="w-full h-full object-cover group-hover:scale-[1.03] transition duration-500">
                     </div>
                     <div class="p-6">
                         <div class="flex items-center gap-3 mb-3">

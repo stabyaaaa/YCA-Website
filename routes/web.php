@@ -2,7 +2,6 @@
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
-
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserManagementController;
 use App\Http\Controllers\AdminRequestController;
@@ -14,6 +13,210 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MessageController;
 use App\Http\Controllers\ContactMessageController;
 use App\Http\Controllers\ChatbotController;
+use App\Http\Controllers\CommunityController;
+use App\Http\Controllers\CommunityNotificationController;
+use App\Http\Controllers\Partners\CommunityPostController as PartnerCommunityPostController;
+use App\Http\Controllers\Admin\CommunityPostModerationController;
+use App\Http\Controllers\Admin\CommunityCategoryController;
+
+
+/*
+|--------------------------------------------------------------------------
+| PUBLIC COMMUNITY ROUTES
+|--------------------------------------------------------------------------
+|
+| Accessible to everyone.
+| Includes the public community feed, individual posts,
+| organization pages and share tracking.
+|
+*/
+
+Route::get('/community', [CommunityController::class, 'index'])
+    ->name('community.index');
+
+Route::get('/community/posts/{post}', [CommunityController::class, 'show'])
+    ->name('community.show');
+
+Route::get('/community/organizations/{organization}', [CommunityController::class, 'organization'])
+    ->name('community.organization');
+
+Route::post('/community/posts/{post}/share', [CommunityController::class, 'share'])
+    ->name('community.share');
+
+
+/*
+|--------------------------------------------------------------------------
+| AUTHENTICATED COMMUNITY USER ROUTES
+|--------------------------------------------------------------------------
+|
+| Requires login.
+| Used for liking posts, saving/bookmarking posts,
+| viewing saved posts and viewing community notifications.
+|
+*/
+
+Route::middleware('auth')->group(function () {
+
+    Route::post('/community/posts/{post}/like', [CommunityController::class, 'toggleLike'])
+        ->name('community.like');
+
+    Route::post('/community/posts/{post}/bookmark', [CommunityController::class, 'toggleBookmark'])
+        ->name('community.bookmark');
+
+    Route::get('/community/saved', [CommunityController::class, 'bookmarks'])
+        ->name('community.bookmarks');
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | COMMUNITY NOTIFICATION ROUTES
+    |--------------------------------------------------------------------------
+    |
+    | Used for post approval, rejection and change-request notifications.
+    |
+    */
+
+    Route::get('/community/notifications', [CommunityNotificationController::class, 'index'])
+        ->name('community.notifications.index');
+
+    Route::post('/community/notifications/read-all', [CommunityNotificationController::class, 'readAll'])
+        ->name('community.notifications.readAll');
+
+    Route::get('/community/notifications/{notification}', [CommunityNotificationController::class, 'read'])
+        ->name('community.notifications.read');
+
+});
+
+
+/*
+|--------------------------------------------------------------------------
+| COMMUNITY CONTRIBUTOR ROUTES
+|--------------------------------------------------------------------------
+|
+| Accessible to:
+| - Partner
+| - Admin
+| - Super Admin
+|
+| Used for creating and managing the logged-in user's own posts.
+| Role authorization is handled inside CommunityPostController.
+|
+*/
+
+Route::middleware('auth')
+    ->prefix('community/manage')
+    ->name('partner.community.')
+    ->group(function () {
+
+        Route::get('/posts', [PartnerCommunityPostController::class, 'index'])
+            ->name('posts.index');
+
+        Route::get('/posts/create', [PartnerCommunityPostController::class, 'create'])
+            ->name('posts.create');
+
+        Route::post('/posts', [PartnerCommunityPostController::class, 'store'])
+            ->name('posts.store');
+
+        Route::get('/posts/{post}', [PartnerCommunityPostController::class, 'show'])
+            ->name('posts.show');
+
+        Route::get('/posts/{post}/edit', [PartnerCommunityPostController::class, 'edit'])
+            ->name('posts.edit');
+
+        Route::put('/posts/{post}', [PartnerCommunityPostController::class, 'update'])
+            ->name('posts.update');
+
+        Route::post('/posts/{post}/submit', [PartnerCommunityPostController::class, 'submit'])
+            ->name('posts.submit');
+
+        Route::delete('/posts/{post}', [PartnerCommunityPostController::class, 'destroy'])
+            ->name('posts.destroy');
+
+        Route::delete(
+            '/posts/{post}/media/{media}',
+            [PartnerCommunityPostController::class, 'deleteMedia']
+        )->name('posts.media.delete');
+
+    });
+
+
+/*
+|--------------------------------------------------------------------------
+| COMMUNITY MODERATION ROUTES
+|--------------------------------------------------------------------------
+|
+| Accessible to:
+| - Admin
+| - Super Admin
+|
+| Used for reviewing submitted posts and:
+| - Approving
+| - Rejecting
+| - Requesting changes
+|
+| Super Admin additionally has access to:
+| - Scheduling
+| - Featuring / unfeaturing posts
+|
+| Authorization is handled inside CommunityPostModerationController.
+|
+*/
+
+Route::middleware('auth')
+    ->prefix('admin/community')
+    ->name('admin.community.')
+    ->group(function () {
+
+        Route::get('/posts', [CommunityPostModerationController::class, 'index'])
+            ->name('posts.index');
+
+        Route::get('/posts/{post}', [CommunityPostModerationController::class, 'show'])
+            ->name('posts.show');
+
+        Route::post('/posts/{post}/approve', [CommunityPostModerationController::class, 'approve'])
+            ->name('posts.approve');
+
+        Route::post('/posts/{post}/changes', [CommunityPostModerationController::class, 'requestChanges'])
+            ->name('posts.changes');
+
+        Route::post('/posts/{post}/reject', [CommunityPostModerationController::class, 'reject'])
+            ->name('posts.reject');
+
+        Route::post('/posts/{post}/schedule', [CommunityPostModerationController::class, 'schedule'])
+            ->name('posts.schedule');
+
+        Route::post('/posts/{post}/feature', [CommunityPostModerationController::class, 'feature'])
+            ->name('posts.feature');
+
+        Route::post('/posts/{post}/unfeature', [CommunityPostModerationController::class, 'unfeature'])
+            ->name('posts.unfeature');
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | COMMUNITY CATEGORY MANAGEMENT ROUTES
+        |--------------------------------------------------------------------------
+        |
+        | Super Admin only.
+        | Used to create, enable, disable and delete community categories.
+        |
+        */
+
+        Route::get('/categories', [CommunityCategoryController::class, 'index'])
+            ->name('categories.index');
+
+        Route::post('/categories', [CommunityCategoryController::class, 'store'])
+            ->name('categories.store');
+
+        Route::post('/categories/{category}/toggle', [CommunityCategoryController::class, 'toggle'])
+            ->name('categories.toggle');
+
+        Route::delete('/categories/{category}', [CommunityCategoryController::class, 'destroy'])
+            ->name('categories.destroy');
+
+    });
+
+
 
 // ======================================================
 // AI CHATBOT ROUTES - only verfied users can use this feature

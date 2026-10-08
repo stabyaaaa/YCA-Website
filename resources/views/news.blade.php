@@ -65,7 +65,7 @@
                 <article
                     class="lg:col-span-7 overflow-hidden rounded-[2rem] border border-white/70 bg-white/80 backdrop-blur-xl shadow-[0_20px_60px_rgba(15,23,42,0.08)] resource-card cursor-pointer"
 
-                    data-title="WePOWER Permanent Regional Secretariat Launched at Yunus Center at AIT"
+                    data-title="WePOWER Permanent Global Secretariat Launched at Yunus Center at AIT"
                     data-category="Milestone"
                     data-date="5 February 2026"
 
@@ -79,7 +79,7 @@
                             >
 
                             <h2 class='text-3xl font-bold text-slate-900'>
-                                WePOWER Permanent Regional Secretariat Launched at Yunus Center at AIT
+                                WePOWER Permanent Global Secretariat Launched at Yunus Center at AIT
                             </h2>
 
                             <p class='text-slate-700 leading-relaxed'>

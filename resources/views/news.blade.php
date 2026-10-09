@@ -153,7 +153,7 @@
                             </span>
 
                             <h2 class="mt-4 text-2xl sm:text-3xl lg:text-4xl font-semibold text-white leading-tight">
-                                WePOWER Permanent Regional Secretariat Launched at Yunus Center at AIT
+                                WePOWER Permanent Global Secretariat Launched at Yunus Center at AIT
                             </h2>
 
                             <p class="mt-3 text-sm sm:text-base text-white/80 max-w-2xl leading-relaxed">
@@ -165,7 +165,6 @@
                     </div>
 
                 </article>
-
 
                 <!-- RIGHT SIDE STORIES -->
 

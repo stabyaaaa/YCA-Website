@@ -123,7 +123,7 @@
                         </div>
 
                         <div class="mt-auto pt-6">
-                            <a href="{{ asset('storage/resources/progressreport2022.pdf') }}"
+                            <a href="{{ asset('files/progressreport2022.pdf') }}"
                                download
                                class="inline-flex items-center justify-center gap-2.5 rounded-full
                                       bg-cyan-700 text-white px-5 py-3 text-sm font-semibold
@@ -202,7 +202,7 @@
                         </div>
 
                         <div class="mt-auto pt-6">
-                            <a href="{{ asset('storage/resources/user_guide.pdf') }}"
+                            <a href="{{ asset('files/user_guide.pdf') }}"
                                download
                                class="inline-flex items-center justify-center gap-2.5 rounded-full
                                       bg-cyan-700 text-white px-5 py-3 text-sm font-semibold

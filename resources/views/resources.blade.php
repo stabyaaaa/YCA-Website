@@ -142,6 +142,12 @@
 
                                 Download PDF
                             </a>
+                            <a id="reportViewLink"
+   href="/files/progressreport2022.pdf"
+   target="_blank"
+   class="px-7 py-4 border border-slate-300 text-slate-800 rounded-xl font-semibold hover:bg-slate-100 transition">
+    <span>View Report</span>
+</a>
                         </div>
                     </div>
                 </div>
@@ -221,6 +227,13 @@
 
                                 Download PDF
                             </a>
+                          <a id="reportViewLink"
+   href="/files/user_guide.pdf.pdf"
+   target="_blank"
+   class="px-7 py-4 border border-slate-300 text-slate-800 rounded-xl font-semibold hover:bg-slate-100 transition">
+    <span>View Report</span>
+</a>
+</a>
                         </div>
                     </div>
                 </div>

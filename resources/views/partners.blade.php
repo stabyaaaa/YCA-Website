@@ -572,9 +572,9 @@
         ],
 
         56 => [
-            'name' => 'Partner 56',
+            'name' => '',
             'category' => 'Private Utility',
-            'country' => 'Unknown',
+            'country' => '',
             'website' => '#'
         ],
 

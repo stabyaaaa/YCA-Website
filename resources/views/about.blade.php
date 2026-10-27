@@ -1276,19 +1276,7 @@ setupInlineCmsSection({
         field: 'image'
     }
 });
-setupInlineCmsSection({
-    selector: '#about-yca .cms-inline-edit',
-    enableBtnId: 'enableYcaEdit',
-    saveBtnId: 'saveYcaEdit',
-    cancelBtnId: 'cancelYcaEdit',
-    image: {
-        labelId: 'ycaImageUploadLabel',
-        inputId: 'ycaImageUpload',
-        imageId: 'ycaImage',
-        section: 'about_yca',
-        field: 'image'
-    }
-});
+
 
 /*
 |--------------------------------------------------------------------------
